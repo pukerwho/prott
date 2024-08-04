@@ -1,0 +1,77 @@
+body {
+  font-family: BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+}
+
+.breadcrumbs {
+  &_item {
+    position: relative;
+    &:first-of-type {
+      background: url("../../images/home.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+    &:last-of-type {
+      &:after {
+        content: none;
+      }
+    }
+    &:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 51%;
+      right: -1.5rem;
+      background: url("../../images/breadcrumbs-arrow.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      -webkit-transform: translateY(-50%) translateX(-100%);
+      -ms-transform: translateY(-50%) translateX(-100%);
+      transform: translateY(-50%) translateX(-100%);
+    }
+  }
+}
+
+.b_pagination {
+  .page-numbers {
+    min-width: 35px;
+    min-height: 35px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    background-color: transparent;
+    border: 1px solid;
+    border-color: rgba(31,41,55,1);
+    border-radius: 0.25rem;
+    margin-bottom: 8px;
+    &:hover {
+      background-color: rgba(28, 33, 38, 1);
+      color: #ffffff;
+    }
+    &.current {
+      background-color: rgba(28, 33, 38, 1);
+      color: #ffffff;
+    }
+    &.prev {
+      &:before {
+        content: "⬅";
+      }
+    }
+    &.next {
+      &:before {
+        content: "⮕";
+      }
+    }
+  }
+}
+
+.nav-links {
+  &:not(:last-of-type):after {
+    content: "|";
+  }
+}
+
+.text-balance {
+  text-wrap: balance; 
+}

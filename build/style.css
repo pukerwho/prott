@@ -1,0 +1,69 @@
+/*!******************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/css/main.scss ***!
+  \******************************************************************************************************************************************************/
+@charset "UTF-8";
+body {
+  font-family: BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.breadcrumbs_item {
+  position: relative;
+}
+.breadcrumbs_item:first-of-type {
+  background: url(9a15a9b92b490c009e1c.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.breadcrumbs_item:last-of-type:after {
+  content: none;
+}
+.breadcrumbs_item:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 51%;
+  right: -1.5rem;
+  background: url(bd31478893bafd82eb37.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-transform: translateY(-50%) translateX(-100%);
+  -ms-transform: translateY(-50%) translateX(-100%);
+  transform: translateY(-50%) translateX(-100%);
+}
+
+.b_pagination .page-numbers {
+  min-width: 35px;
+  min-height: 35px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  background-color: transparent;
+  border: 1px solid;
+  border-color: rgb(31, 41, 55);
+  border-radius: 0.25rem;
+  margin-bottom: 8px;
+}
+.b_pagination .page-numbers:hover {
+  background-color: rgb(28, 33, 38);
+  color: #ffffff;
+}
+.b_pagination .page-numbers.current {
+  background-color: rgb(28, 33, 38);
+  color: #ffffff;
+}
+.b_pagination .page-numbers.prev:before {
+  content: "⬅";
+}
+.b_pagination .page-numbers.next:before {
+  content: "⮕";
+}
+
+.nav-links:not(:last-of-type):after {
+  content: "|";
+}
+
+.text-balance {
+  text-wrap: balance;
+}
