@@ -25,7 +25,7 @@ function sendTelegramLink($id, $task_link) {
   $apiToken = carbon_get_theme_option("crb_telegram_api");
   $content = "";
   $content .= "Угода <b>$id</b> виконана. </b>.\n\n";
-  $content .= "<b>Посилання:</b> task_link</b>";
+  $content .= "<b>Посилання:</b> $task_link</b>";
   
   $data = [
     'chat_id' => $chatID, 
