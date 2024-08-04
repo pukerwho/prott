@@ -12,7 +12,7 @@ function task_link_function() {
     add_post_meta( $post_id, '_crb_tasks_post_link', $task_link, true ); 
     update_post_meta( $post_id, '_crb_tasks_status', 'На перевірці' );
   } 
-  sendTelegramAuthor($task_id, $task_link);
+  sendTelegramLink($task_id, $task_link);
   echo $post_id;
   wp_die();
 }
