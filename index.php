@@ -225,9 +225,9 @@ $current_user_id = get_current_user_id();
                         <div class="mr-2">
                           <select class="author-select" name="select-author-name" data-select-id="<?php echo $i['id'] ?>">
                             <option selected>Оберіть автора</option>
-                            <option value="Марк Твен">Марк Твен</option>
-                            <option value="Леся Українка">Леся Українка</option>
-                            <option value="Джо Однорукий">Джо Однорукий</option>
+                            <option value="Каріна Туленіна">Каріна Туленіна</option>
+                            <option value="Лідія Миколаїв">Лідія Миколаїв</option>
+                            <option value="Світлана">Світлана</option>
                           </select>
                         </div>
                         <div class="task-author-js" data-task-id="<?php echo $i['id'] ?>" data-task-site="<?php echo $i['site'] ?>">
