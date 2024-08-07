@@ -11,6 +11,7 @@ function crb_attach_theme_options() {
     Field::make( 'text', 'crb_collab_two', 'Для коллаборатора аккаунт 2' ),
     Field::make( 'text', 'crb_telegram_api', 'Telegram Апі' ),
     Field::make( 'text', 'crb_telegram_chat_id', 'Telegram Чат айді' ),
+    Field::make( 'text', 'crb_test', 'test' ),
   ))
   ->add_tab( __('Скрипты'), array(
     Field::make( 'textarea', 'crb_google_analytics', 'Google Analytics' ),
