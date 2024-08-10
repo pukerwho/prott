@@ -1,4 +1,5 @@
 <?php 
+addNoTaskDb();
 //Cron
 $parametri = array( 'one' );
 if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
@@ -26,6 +27,8 @@ function check_id( $test ) {
   $items_two_twopage = json_decode($file_two_twopage, true);
   $items = array_merge($items_one['items'], $items_two['items']);
 
+  
+
   function array_orderby() {
     $args = func_get_args();
     $data = array_shift($args);
@@ -43,6 +46,7 @@ function check_id( $test ) {
   }
   $sortItems = array_orderby($items, 'id', SORT_DESC);
   $noHaveTask = array();
+  $noHaveTaskId = array();
   foreach ($sortItems as $i) {
     $status = $i['status'];
     $publicationType = $i['publicationType'];
@@ -51,28 +55,30 @@ function check_id( $test ) {
       // Перевіряємо чи є вже завдання з таким ID
       $get_task_id = get_task_ID($task_id);
       // Якщо немає, то додаємо в массив noHaveTask (Завдання значить ще немає)
-      if (!$get_task_id) { 
-        //Створюємо 
+      if ( empty( $get_task_id ) ) {
+        // Заповнюємо масив айдішками
         array_push($noHaveTask, $task_id); 
       }
     }
   }
   // Перевіряємо чи є замовлення без завдання
   if ($noHaveTask) {
-    $noHaveTaskId = array();
     foreach ($noHaveTask as $notaskid) {
       // Перевіряємо чи є замовлення в базі данних NoTask
       $has_task_id = checkIdNoTask($notaskid);
-
       // Якщо немає, то додаємо ці замовлення в базу данних NoTask
-      if ( empty( $has_task_id ) ) {
+      if ( count($has_task_id) === 0 ) {
         // Записуємо id, по яким ще не відправляли 
         array_push($noHaveTaskId, $notaskid); 
-        addNoTaskToDb($notask);
+        addNoTaskToDb($notaskid);
       } 
     }
   }
-  if ($noHaveTaskId) {
+  // Якщо масив з ID з бази даних NoTask порожній, то відправляємо
+  if ( count($noHaveTaskId) === 0 ) {
+    update_option( '_crb_test', 'вже відправляли' );
+  } else {
+    update_option( '_crb_test', 'відправили' );
     sendAlertTelegram();
   }
 }
@@ -82,8 +88,8 @@ function checkIdNoTask($task_id) {
   $check_task_id = $wpdb->get_results(
     "
       SELECT ID
-      FROM notaskid
-      WHERE no_task_id = '$task_id'
+      FROM notask_col
+      WHERE no_task = '$task_id'
     "
   );
   return $check_task_id;
@@ -103,16 +109,16 @@ function sendAlertTelegram() {
   $response = file_get_contents("https://api.telegram.org/bot".$apiToken."/sendMessage?" . http_build_query($data) );
 }
 
-function addNoTaskToDb($notask) {
-  addNoTaksDb();
+function addNoTaskToDb($notaskid) {
+  global $wpdb;
   $wpdb->query( $wpdb->prepare( 
     "
-      INSERT INTO notaskid
-      ( no_task_id )
-      VALUES ( %s,)
+      INSERT INTO notask_col
+      ( no_task )
+      VALUES ( %d)
     ",
     array(
-      $notask, 
+      $notaskid, 
     )
   ) );
 }
@@ -122,13 +128,14 @@ function addNoTaskDb() {
 
   $charset_collate = $wpdb->get_charset_collate();
 
-  if($wpdb->get_var("SHOW TABLES LIKE 'notaskid'") != 'notaskid') {
-    $sql = "CREATE TABLE `notaskid` (
+  if($wpdb->get_var("SHOW TABLES LIKE 'notask_col'") != 'notask_col') {
+    
+    $sql = "CREATE TABLE `notask_col` (
         `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-        `no_task_id` bigint(20) NOT NULL,
+        `no_task` bigint(20) NOT NULL,
         `date_create` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
         PRIMARY KEY (`ID`),
-        KEY `no_task_id` (`no_task_id`),
+        KEY `no_task` (`no_task`)
       ) $charset_collate;";
 
     $wpdb->query( $sql );
