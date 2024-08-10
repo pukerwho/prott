@@ -48,21 +48,45 @@ function check_id( $test ) {
     $publicationType = $i['publicationType'];
     if ($status === 'В роботі' && $publicationType === 'Ви пишете') {
       $task_id = $i['id']; 
+      // Перевіряємо чи є вже завдання з таким ID
       $get_task_id = get_task_ID($task_id);
+      // Якщо немає, то додаємо в массив noHaveTask (Завдання значить ще немає)
       if (!$get_task_id) { 
         //Створюємо 
         array_push($noHaveTask, $task_id); 
       }
     }
   }
-  if (!$noHaveTask) {
-    // Відправляємо повідомлення
-    foreach ($noHaveTask as $notask) {
-      addNoTaskToDb($notask);
+  // Перевіряємо чи є замовлення без завдання
+  if ($noHaveTask) {
+    $noHaveTaskId = array();
+    foreach ($noHaveTask as $notaskid) {
+      // Перевіряємо чи є замовлення в базі данних NoTask
+      $has_task_id = checkIdNoTask($notaskid);
+
+      // Якщо немає, то додаємо ці замовлення в базу данних NoTask
+      if ( empty( $has_task_id ) ) {
+        // Записуємо id, по яким ще не відправляли 
+        array_push($noHaveTaskId, $notaskid); 
+        addNoTaskToDb($notask);
+      } 
     }
-    sendAlertTelegram();
-    
   }
+  if ($noHaveTaskId) {
+    sendAlertTelegram();
+  }
+}
+
+function checkIdNoTask($task_id) {
+  global $wpdb;
+  $check_task_id = $wpdb->get_results(
+    "
+      SELECT ID
+      FROM notaskid
+      WHERE no_task_id = '$task_id'
+    "
+  );
+  return $check_task_id;
 }
 
 function sendAlertTelegram() {
