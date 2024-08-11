@@ -96,7 +96,8 @@ $current_user_id = get_current_user_id();
               <?php 
               $status = $i['status'];
               $publicationType = $i['publicationType'];
-              if ($status === 'В роботі' && $publicationType === 'Ви пишете'): ?>
+              // if ($status === 'В роботі' && $publicationType === 'Ви пишете'): 
+              if ($publicationType === 'Ви пишете'): ?>
                 <?php 
                   $task_id = $i['id']; 
                   $get_task_id = get_task_ID($task_id);
@@ -130,7 +131,40 @@ $current_user_id = get_current_user_id();
                       <?php endif; ?>
                     <?php endif; ?>
                   </td>
-                  <td class="whitespace-nowrap py-2"><?php echo date("d.m, H:i ", strtotime($i['createdAt'])); ?></td>
+                  <td class="whitespace-nowrap py-2">
+                    <div class="text-blue-500 date-click-js cursor-pointer" data-date-id="<?php echo $i['id']; ?>"><?php echo date("d.m, H:i", strtotime($i['createdAt'])); ?></div>
+                    <div class="date-modal px-8 py-6 " data-date-modal="<?php echo $i['id']; ?>">
+                      <div class="modal-content">
+                        <div class="modal-box max-w-[640px] min-h-full bg-white rounded-lg px-6 py-4">
+                          <div class="text-xl mb-2">Дата і час</div>
+                          <div class="flex items-center mb-3 last-of-type:mb-0">
+                            <div class="mr-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                            </div>
+                            <div>Створена заявка: <?php echo date("d.m, H:i ", strtotime($i['createdAt'])); ?></div>
+                          </div>
+                          <?php if (!empty($get_task_id)): ?>
+                            <div class="flex items-center mb-3 last-of-type:mb-0">
+                              <div class="mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
+                              </div>
+                              <div>Передано копірайтеру: <?php echo get_the_date('d.m, H:i', $get_task_id[0]->post_id); ?></div>
+                            </div>
+                            <?php 
+                            $get_task_link_date = carbon_get_post_meta($get_task_id[0]->post_id, "crb_tasks_link_date");
+                            if ($get_task_link_date): ?>
+                              <div class="flex items-center">
+                                <div class="mr-2">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" /></svg>
+                                </div>
+                                <div>Додано посилання: <?php echo $get_task_link_date; ?></div>
+                              </div>
+                            <?php endif; ?>
+                          <?php endif; ?>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                   <!-- Детальніше -->
                   <td class="whitespace-nowrap py-2">
                     <div class="text-blue-500 detail-click-js cursor-pointer" data-detail-id="<?php echo $i['id']; ?>">Детальніше</div>
@@ -315,7 +349,36 @@ $current_user_id = get_current_user_id();
                               </div>
                             <?php endif; ?>
                           </td>
-                          <td class="whitespace-nowrap py-2"><?php echo get_the_modified_date('d.m, H:i'); ?></td>
+                          <td class="whitespace-nowrap py-2">
+                            <div>
+                              <?php 
+                                $author_date = carbon_get_the_post_meta("crb_tasks_author_date"); 
+                                $author_date = date('Y-m-d H:i:s', $author_date);
+                                if ($link_date) {
+                                  $link_date = carbon_get_the_post_meta("crb_tasks_link_date"); 
+                                  $link_date = date('Y-m-d H:i:s', $link_date);
+                                }
+                                $current_time = current_time( 'timestamp' );
+                                $current_time = date('Y-m-d H:i:s', $current_time);
+                                if (!$link_date) {
+                                  $start_datetime = new DateTime($author_date);
+                                  $diff = $start_datetime->diff(new DateTime($current_time)); 
+                                  $hours = $diff->h;
+                                  echo '<div class="text-gray-700">'. $hours .' годин</div>';
+                                } else {
+                                  $start_datetime = new DateTime($author_date);
+                                  $diff = $start_datetime->diff(new DateTime($link_date)); 
+                                  $hours = $diff->h;
+                                  if ($hours > 12) {
+                                    echo '<div class="text-red-500">'. $hours .' годин</div>';
+                                  } else {
+                                    echo '<div class="text-green-500">'. $hours .' годин</div>';
+                                  }
+                                  // echo $link_date;
+                                }
+                              ?>
+                            </div>
+                          </td>
                           <td class="whitespace-nowrap py-2"><?php echo carbon_get_the_post_meta("crb_tasks_author"); ?></td>
                           <td class="whitespace-nowrap py-2">
                             <?php $get_task_link = carbon_get_the_post_meta("crb_tasks_post_link");

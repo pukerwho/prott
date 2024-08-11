@@ -6,6 +6,7 @@ function task_choose_author_function() {
   $task_author = stripslashes_deep($_POST['taskAuthor']);
   $task_site = stripslashes_deep($_POST['taskSite']);
   $title = wp_strip_all_tags('Завдання '.$task_id);
+  $task_author_date = current_time( 'timestamp' );
   
   $my_post = array(
     'post_title'    => $title,
@@ -16,6 +17,7 @@ function task_choose_author_function() {
     'meta_input'   => array(
       '_crb_tasks_id' => $task_id,
       '_crb_tasks_author' => $task_author,
+      '_crb_tasks_author_date' => $task_author_date,
       '_crb_tasks_site' => $task_site,
       '_crb_tasks_status' => 'В процесі написання',
     ),

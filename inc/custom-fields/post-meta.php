@@ -11,8 +11,10 @@ function crb_post_theme_options() {
       Field::make( 'text', 'crb_tasks_id', 'ID' ),
       Field::make( 'text', 'crb_tasks_site', 'Сайт' ),
       Field::make( 'text', 'crb_tasks_author', 'Автор' ),
+      Field::make( 'text', 'crb_tasks_author_date', 'Коли передано автору' ),
       Field::make( 'text', 'crb_tasks_status', 'Статус' ),
       Field::make( 'text', 'crb_tasks_post_link', 'Посилання на статтю' ),
+      Field::make( 'text', 'crb_tasks_link_date', 'Коли додано посилання' ),
       Field::make( 'text', 'crb_tasks_pay', 'Оплата' ),
   ) );
   

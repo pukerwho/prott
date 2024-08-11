@@ -7,10 +7,18 @@ $('.detail-click-js').on("click", function(){
   $('body').addClass('overflow-hidden');
 });
 
+$('.date-click-js').on("click", function(){
+  let dateId = $(this).data('date-id');
+  $('.date-modal[data-date-modal='+dateId+']').addClass('open');
+  $('.modal-bg').addClass('open');
+  $('body').addClass('overflow-hidden');
+});
+
 document.addEventListener('click', function(e){
   if(e.target.classList.value === 'modal-content') {
     $('.modal-bg').removeClass('open');
     $('.detail-modal').removeClass('open');
+    $('.date-modal').removeClass('open');
     $('body').removeClass('overflow-hidden');
   }
 });

@@ -4,12 +4,15 @@ function task_link_function() {
   $task_id = stripslashes_deep($_POST['taskId']);
   $post_id = $_POST['postID'];
   $task_link = stripslashes_deep($_POST['taskLink']);
+  $task_link_date = current_time( 'timestamp' );
 
   if ( metadata_exists( 'post', $post_id, '_crb_tasks_post_link' ) ) {
     update_post_meta( $post_id, '_crb_tasks_post_link', $task_link );
+    update_post_meta( $post_id, '_crb_tasks_link_date', $task_link_date );
     update_post_meta( $post_id, '_crb_tasks_status', 'На перевірці' );
   } else {
     add_post_meta( $post_id, '_crb_tasks_post_link', $task_link, true ); 
+    add_post_meta( $post_id, '_crb_tasks_link_date', $task_link_date, true );
     update_post_meta( $post_id, '_crb_tasks_status', 'На перевірці' );
   } 
   sendTelegramLink($task_id, $task_link);
