@@ -96,8 +96,7 @@ $current_user_id = get_current_user_id();
               <?php 
               $status = $i['status'];
               $publicationType = $i['publicationType'];
-              // if ($status === 'В роботі' && $publicationType === 'Ви пишете'): 
-              if ($publicationType === 'Ви пишете'): ?>
+              if ($status === 'В роботі' && $publicationType === 'Ви пишете'): ?>
                 <?php 
                   $task_id = $i['id']; 
                   $get_task_id = get_task_ID($task_id);
