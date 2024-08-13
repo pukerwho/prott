@@ -259,6 +259,7 @@ $current_user_id = get_current_user_id();
                           <select class="author-select" name="select-author-name" data-select-id="<?php echo $i['id'] ?>">
                             <option selected>Оберіть автора</option>
                             <option value="Каріна Туленіна">Каріна Туленіна</option>
+                            <option value="Катерина Кузмицька">Катерина Кузмицька</option>
                             <option value="Лідія Миколаїв">Лідія Миколаїв</option>
                             <option value="Світлана">Світлана</option>
                           </select>
