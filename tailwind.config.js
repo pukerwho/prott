@@ -2,6 +2,10 @@ module.exports = {
   mode: "jit",
   content: ["./**/*.php", "./src/**/*.js"],
   darkMode: "class",
+  safelist: [
+    'text-green-500',
+    'text-red-500',
+  ],
   theme: {
     zIndex: {
       1: 1,

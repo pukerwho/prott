@@ -3,11 +3,9 @@
 function task_pay_function() {
   $post_id = $_POST['postID'];
   if ( metadata_exists( 'post', $post_id, '_crb_tasks_pay' ) ) {
-    update_post_meta( $post_id, '_crb_tasks_pay', 'Оплачено' );
-    update_post_meta( $post_id, '_crb_tasks_status', 'Оплачено' );
+    update_post_meta( $post_id, '_crb_tasks_pay', 'yes' );
   } else {
-    add_post_meta( $post_id, '_crb_tasks_pay', 'Оплачено', true ); 
-    update_post_meta( $post_id, '_crb_tasks_status', 'Оплачено' );
+    add_post_meta( $post_id, '_crb_tasks_pay', 'yes', true ); 
   } 
   echo $post_id;
   wp_die();

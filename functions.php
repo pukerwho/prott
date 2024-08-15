@@ -115,12 +115,7 @@ function tarakan_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'tarakan_scripts' );
 
-require get_template_directory() . '/inc/tasks/task-accept.php';
-require get_template_directory() . '/inc/tasks/task-delivery.php';
-require get_template_directory() . '/inc/tasks/task-choose-author.php';
-require get_template_directory() . '/inc/tasks/task-link.php';
-require get_template_directory() . '/inc/tasks/task-pay.php';
-require get_template_directory() . '/inc/tasks/task-id.php';
+require get_template_directory() . '/inc/tasks/tasks.php';
 require get_template_directory() . '/inc/cron-functions.php';
 
 require get_template_directory() . '/inc/template-tags.php';

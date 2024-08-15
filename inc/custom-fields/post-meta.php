@@ -8,8 +8,12 @@ function crb_post_theme_options() {
   Container::make( 'post_meta', 'More' )
     ->where( 'post_type', '=', 'tasks' )
     ->add_fields( array(
+      Field::make( 'checkbox', 'crb_tasks_accept', 'Заявка прийнята' ),
+      Field::make( 'checkbox', 'crb_tasks_complete', 'Завдання виконано' ),
       Field::make( 'text', 'crb_tasks_id', 'ID' ),
+      Field::make( 'text', 'crb_tasks_date_create', 'Коли створена заявка' ),
       Field::make( 'text', 'crb_tasks_site', 'Сайт' ),
+      Field::make( 'text', 'crb_tasks_anchors', 'Анкори/Посилання' ),
       Field::make( 'text', 'crb_tasks_author', 'Автор' ),
       Field::make( 'text', 'crb_tasks_author_date', 'Коли передано автору' ),
       Field::make( 'text', 'crb_tasks_status', 'Статус' ),

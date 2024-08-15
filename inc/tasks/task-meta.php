@@ -1,7 +1,10 @@
 <?php 
 
 function task_link_function() {
-  $task_id = stripslashes_deep($_POST['taskId']);
+  $post_id = stripslashes_deep($_POST['postID']);
+  $post_meta = stripslashes_deep($_POST['postMeta']);
+  $task_id = stripslashes_deep($_POST['postMetaValue']);
+  
   $post_id = $_POST['postID'];
   $task_link = stripslashes_deep($_POST['taskLink']);
   $task_link_date = current_time( 'timestamp' );
@@ -27,7 +30,7 @@ function sendTelegramLink($id, $task_link) {
   $chatID = carbon_get_theme_option("crb_telegram_chat_id");
   $apiToken = carbon_get_theme_option("crb_telegram_api");
   $content = "";
-  $content .= "💪 Угода <b>$id</b> на перевірці. Посилання: <b>$task_link</b>.\n";
+  $content .= "Угода <b>$id</b> виконана. Посилання <b>$task_link</b>.\n";
   // $content = "";
   // $content .= "Угода <b>$id</b> виконана. </b>.\n\n";
   // $content .= "<b>Посилання:</b> $task_link</b>";

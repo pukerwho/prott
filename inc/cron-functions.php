@@ -52,12 +52,17 @@ function check_id( $test ) {
     $publicationType = $i['publicationType'];
     if ($status === 'В роботі' && $publicationType === 'Ви пишете') {
       $task_id = $i['id']; 
+      $task_content = nl2br($i['task']['task']);
+      $task_website = $i['site'];
+      $task_anchors = $i['task']['anchors'];
+      $task_date_create = date("d.m, H:i", strtotime($i['createdAt']));
       // Перевіряємо чи є вже завдання з таким ID
       $get_task_id = get_task_ID($task_id);
-      // Якщо немає, то додаємо в массив noHaveTask (Завдання значить ще немає)
+      // Якщо немає, то додаємо в массив noHaveTask (Завдання значить ще немає) + Створюємо завдання
       if ( empty( $get_task_id ) ) {
         // Заповнюємо масив айдішками
         array_push($noHaveTask, $task_id); 
+        createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors);
       }
     }
   }
@@ -79,8 +84,29 @@ function check_id( $test ) {
     update_option( '_crb_test', 'вже відправляли' );
   } else {
     update_option( '_crb_test', 'відправили' );
-    sendAlertTelegram();
+    sendAlertTelegram($noHaveTaskId);
   }
+}
+
+function createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors){
+  $title = wp_strip_all_tags('Завдання '.$task_id);
+  
+  $my_post = array(
+    'post_title'    => $title,
+    'post_content'    => $task_content,
+    'post_name' => $task_id,
+    'post_status'   => 'publish',
+    'post_type' => 'tasks',
+    'post_author'   => 1,
+    'meta_input'   => array(
+      '_crb_tasks_id' => $task_id,
+      '_crb_tasks_site' => $task_website,
+      '_crb_tasks_anchors' => $task_anchors,
+      '_crb_tasks_date_create' => $task_date_create,
+      '_crb_tasks_status' => 'Нове завдання',
+    ),
+  );
+  wp_insert_post( $my_post );
 }
 
 function checkIdNoTask($task_id) {
@@ -95,11 +121,11 @@ function checkIdNoTask($task_id) {
   return $check_task_id;
 }
 
-function sendAlertTelegram() {
+function sendAlertTelegram($noHaveTaskId) {
   $chatID = carbon_get_theme_option("crb_telegram_chat_id");
   $apiToken = carbon_get_theme_option("crb_telegram_api");
   $content = "";
-  $content .= "Є нові події. Перейти на сайт https://prott.com.ua/.\n";
+  $content .= "⚡ Є нові завдання";
   
   $data = [
     'chat_id' => $chatID, 

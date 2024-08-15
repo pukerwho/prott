@@ -1,24 +1,14 @@
 <?php 
-
+//Прийняти замовлення
 function task_accept_function() {
-  
-  $task_id = stripslashes_deep($_POST['taskId']);
-  $task_user = stripslashes_deep($_POST['taskUser']);
-  $title = wp_strip_all_tags('Завдання '.$task_id);
-  
-  $my_post = array(
-    'post_title'    => $title,
-    'post_name' => $task_id,
-    'post_status'   => 'publish',
-    'post_type' => 'tasks',
-    'post_author'   => $task_user,
-    'meta_input'   => array(
-      '_crb_tasks_id' => $task_id,
-      '_crb_tasks_author' => $task_user,
-      '_crb_tasks_status' => 'В процесі написання',
-    ),
-  );
-  wp_insert_post( $my_post );
+  $post_id = stripslashes_deep($_POST['postID']);
+  if ( metadata_exists( 'post', $post_id, '_crb_tasks_accept' ) ) {
+    update_post_meta( $post_id, '_crb_tasks_accept', 'yes' );
+    update_post_meta( $post_id, '_crb_tasks_status', 'В роботі' );
+  } else {
+    add_post_meta( $post_id, '_crb_tasks_accept', 'yes', true );
+    update_post_meta( $post_id, '_crb_tasks_status', 'В роботі' );
+  } 
   echo 'hi';
   wp_die();
 }

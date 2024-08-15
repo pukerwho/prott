@@ -1,10 +1,13 @@
 var $ = require("jquery");
-$('.task-accept-js').on('click', function(){
+$('.task-meta-js').on('click', function(){
   let postID = $(this).data('post-id');
-  console.log(postID);
+  let postMeta = $(this).data('post-meta');
+  let postMetaValue = $(this).data('post-metavalue');
   let data = {
-    'action': 'task_accept_click_action',
+    'action': 'task_change_meta_action',
     'postID': postID,
+    'postMeta': postMeta,
+    'postMetaValue': postMetaValue,
   };
   $.ajax({
     url: ajaxurl, // AJAX handler
@@ -12,6 +15,7 @@ $('.task-accept-js').on('click', function(){
     type: 'POST',
     beforeSend : function(xhr) {
       console.log('Загружаю');
+      
     },
     success : function(data) {
       if (data) {
@@ -20,4 +24,4 @@ $('.task-accept-js').on('click', function(){
       }
     }
   });
-})
+});

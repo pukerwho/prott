@@ -1,14 +1,17 @@
 var $ = require("jquery");
-$('.task-author-js').on('click', function(){
+$('.task-author-edit-js').on('click', function(){
   let taskId = $(this).data('task-id');
-  let taskSite = $(this).data('task-site');
-  let taskAuthor = $('.author-select[data-select-id="'+taskId+'"]').val();
+  $('.author-task[data-task-id="'+taskId+'"]').addClass('hidden');
+  $('.author-task-choose[data-task-id="'+taskId+'"]').removeClass('hidden').addClass('flex');
+});
+$('.task-author-js').on('click', function(){
+  let postId = $(this).data('post-id');
+  let taskAuthor = $('.author-select[data-select-id="'+postId+'"]').val();
   
   if (taskAuthor != 'Оберіть автора') {
     let data = {
       'action': 'task_author_click_action',
-      'taskId': taskId,
-      'taskSite': taskSite,
+      'postId': postId,
       'taskAuthor': taskAuthor,
     };
     $.ajax({

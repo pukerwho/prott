@@ -7,4 +7,5 @@ import "./tasks/task-accept.js";
 import "./tasks/task-delivery.js";
 import "./tasks/task-author.js";
 import "./tasks/task-pay.js";
+import "./tasks/task-complete.js";
 import "./tasks/task-link.js";

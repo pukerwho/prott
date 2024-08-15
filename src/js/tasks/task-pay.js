@@ -16,8 +16,7 @@ $('.task-pay-js').on('click', function(){
       if (data) {
         console.log('записали');
         console.log(data);
-        $('.task-pay-wait-js[data-post-id="'+postID+'"]').addClass('bg-green-500').text('Оплачено');
-        // $('.task-pay-success-js[data-post-id="'+postID+'"]').removeClass('hidden');
+        window.location.reload();
       }
     }
   });

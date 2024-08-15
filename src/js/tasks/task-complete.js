@@ -1,9 +1,8 @@
 var $ = require("jquery");
-$('.task-accept-js').on('click', function(){
+$('.task-complete-js').on('click', function(){
   let postID = $(this).data('post-id');
-  console.log(postID);
   let data = {
-    'action': 'task_accept_click_action',
+    'action': 'task_complete_click_action',
     'postID': postID,
   };
   $.ajax({
@@ -15,6 +14,7 @@ $('.task-accept-js').on('click', function(){
     },
     success : function(data) {
       if (data) {
+        console.log('записали');
         console.log(data);
         window.location.reload();
       }

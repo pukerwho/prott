@@ -1,29 +1,21 @@
 <?php 
 
 function task_choose_author_function() {
-  
-  $task_id = stripslashes_deep($_POST['taskId']);
+
+  $post_id = stripslashes_deep($_POST['postId']);
   $task_author = stripslashes_deep($_POST['taskAuthor']);
-  $task_site = stripslashes_deep($_POST['taskSite']);
-  $title = wp_strip_all_tags('Завдання '.$task_id);
   $task_author_date = current_time( 'timestamp' );
   
-  $my_post = array(
-    'post_title'    => $title,
-    'post_name' => $task_id,
-    'post_status'   => 'publish',
-    'post_type' => 'tasks',
-    'post_author'   => 1,
-    'meta_input'   => array(
-      '_crb_tasks_id' => $task_id,
-      '_crb_tasks_author' => $task_author,
-      '_crb_tasks_author_date' => $task_author_date,
-      '_crb_tasks_site' => $task_site,
-      '_crb_tasks_status' => 'В процесі написання',
-    ),
-  );
-  wp_insert_post( $my_post );
-  sendTelegramAuthor($task_id, $task_author);
+  if ( metadata_exists( 'post', $post_id, '_crb_tasks_author' ) ) {
+    update_post_meta( $post_id, '_crb_tasks_author', $task_author );
+    update_post_meta( $post_id, '_crb_tasks_status', 'В процесі написання' );
+    update_post_meta( $post_id, '_crb_tasks_author_date', $task_author_date );
+  } else {
+    add_post_meta( $post_id, '_crb_tasks_author', $task_author, true );
+    add_post_meta( $post_id, '_crb_tasks_author_date', $task_author_date, true );
+    update_post_meta( $post_id, '_crb_tasks_status', 'В процесі написання' );
+  } 
+  // sendTelegramAuthor($task_id, $task_author);
   echo 'hi';
   wp_die();
 }
