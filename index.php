@@ -189,8 +189,14 @@ $current_user_id = get_current_user_id();
                               <a href="<?php echo $task_post_link; ?>" target="_blank"><?php echo $task_post_link; ?></a>
                             <?php else: ?> 
                               <div>
-                                <div class="mb-2"><input type="text" class="task-link w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-inputlink-id="<?php echo $current_id; ?>"></div>
-                                <div class="task-link-js" data-post-id="<?php echo $current_id; ?>" data-task-id="<?php echo carbon_get_the_post_meta('crb_tasks_id'); ?>"><div class="bg-blue-500 text-white text-center rounded cursor-pointer px-4 py-2">Відправити</div></div>
+                                <?php $get_tasks_author = carbon_get_the_post_meta("crb_tasks_author");
+                                if ($get_tasks_author): ?>
+                                <!-- Форма -->
+                                  <div class="mb-2"><input type="text" class="task-link w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-inputlink-id="<?php echo $current_id; ?>"></div>
+                                  <div class="task-link-js" data-post-id="<?php echo $current_id; ?>" data-task-id="<?php echo carbon_get_the_post_meta('crb_tasks_id'); ?>"><div class="bg-blue-500 text-white text-center rounded cursor-pointer px-4 py-2">Відправити</div></div>
+                                <?php else: ?>
+                                  <div class="italic">Треба обрати автора</div>
+                                <?php endif; ?>
                               </div>
                             <?php endif; ?>
                             <!-- END Посилання -->
