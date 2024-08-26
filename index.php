@@ -154,7 +154,7 @@ $current_user_id = get_current_user_id();
                         <div class="modal-content">
                           <div class="modal-box max-w-[640px] min-h-full bg-white rounded-lg px-6 py-4">
                             <div class="text-xl mb-2">Завдання <?php echo carbon_get_the_post_meta('crb_tasks_id'); ?></div>
-                            <div class="content text-balance mb-4">
+                            <div class="content whitespace-pre-line mb-4">
                               <?php echo get_the_content(); ?>
                             </div>
                             <div class="text-xl mb-2">Цільові сторінки</div>
@@ -220,7 +220,7 @@ $current_user_id = get_current_user_id();
                             <select class="author-select" name="select-author-name" data-select-id="<?php echo $current_id; ?>">
                               <option selected>Оберіть автора</option>
                               <option value="Каріна Туленіна">Каріна Туленіна</option>
-                              <option value="Катерина Кузмицька">Катерина Кузмицька</option>
+                              <option value="Ана-Катаріна Кузмицька">Ана-Катаріна Кузмицька</option>
                               <option value="Лідія Миколаїв">Лідія Миколаїв</option>
                               <option value="Світлана">Світлана</option>
                             </select>

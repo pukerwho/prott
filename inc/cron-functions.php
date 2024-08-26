@@ -1,6 +1,7 @@
 <?php 
 addNoTaskDb();
 //Cron
+
 $parametri = array( 'one' );
 if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
 	wp_schedule_event( time(), 'onesec', 'check_id_hook', $parametri );
@@ -26,8 +27,6 @@ function check_id( $test ) {
   $items_one_twopage = json_decode($file_one_twopage, true);
   $items_two_twopage = json_decode($file_two_twopage, true);
   $items = array_merge($items_one['items'], $items_two['items']);
-
-  
 
   function array_orderby() {
     $args = func_get_args();
@@ -86,6 +85,12 @@ function check_id( $test ) {
     update_option( '_crb_test', 'відправили' );
     sendAlertTelegram($noHaveTaskId);
   }
+  // $get_test = get_option( '_crb_test' );
+  // if ( $get_test === '1' ) {
+  //   update_option( '_crb_test', '0' );
+  // } else {
+  //   update_option( '_crb_test', '1' );
+  // }
 }
 
 function createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors){

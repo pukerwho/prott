@@ -5,6 +5,7 @@ module.exports = {
   safelist: [
     'text-green-500',
     'text-red-500',
+    'rotate-180'
   ],
   theme: {
     zIndex: {

@@ -116,6 +116,7 @@ function tarakan_scripts() {
 add_action( 'wp_enqueue_scripts', 'tarakan_scripts' );
 
 require get_template_directory() . '/inc/tasks/tasks.php';
+require get_template_directory() . '/inc/websites/websites.php';
 require get_template_directory() . '/inc/cron-functions.php';
 
 require get_template_directory() . '/inc/template-tags.php';
@@ -264,5 +265,50 @@ function create_post_type() {
       'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions' ),
     )
   );
+  register_post_type( 'websites',
+    array(
+      'labels' => array(
+          'name' => __( 'Основні сайти' ),
+          'singular_name' => __( 'Основні сайти' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'hierarchical' => true,
+      'show_in_rest' => false,
+      'menu_icon' => 'dashicons-megaphone',
+      'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions' ),
+    )
+  );
+  register_post_type( 'drops',
+    array(
+      'labels' => array(
+          'name' => __( 'Дропи' ),
+          'singular_name' => __( 'Дроп' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'hierarchical' => true,
+      'show_in_rest' => false,
+      'menu_icon' => 'dashicons-megaphone',
+      'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions' ),
+    )
+  );
 }
 add_action( 'init', 'create_post_type' );
+
+function diffValue($first, $second) {
+  if ($first > $second) {
+    $diff_order = $first - $second;
+    $diff_order_sign = "+";
+    $diff_order_class = "text-green-500";
+  } elseif ($first < $second) {
+    $diff_order = $second - $first;
+    $diff_order_sign = "-";
+    $diff_order_class = "text-red-500";
+  } else {
+    $diff_order = $second - $first;
+    $diff_order_sign = "";
+    $diff_order_class = "hidden";
+  }
+  return array('diff_order' => $diff_order,'diff_order_sign' => $diff_order_sign, 'diff_order_class' => $diff_order_class);
+}

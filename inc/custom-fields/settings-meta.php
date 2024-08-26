@@ -12,6 +12,9 @@ function crb_attach_theme_options() {
     Field::make( 'text', 'crb_telegram_api', 'Telegram Апі' ),
     Field::make( 'text', 'crb_telegram_chat_id', 'Telegram Чат айді' ),
     Field::make( 'text', 'crb_test', 'test' ),
+    Field::make( 'text', 'crb_chart_week', 'Chart Week' ),
+    Field::make( 'text', 'crb_chart_week_drops', 'Chart Week For Drops' ),
+    
   ))
   ->add_tab( __('Скрипты'), array(
     Field::make( 'textarea', 'crb_google_analytics', 'Google Analytics' ),

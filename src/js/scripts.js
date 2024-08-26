@@ -14,11 +14,27 @@ $('.date-click-js').on("click", function(){
   $('body').addClass('overflow-hidden');
 });
 
+$('.value-modal-js').on("click", function(){
+  let modalId = $(this).data('modal-id');
+  $('.chart-modal[data-modal-id='+modalId+']').addClass('open');
+  $('.modal-bg').addClass('open');
+  $('body').addClass('overflow-hidden');
+});
+
+$('.edit-modal-js').on("click", function(){
+  let modalId = $(this).data('modal-id');
+  $('.edit-modal[data-modal-id='+modalId+']').addClass('open');
+  $('.modal-bg').addClass('open');
+  $('body').addClass('overflow-hidden');
+});
+
 document.addEventListener('click', function(e){
   if(e.target.classList.value === 'modal-content') {
     $('.modal-bg').removeClass('open');
     $('.detail-modal').removeClass('open');
     $('.date-modal').removeClass('open');
+    $('.chart-modal').removeClass('open');
+    $('.edit-modal').removeClass('open');
     $('body').removeClass('overflow-hidden');
   }
 });

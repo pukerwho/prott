@@ -760,6 +760,11 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.-mx-4 {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
 .-mr-4 {
   margin-right: -1rem;
 }
@@ -798,6 +803,10 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
 }
 
 .ml-2 {
@@ -929,6 +938,10 @@ video {
   width: 1rem;
 }
 
+.w-4\/5 {
+  width: 80%;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -943,6 +956,10 @@ video {
 
 .w-\[100px\] {
   width: 100px;
+}
+
+.w-\[175px\] {
+  width: 175px;
 }
 
 .w-\[8px\] {
@@ -965,6 +982,10 @@ video {
   table-layout: auto;
 }
 
+.table-fixed {
+  table-layout: fixed;
+}
+
 .-translate-y-full {
   --tw-translate-y: -100%;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -979,6 +1000,12 @@ video {
 
 .-rotate-2 {
   --tw-rotate: -2deg;
+  -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.rotate-180 {
+  --tw-rotate: 180deg;
   -webkit-transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
           transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -1047,6 +1074,10 @@ video {
 
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.whitespace-pre-line {
+  white-space: pre-line;
 }
 
 .text-balance {
@@ -1846,7 +1877,7 @@ a {
   opacity: 0.5;
 }
 
-.detail-modal, .date-modal {
+.detail-modal, .date-modal, .chart-modal, .edit-modal {
   position: fixed;
   top: 0px;
   bottom: 0px;
@@ -1857,7 +1888,7 @@ a {
   overflow-y: auto;
 }
 
-.detail-modal.open, .date-modal.open {
+.detail-modal.open, .date-modal.open, .chart-modal.open, .edit-modal.open {
   display: block;
 }
 
@@ -1894,7 +1925,7 @@ a {
   text-wrap: balance;
 }
 
-.tab.active {
+.tab.active > div {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(224 231 255 / var(--tw-bg-opacity));
@@ -1902,12 +1933,16 @@ a {
   color: rgb(37 99 235 / var(--tw-text-opacity));
 }
 
-.tab:hover {
+.tab:hover > div {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(224 231 255 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
+}
+
+.value-diff {
+  font-size: 12px;
 }
 
 .last\:border-transparent:last-child {
