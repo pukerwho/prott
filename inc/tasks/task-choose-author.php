@@ -8,12 +8,18 @@ function task_choose_author_function() {
   
   if ( metadata_exists( 'post', $post_id, '_crb_tasks_author' ) ) {
     update_post_meta( $post_id, '_crb_tasks_author', $task_author );
-    update_post_meta( $post_id, '_crb_tasks_status', 'В процесі написання' );
     update_post_meta( $post_id, '_crb_tasks_author_date', $task_author_date );
+    $get_current_status = get_post_meta($post_id, '_crb_tasks_status', true);
+    if ($get_current_status !== 'Перевірено' && $get_current_status !== 'На перевірці') {
+      update_post_meta( $post_id, '_crb_tasks_status', 'В процесі написання' );
+    }
   } else {
     add_post_meta( $post_id, '_crb_tasks_author', $task_author, true );
     add_post_meta( $post_id, '_crb_tasks_author_date', $task_author_date, true );
-    update_post_meta( $post_id, '_crb_tasks_status', 'В процесі написання' );
+    $get_current_status = get_post_meta($post_id, '_crb_tasks_status', true);
+    if ($get_current_status !== 'Перевірено' && $get_current_status !== 'На перевірці') {
+      update_post_meta( $post_id, '_crb_tasks_status', 'В процесі написання' );
+    }
   } 
   // sendTelegramAuthor($task_id, $task_author);
   echo 'hi';

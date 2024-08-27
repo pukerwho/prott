@@ -974,6 +974,10 @@ video {
   min-width: 480px;
 }
 
+.min-w-\[450px\] {
+  min-width: 450px;
+}
+
 .max-w-\[640px\] {
   max-width: 640px;
 }
@@ -1220,6 +1224,11 @@ video {
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-gray-800 {
