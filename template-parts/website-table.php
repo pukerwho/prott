@@ -46,7 +46,7 @@
       </th>
       <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="6">
         <div class="flex items-center">
-          <div class="text-left font-bold"><?php _e("GA", "treba-wp"); ?></div>
+          <div class="text-left font-bold"><?php _e("GA, 30 days", "treba-wp"); ?></div>
           <div class="sort-arrow hidden ml-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
           </div>
@@ -54,7 +54,7 @@
       </th>
       <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="7">
         <div class="flex items-center">
-          <div class="text-left font-bold"><?php _e("GSC", "treba-wp"); ?></div>
+          <div class="text-left font-bold"><?php _e("GSC, 7 days", "treba-wp"); ?></div>
           <div class="sort-arrow hidden ml-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
           </div>
