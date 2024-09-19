@@ -1,3 +1,6 @@
+<div class="mb-6">
+  <input id="search_drop_box" placeholder="Пошук" class="w-full text-lg border border-gray-300 rounded p-4" />
+</div>
 <table id="drop-table" class="w-full table-fixed">
   <thead class="text-sm border-b border-gray-200 text-gray-600">
     <tr>
@@ -45,7 +48,7 @@
       if ($drops->have_posts()) : while ($drops->have_posts()) : $drops->the_post(); 
     ?>
       <?php $current_id = get_the_ID(); ?>
-      <tr>
+      <tr class="drop-tr border-b border-gray-200 last:border-transparent" data-metadata='{"name": "drop","category": "satellite","tag": ["<?php echo get_the_title(); ?>"]}'>
         <td class="whitespace-nowrap py-2"><?php the_title(); ?></td>
         <!-- Drop DR -->
         <td class="whitespace-nowrap py-2">

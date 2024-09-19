@@ -47,3 +47,47 @@ clipboard.on('success', function(e) {
     $('.copy-tooltip[data-copy-text="'+e.text+'"]').addClass('hidden');
   }, 2000);
 });
+
+//Швидкий пошук дропів
+$("#search_drop_box").keyup(function() {
+  var filter = $(this).val();
+  filter = filter.toLowerCase();
+  $("#drop-table .drop-tr").each(function() {
+    var metadata = $(this).data("metadata");
+    var regexp = new RegExp(filter); 
+    var metadatastring = "";
+    metadatastring = metadatastring.toLowerCase();
+
+    if(typeof metadata.tag != "undefined") {
+      metadatastring = metadata.tag.join(" ");
+    }
+    if (metadatastring.toLowerCase().search(regexp) < 0) {
+      $(this).hide();
+    } 
+    else {
+      $(this).show();
+    }
+  });
+});
+
+//Швидкий пошук сайтів
+$("#search_websites_box").keyup(function() {
+  var filter = $(this).val();
+  filter = filter.toLowerCase();
+  $("#mainsite-table .website-tr").each(function() {
+    var metadata = $(this).data("metadata");
+    var regexp = new RegExp(filter); 
+    var metadatastring = "";
+    metadatastring = metadatastring.toLowerCase();
+
+    if(typeof metadata.tag != "undefined") {
+      metadatastring = metadata.tag.join(" ");
+    }
+    if (metadatastring.toLowerCase().search(regexp) < 0) {
+      $(this).hide();
+    } 
+    else {
+      $(this).show();
+    }
+  });
+});

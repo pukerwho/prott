@@ -1,3 +1,6 @@
+<div class="mb-6">
+  <input id="search_websites_box" placeholder="Пошук" class="w-full text-lg border border-gray-300 rounded p-4" />
+</div>
 <table id="mainsite-table" class="w-full table-fixed">
   <thead class="text-sm border-b border-gray-200 text-gray-600">
     <tr>
@@ -74,7 +77,7 @@
       if ($main_sites->have_posts()) : while ($main_sites->have_posts()) : $main_sites->the_post(); 
     ?>
       <?php $current_id = get_the_ID(); ?>
-      <tr class="border-b border-gray-200 last:border-transparent">
+      <tr class="website-tr border-b border-gray-200 last:border-transparent" data-metadata='{"name": "website","category": "site","tag": ["<?php echo get_the_title(); ?>"]}'>
         <td class="whitespace-nowrap py-2">
           <div class="chart-week-<?php echo $current_id; ?>" data-week-array="<?php echo carbon_get_the_post_meta('crb_websites_week'); ?>"></div>
           <div class="flex items-center">
