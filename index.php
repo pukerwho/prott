@@ -271,7 +271,7 @@ $current_user_id = get_current_user_id();
           </div>
         </div>
       <?php endforeach; wp_reset_postdata(); ?>
-      <?php $tulenina = 0; $write = 0; ?>
+      <?php $tulenina = 0; $write = 0; $i = 0; ?>
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
@@ -281,7 +281,8 @@ $current_user_id = get_current_user_id();
         
         <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
           <?php
-            $write = $write + 150;
+            $write = $write + 200;
+            $i = $i + 1;
             // $author_write = carbon_get_the_post_meta("crb_tasks_author");
             // if ($author_write === 'Лідія Миколаїв') {
             //   $mykolaev = $mykolaev + 150;
@@ -293,7 +294,8 @@ $current_user_id = get_current_user_id();
         
         <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
-      <?php echo $write; ?>
+      <div><?php echo $write; ?></div>
+      <div><?php echo $i; ?></div>
     </div>
   <?php endif; ?>
 </div>
