@@ -271,7 +271,7 @@ $current_user_id = get_current_user_id();
           </div>
         </div>
       <?php endforeach; wp_reset_postdata(); ?>
-      <?php $tulenina = 0; $mykolaev = 0; ?>
+      <?php $tulenina = 0; $write = 0; ?>
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
@@ -280,20 +280,20 @@ $current_user_id = get_current_user_id();
         ?>
         
         <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
-          <?php 
-            $author_write = carbon_get_the_post_meta("crb_tasks_author");
-            if ($author_write === 'Лідія Миколаїв') {
-              // $tulenina = $tulenina + 200;
-              $mykolaev = $mykolaev + 150;
-            } else {
-              // $tulenina = $tulenina + 50;
-            }
+          <?php
+            $write = $write + 150;
+            // $author_write = carbon_get_the_post_meta("crb_tasks_author");
+            // if ($author_write === 'Лідія Миколаїв') {
+            //   $mykolaev = $mykolaev + 150;
+            // } else {
+            //   $tulenina = $tulenina + 50;
+            // }
           ?>
         <?php endforeach; ?>
         
         <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
-      <?php echo $mykolaev; ?>
+      <?php echo $write; ?>
     </div>
   <?php endif; ?>
 </div>
