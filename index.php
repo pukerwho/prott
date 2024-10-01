@@ -276,7 +276,7 @@ $current_user_id = get_current_user_id();
         <!-- stat -->
         <?php 
           $month = date( 'm', strtotime( $day ) );
-          if ($month === '08'): 
+          if ($month === '09'): 
         ?>
         
         <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
