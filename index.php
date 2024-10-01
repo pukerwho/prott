@@ -271,6 +271,28 @@ $current_user_id = get_current_user_id();
           </div>
         </div>
       <?php endforeach; wp_reset_postdata(); ?>
+      <?php $tulenina = 0; ?>
+      <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
+        <!-- stat -->
+        <?php 
+          $month = date( 'm', strtotime( $day ) );
+          if ($month === '08'): 
+        ?>
+        
+        <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
+          <?php 
+            $author_write = carbon_get_the_post_meta("crb_tasks_author");
+            if ($author_write === 'Каріна Туленіна') {
+              $tulenina = $tulenina + 200;
+            } else {
+              $tulenina = $tulenina + 50;
+            }
+          ?>
+        <?php endforeach; ?>
+        
+        <?php endif; ?>
+      <?php endforeach; wp_reset_postdata(); ?>
+      <?php echo $tulenina; ?>
     </div>
   <?php endif; ?>
 </div>
