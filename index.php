@@ -17,6 +17,10 @@ $current_user_id = get_current_user_id();
   <?php if ( $posts_by_day ) : ?>
     <div class="day-posts">
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
+        <?php 
+          $month = date( 'm', strtotime( $day ) );
+          if ($month === '10'): 
+        ?>
         <div class="day bg-white rounded p-8 mb-8 last-of-type:mb-0">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center">
@@ -270,6 +274,7 @@ $current_user_id = get_current_user_id();
             </table>
           </div>
         </div>
+        <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
       <?php $tulenina = 0; $write = 0; $i = 0; ?>
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
