@@ -299,8 +299,7 @@ $current_user_id = get_current_user_id();
         
         <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
-      <div><?php echo $write; ?></div>
-      <div><?php echo $i; ?></div>
+      
     </div>
   <?php endif; ?>
 </div>
