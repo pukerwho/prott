@@ -223,10 +223,10 @@ $current_user_id = get_current_user_id();
                           <div class="mr-2">
                             <select class="author-select" name="select-author-name" data-select-id="<?php echo $current_id; ?>">
                               <option selected>Оберіть автора</option>
-                              <option value="Каріна Туленіна">Каріна Туленіна</option>
                               <option value="Ана-Катаріна Кузмицька">Ана-Катаріна Кузмицька</option>
                               <option value="Лідія Миколаїв">Лідія Миколаїв</option>
                               <option value="Світлана">Світлана</option>
+                              <option value="Анастасія Можаровська">Анастасія Можаровська</option>
                             </select>
                           </div>
                           <div class="task-author-js" data-post-id="<?php echo $current_id; ?>">
