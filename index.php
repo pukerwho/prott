@@ -28,7 +28,7 @@ $current_user_id = get_current_user_id();
         <?php 
           $month = date( 'm', strtotime( $day ) );
           $current_month = date('n');
-          if ($month === '10'): 
+          if ($month === $current_month): 
         ?>
         <div class="day bg-white rounded p-8 mb-8 last-of-type:mb-0">
           <div class="flex items-center justify-between mb-2">
@@ -289,26 +289,28 @@ $current_user_id = get_current_user_id();
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
+          $month = date( 'm', strtotime( $day ) );
+          $current_month = date('n');
           if ($month === $current_month): 
         ?>
         
-        <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
-          <?php
-            $author_write = carbon_get_the_post_meta("crb_tasks_author");
-            $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
-            if ($check_pay_status != "yes") {
-              if ($author_write === 'Лідія Миколаїв') {
-                $mykolaev = $mykolaev + 150;
-              } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
-                $kuzmitska = $kuzmitska + 150;
-              } elseif ($author_write === 'Анастасія Можаровська') {
-                $major = $major + 150;
-              } elseif ($author_write === 'Світлана') {
-                $svitlana = $svitlana + 150;
+          <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
+            <?php
+              $author_write = carbon_get_the_post_meta("crb_tasks_author");
+              $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
+              if ($check_pay_status != "yes") {
+                if ($author_write === 'Лідія Миколаїв') {
+                  $mykolaev = $mykolaev + 150;
+                } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
+                  $kuzmitska = $kuzmitska + 150;
+                } elseif ($author_write === 'Анастасія Можаровська') {
+                  $major = $major + 150;
+                } elseif ($author_write === 'Світлана') {
+                  $svitlana = $svitlana + 150;
+                }
               }
-            }
-          ?>
-        <?php endforeach; ?>
+            ?>
+          <?php endforeach; ?>
         
         <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
