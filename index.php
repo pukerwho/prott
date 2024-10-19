@@ -6,6 +6,14 @@ $current_user_id = get_current_user_id();
 <?php if ($current_user_id === 1): ?>
 <div class="container py-12">
   <h2 class="text-3xl text-center font-bold mb-6">💪 Всі завдання</h2>
+  <div class="flex space-x-4 mb-6">
+    <div class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 cursor-pointer modal-open-js" data-modal-id="modal-pay">
+      <div class="mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[21px] h-[21px]"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+      </div>
+      <div>Оплата</div>
+    </div>
+  </div>
   <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => -1) );?>
   <?php 
   $posts_by_day = array_reduce( $tasks->posts, function( $r, $v ) {
@@ -276,24 +284,29 @@ $current_user_id = get_current_user_id();
         </div>
         <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
-      <?php $tulenina = 0; $write = 0; $i = 0; ?>
+      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; ?>
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
           $month = date( 'm', strtotime( $day ) );
-          if ($month === '09'): 
+          if ($month === '10'): 
         ?>
         
         <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
           <?php
-            $write = $write + 200;
-            $i = $i + 1;
-            // $author_write = carbon_get_the_post_meta("crb_tasks_author");
-            // if ($author_write === 'Лідія Миколаїв') {
-            //   $mykolaev = $mykolaev + 150;
-            // } else {
-            //   $tulenina = $tulenina + 50;
-            // }
+            $author_write = carbon_get_the_post_meta("crb_tasks_author");
+            $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
+            if ($check_pay_status != "yes") {
+              if ($author_write === 'Лідія Миколаїв') {
+                $mykolaev = $mykolaev + 150;
+              } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
+                $kuzmitska = $kuzmitska + 150;
+              } elseif ($author_write === 'Анастасія Можаровська') {
+                $major = $major + 150;
+              } elseif ($author_write === 'Світлана') {
+                $svitlana = $svitlana + 150;
+              }
+            }
           ?>
         <?php endforeach; ?>
         
@@ -304,7 +317,55 @@ $current_user_id = get_current_user_id();
   <?php endif; ?>
 </div>
 <?php endif; ?>
-<?php 
 
-?>
+<div class="modal px-8 py-6" data-modal-id="modal-pay">
+  <div class="modal-content">
+    <div class="modal-box w-2/3 bg-white min-h-full rounded-lg px-6 py-4">
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Лідія Миколаїв</div>
+          <div class="font-bold"><?php echo $mykolaev; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Лідія Миколаїв">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Ана-Катаріна Кузмицька</div>
+          <div class="font-bold"><?php echo $kuzmitska; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Ана-Катаріна Кузмицька">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Анастасія Можаровська</div>
+          <div class="font-bold"><?php echo $major; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Анастасія Можаровська">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Світлана</div>
+          <div class="font-bold"><?php echo $svitlana; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Світлана">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center">
+        <div class="flex items-center">
+          <div class="text-lg">Загалом:</div>
+        </div>
+        <div class="w-1/3">
+          <?php $total = $mykolaev + $kuzmitska + $major + $svitlana; echo $total; ?> грн.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <?php get_footer(); ?>

@@ -1,5 +1,12 @@
 var $ = require("jquery");
 
+$('.modal-open-js').on("click", function(){
+  let modalId = $(this).data('modal-id');
+  $('.modal[data-modal-id='+modalId+']').addClass('open');
+  $('.modal-bg').addClass('open');
+  $('body').addClass('overflow-hidden');
+});
+
 $('.detail-click-js').on("click", function(){
   let detailId = $(this).data('detail-id');
   $('.detail-modal[data-detail-modal='+detailId+']').addClass('open');
@@ -35,6 +42,7 @@ document.addEventListener('click', function(e){
     $('.date-modal').removeClass('open');
     $('.chart-modal').removeClass('open');
     $('.edit-modal').removeClass('open');
+    $('.modal').removeClass('open');
     $('body').removeClass('overflow-hidden');
   }
 });

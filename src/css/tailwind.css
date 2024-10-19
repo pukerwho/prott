@@ -109,10 +109,10 @@ a {
 .modal-bg.open {
   @apply w-full h-full fixed top-0 left-0 bg-black opacity-50 z-1;
 }
-.detail-modal, .date-modal, .chart-modal, .edit-modal {
+.detail-modal, .date-modal, .chart-modal, .edit-modal, .modal {
   @apply hidden fixed top-0 bottom-0 left-0 right-0 overflow-y-auto z-10;
 }
-.detail-modal.open, .date-modal.open, .chart-modal.open, .edit-modal.open {
+.detail-modal.open, .date-modal.open, .chart-modal.open, .edit-modal.open, .modal.open {
   @apply block;
 }
 .modal-content {
