@@ -27,6 +27,7 @@ $current_user_id = get_current_user_id();
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <?php 
           $month = date( 'm', strtotime( $day ) );
+          $current_month = date('n');
           if ($month === '10'): 
         ?>
         <div class="day bg-white rounded p-8 mb-8 last-of-type:mb-0">
@@ -288,8 +289,7 @@ $current_user_id = get_current_user_id();
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
-          $month = date( 'm', strtotime( $day ) );
-          if ($month === '10'): 
+          if ($month === $current_month): 
         ?>
         
         <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
@@ -358,11 +358,11 @@ $current_user_id = get_current_user_id();
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center">
-        <div class="flex items-center">
-          <div class="text-lg">Загалом:</div>
+        <div class="flex items-center text-lg">
+          <div>Загалом:</div>
         </div>
         <div class="w-1/3">
-          <?php $total = $mykolaev + $kuzmitska + $major + $svitlana; echo $total; ?> грн.
+          <span class="font-bold"><?php $total = $mykolaev + $kuzmitska + $major + $svitlana; echo $total; ?></span> грн.
         </div>
       </div>
     </div>
