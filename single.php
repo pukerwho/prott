@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php get_header(); 
+$current_user_id = get_current_user_id();
+?>
+
+<?php if ($current_user_id === 1): ?>
 <div class="container py-10">
   <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
   <?php $countNumber = tutCount(get_the_ID()); ?>
@@ -133,5 +137,5 @@
   </div>
   <?php endwhile; endif; wp_reset_postdata(); ?>
 </div>
-
+<?php endif; ?>
 <?php get_footer();

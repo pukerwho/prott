@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php get_header(); 
+$current_user_id = get_current_user_id();
+?>
+
+<?php if ($current_user_id === 1): ?>
 
 
 <div class="mb-6">
@@ -14,5 +18,5 @@
     <?php posts_nav_link(); ?>	
   </div>
 </div>
-
+<?php endif; ?>
 <?php get_footer(); ?>

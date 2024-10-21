@@ -318,7 +318,6 @@ $current_user_id = get_current_user_id();
     </div>
   <?php endif; ?>
 </div>
-<?php endif; ?>
 
 <div class="modal px-8 py-6" data-modal-id="modal-pay">
   <div class="modal-content">
@@ -370,4 +369,5 @@ $current_user_id = get_current_user_id();
     </div>
   </div>
 </div>
+<?php endif; ?>
 <?php get_footer(); ?>
