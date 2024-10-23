@@ -235,7 +235,8 @@ $current_user_id = get_current_user_id();
                               <option value="Ана-Катаріна Кузмицька">Ана-Катаріна Кузмицька</option>
                               <option value="Лідія Миколаїв">Лідія Миколаїв</option>
                               <option value="Світлана">Світлана</option>
-                              <option value="Анастасія Можаровська">Анастасія Можаровська</option>
+                              <option value="Аліна Трикіша">Аліна Трикіша</option>
+                              <option value="Настя Можаровська">Настя Можаровська</option>
                             </select>
                           </div>
                           <div class="task-author-js" data-post-id="<?php echo $current_id; ?>">
@@ -285,7 +286,7 @@ $current_user_id = get_current_user_id();
         </div>
         <?php endif; ?>
       <?php endforeach; wp_reset_postdata(); ?>
-      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; ?>
+      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; ?>
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
@@ -303,7 +304,9 @@ $current_user_id = get_current_user_id();
                   $mykolaev = $mykolaev + 150;
                 } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
                   $kuzmitska = $kuzmitska + 150;
-                } elseif ($author_write === 'Анастасія Можаровська') {
+                } elseif ($author_write === 'Аліна Трикіша') {
+                  $trikisha = $trikisha + 150;
+                } elseif ($author_write === 'Настя Можаровська') {
                   $major = $major + 150;
                 } elseif ($author_write === 'Світлана') {
                   $svitlana = $svitlana + 150;
@@ -342,11 +345,20 @@ $current_user_id = get_current_user_id();
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
-          <div class="mr-2">Анастасія Можаровська</div>
+          <div class="mr-2">Настя Можаровська</div>
           <div class="font-bold"><?php echo $major; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Анастасія Можаровська">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Настя Можаровська">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Аліна Трикіша</div>
+          <div class="font-bold"><?php echo $trikisha; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Аліна Трикіша">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
