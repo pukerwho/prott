@@ -301,7 +301,7 @@ $current_user_id = get_current_user_id();
               $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
               if ($check_pay_status != "yes") {
                 if ($author_write === 'Лідія Кулик') {
-                  $mykolaev = $mykolaev + 150;
+                  $mykolaev = $mykolaev + 200;
                 } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
                   $kuzmitska = $kuzmitska + 150;
                 } elseif ($author_write === 'Аліна Трикіша') {
