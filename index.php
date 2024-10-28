@@ -233,7 +233,7 @@ $current_user_id = get_current_user_id();
                             <select class="author-select" name="select-author-name" data-select-id="<?php echo $current_id; ?>">
                               <option selected>Оберіть автора</option>
                               <option value="Ана-Катаріна Кузмицька">Ана-Катаріна Кузмицька</option>
-                              <option value="Лідія Миколаїв">Лідія Миколаїв</option>
+                              <option value="Лідія Кулик">Лідія Кулик</option>
                               <option value="Світлана">Світлана</option>
                               <option value="Аліна Трикіша">Аліна Трикіша</option>
                               <option value="Настя Можаровська">Настя Можаровська</option>
@@ -300,7 +300,7 @@ $current_user_id = get_current_user_id();
               $author_write = carbon_get_the_post_meta("crb_tasks_author");
               $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
               if ($check_pay_status != "yes") {
-                if ($author_write === 'Лідія Миколаїв') {
+                if ($author_write === 'Лідія Кулик') {
                   $mykolaev = $mykolaev + 150;
                 } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
                   $kuzmitska = $kuzmitska + 150;
@@ -327,11 +327,11 @@ $current_user_id = get_current_user_id();
     <div class="modal-box w-2/3 bg-white min-h-full rounded-lg px-6 py-4">
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
-          <div class="mr-2">Лідія Миколаїв</div>
+          <div class="mr-2">Лідія Кулик</div>
           <div class="font-bold"><?php echo $mykolaev; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Лідія Миколаїв">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Лідія Кулик">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
