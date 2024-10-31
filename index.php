@@ -3,7 +3,7 @@ get_header();
 $current_user_id = get_current_user_id();
 ?>
 
-<?php if ($current_user_id === 1): ?>
+<?php if ($current_user_id === 1 || $current_user_id === 2): ?>
 <div class="container py-12">
   <h2 class="text-3xl text-center font-bold mb-6">💪 Всі завдання</h2>
   <div class="flex space-x-4 mb-6">
