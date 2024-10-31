@@ -331,7 +331,7 @@ $current_user_id = get_current_user_id();
           <div class="font-bold"><?php echo $mykolaev; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Лідія Кулик">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Лідія Кулик">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
@@ -340,7 +340,7 @@ $current_user_id = get_current_user_id();
           <div class="font-bold"><?php echo $kuzmitska; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Ана-Катаріна Кузмицька">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Ана-Катаріна Кузмицька">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
@@ -349,7 +349,7 @@ $current_user_id = get_current_user_id();
           <div class="font-bold"><?php echo $major; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Настя Можаровська">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Настя Можаровська">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
@@ -358,7 +358,7 @@ $current_user_id = get_current_user_id();
           <div class="font-bold"><?php echo $trikisha; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Аліна Трикіша">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Аліна Трикіша">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
@@ -367,7 +367,7 @@ $current_user_id = get_current_user_id();
           <div class="font-bold"><?php echo $svitlana; ?> грн.</div>
         </div>
         <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 js-all-pay" data-pay-author="Світлана">Я оплатив!</div>
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Світлана">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center">
