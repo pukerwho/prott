@@ -262,14 +262,14 @@ $current_user_id = get_current_user_id();
                         <div class="flex items-center -mx-1">
                           <div class="<?php echo ($task_post_link) ? 'w-3/4' : 'w-full'; ?> px-1">
                             <?php $get_pay_status = carbon_get_the_post_meta("crb_tasks_pay"); ?>
-                            <div class="<?php echo ($get_pay_status == 'yes') ? 'bg-green-500 ' : 'bg-gray-800 task-pay-js'; ?> text-white text-center rounded cursor-pointer px-2 py-1" data-post-id="<?php echo $current_id; ?>">
+                            <div class="<?php echo ($get_pay_status == 'yes') ? 'bg-green-500 ' : 'bg-gray-800'; ?> <?php echo ($current_user_id == '1') ? 'task-pay-js' : ''; ?> text-white text-center rounded cursor-pointer px-2 py-1" data-post-id="<?php echo $current_id; ?>">
                               <div><?php echo ($get_pay_status == "yes") ? 'Оплачено' : 'Не оплачено'; ?></div>
                             </div>
                           </div>
                           <?php if ($task_post_link): ?>
                             <div class="w-1/4 px-1">
                               <?php $get_tasks_complete = carbon_get_the_post_meta("crb_tasks_complete"); ?>
-                              <div class="<?php echo ($get_tasks_complete == 'yes') ? 'bg-green-500 text-white' : 'border border-gray-800 text-gray-800 task-complete-js'; ?> flex items-center justify-center rounded cursor-pointer px-2 py-1" data-post-id="<?php echo $current_id; ?>">
+                              <div class="<?php echo ($get_tasks_complete == 'yes') ? 'bg-green-500 text-white' : 'border border-gray-800 text-gray-800'; ?> <?php echo ($current_user_id == '1') ? 'task-complete-js': ''; ?> flex items-center justify-center rounded cursor-pointer px-2 py-1" data-post-id="<?php echo $current_id; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                               </div>
                             <?php endif; ?>
