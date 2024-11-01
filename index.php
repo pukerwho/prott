@@ -117,14 +117,18 @@ $current_user_id = get_current_user_id();
                     </td>
                     <td class="whitespace-nowrap py-2">
                       <div class="text-blue-500 cursor-pointer date-click-js" data-date-id="<?php echo $current_id; ?>">
-                        <?php echo carbon_get_the_post_meta('crb_tasks_date_create'); ?>
+                        <?php 
+                          echo get_the_date("d.m, H:i");
+                          // echo carbon_get_the_post_meta('crb_tasks_date_create'); 
+                        ?>
                       </div>
                       <div class="date-modal px-8 py-6" data-date-modal="<?php echo $current_id; ?>">
                         <div class="modal-content">
                           <div class="modal-box max-w-[640px] min-w-[480px] min-h-full bg-white rounded-lg px-6 py-4">
                             <div class="text-xl text-center mb-4">Дата/час</div>
                             <?php 
-                            $task_create = carbon_get_the_post_meta('crb_tasks_date_create');
+                            $task_create = get_the_date("Y/m/d H:i:s");
+                            // $task_create = carbon_get_the_post_meta('crb_tasks_date_create');
                             $author_date = carbon_get_the_post_meta('crb_tasks_author_date');
                             $link_date = carbon_get_the_post_meta('crb_tasks_link_date');
                             ?>
@@ -132,7 +136,7 @@ $current_user_id = get_current_user_id();
                               <div class="mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
                               </div>
-                              <div>Надійшла заявка: <?php echo $task_create ?></div>
+                              <div>Надійшла заявка: <?php echo get_the_date("d.m, H:i"); ?></div>
                             </div>
                             <div class="flex items-center mb-3 last-of-type:mb-0">
                               <div class="mr-2">
@@ -146,15 +150,14 @@ $current_user_id = get_current_user_id();
                               </div>
                               <div>
                                 Додано посилання: <?php echo ($link_date) ? date("d.m, H:i", $link_date) : '...'; ?>
-                                <?php if ($author_date): ?>
+                                
                                   <?php if ($link_date): ?>
-                                    <?php $task_finish_date = taskFinishDate($author_date, $link_date); ?>
+                                    <?php $task_finish_date = taskFinishDate($task_create, $link_date); ?>
                                     <span>(<span class="<?php echo ($task_finish_date > 20) ? 'text-red-500' : 'text-green-500'; ?>"><?php echo $task_finish_date; ?> г.</span>)</span>
                                   <?php else: ?>
-                                    <?php $task_continue_date = taskContinueDate($author_date); ?>
-                                    <span>(<span class="<?php echo ($task_continue_date > 20) ? 'text-red-500' : 'text-green-500'; ?>"><?php echo taskContinueDate($author_date); ?> г.</span>)</span>
+                                    <?php $task_continue_date = taskContinueDate($task_create); ?>
+                                    <span>(<span class="<?php echo ($task_continue_date > 20) ? 'text-red-500' : 'text-green-500'; ?>"><?php echo taskContinueDate($task_create); ?> г.</span>)</span>
                                   <?php endif; ?>
-                                <?php endif; ?>
                               </div>
                             </div>
                           </div>
