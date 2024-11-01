@@ -297,7 +297,7 @@ $current_user_id = get_current_user_id();
         <?php 
           $month = date( 'm', strtotime( $day ) );
           $current_month = date('n');
-          if ($month === $current_month): 
+          // if ($month === $current_month): 
         ?>
         
           <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
@@ -309,18 +309,24 @@ $current_user_id = get_current_user_id();
                   $mykolaev = $mykolaev + 200;
                 } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
                   $kuzmitska = $kuzmitska + 150;
+                  $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Аліна Трикіша') {
                   $trikisha = $trikisha + 150;
+                  $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Настя Можаровська') {
                   $major = $major + 150;
+                  $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Світлана') {
                   $svitlana = $svitlana + 150;
+                  $mykolaev = $mykolaev + 50;
                 }
               }
             ?>
           <?php endforeach; ?>
         
-        <?php endif; ?>
+        <?php 
+          // endif; 
+        ?>
       <?php endforeach; wp_reset_postdata(); ?>
       
     </div>
