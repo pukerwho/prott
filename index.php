@@ -28,7 +28,7 @@ $current_user_id = get_current_user_id();
         <?php 
           $month = date( 'm', strtotime( $day ) );
           $current_month = date('n');
-          if ($month === $current_month): 
+          // if ($month === $current_month ): 
         ?>
         <div class="day bg-white rounded p-8 mb-8 last-of-type:mb-0">
           <div class="flex items-center justify-between mb-2">
@@ -284,7 +284,9 @@ $current_user_id = get_current_user_id();
             </table>
           </div>
         </div>
-        <?php endif; ?>
+        <?php 
+        // endif; 
+        ?>
       <?php endforeach; wp_reset_postdata(); ?>
       <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; ?>
       <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
