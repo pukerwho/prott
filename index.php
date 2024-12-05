@@ -321,11 +321,11 @@ $current_user_id = get_current_user_id();
                   $svitlana = $svitlana + 150;
                   $mykolaev = $mykolaev + 50;
                 }
-                echo $mykolaev;
+                
               // }
             ?>
           <?php endforeach; ?>
-        
+        <?php echo $mykolaev; ?>
         <?php 
           endif; 
         ?>
