@@ -325,7 +325,7 @@ $current_user_id = get_current_user_id();
               // }
             ?>
           <?php endforeach; ?>
-        <?php echo $svitlana; ?>
+        <?php echo $major; ?>
         <?php 
           endif; 
         ?>
