@@ -14,7 +14,7 @@ $current_user_id = get_current_user_id();
       <div>Оплата</div>
     </div>
   </div>
-  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => -1) );?>
+  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 30) );?>
   <?php 
   $posts_by_day = array_reduce( $tasks->posts, function( $r, $v ) {
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
@@ -297,7 +297,6 @@ $current_user_id = get_current_user_id();
         <?php 
           $month = date( 'm', strtotime( $day ) );
           $current_month = date('n');
-          if ($month === '11'): 
           // if ($month === $current_month): 
         ?>
         
@@ -305,7 +304,7 @@ $current_user_id = get_current_user_id();
             <?php
               $author_write = carbon_get_the_post_meta("crb_tasks_author");
               $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
-              // if ($check_pay_status != "yes") {
+              if ($check_pay_status != "yes") {
                 if ($author_write === 'Лідія Кулик') {
                   $mykolaev = $mykolaev + 200;
                 } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
@@ -321,13 +320,12 @@ $current_user_id = get_current_user_id();
                   $svitlana = $svitlana + 150;
                   $mykolaev = $mykolaev + 50;
                 }
-                
-              // }
+              }
             ?>
           <?php endforeach; ?>
-        <?php echo $trikisha; ?>
+        
         <?php 
-          endif; 
+          // endif; 
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
       
