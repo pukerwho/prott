@@ -12,21 +12,28 @@ add_action( 'check_id_hook', 'check_id', 10, 3 );
 function check_id( $test ) {
   $collab_one = carbon_get_theme_option('crb_collab_one');
   $collab_two = carbon_get_theme_option('crb_collab_two');
+  $collab_three = carbon_get_theme_option('crb_collab_three');
   $opts_one = array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,), 'http'=>array('method'=>"GET",'header'=>"X-Api-Key: $collab_one\r\n" . "accept: application/json\r\n"));
   $opts_two = array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,), 'http'=>array('method'=>"GET",'header'=>"X-Api-Key: $collab_two\r\n" . "accept: application/json\r\n"));
+  $opts_three = array( "ssl"=>array( "verify_peer"=>false, "verify_peer_name"=>false,), 'http'=>array('method'=>"GET",'header'=>"X-Api-Key: $collab_three\r\n" . "accept: application/json\r\n"));
 
   $context_one = stream_context_create($opts_one);
   $context_two = stream_context_create($opts_two);
+  $context_three = stream_context_create($opts_three);
   $file_one = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?per-page=40&page=1&language=ua", false, $context_one); 
   // $file_one_twopage = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?page=2&language=ua", false, $context_one); 
   $file_two = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?per-page=40&page=1&language=ua", false, $context_two); 
   // $file_two_twopage = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?page=2&language=ua", false, $context_two); 
+  $file_three = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?per-page=40&page=1&language=ua", false, $context_three); 
+  // $file_three_twopage = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?page=2&language=ua", false, $context_three); 
 
   $items_one = json_decode($file_one, true);
   $items_two = json_decode($file_two, true);
+  $items_three = json_decode($file_three, true);
   $items_one_twopage = json_decode($file_one_twopage, true);
   $items_two_twopage = json_decode($file_two_twopage, true);
-  $items = array_merge($items_one['items'], $items_two['items']);
+  $items_three_twopage = json_decode($file_three_twopage, true);
+  $items = array_merge($items_one['items'], $items_two['items'], $items_three['items']);
 
   function array_orderby() {
     $args = func_get_args();

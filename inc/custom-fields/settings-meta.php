@@ -9,6 +9,7 @@ function crb_attach_theme_options() {
   ->add_tab( __('Загальні'), array(
     Field::make( 'text', 'crb_collab_one', 'Для коллаборатора аккаунт 1' ),
     Field::make( 'text', 'crb_collab_two', 'Для коллаборатора аккаунт 2' ),
+    Field::make( 'text', 'crb_collab_three', 'Для коллаборатора аккаунт 3' ),
     Field::make( 'text', 'crb_telegram_api', 'Telegram Апі' ),
     Field::make( 'text', 'crb_telegram_chat_id', 'Telegram Чат айді' ),
     Field::make( 'text', 'crb_test', 'test' ),
