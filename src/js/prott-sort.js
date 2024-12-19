@@ -43,12 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     const textA = cellA.innerText.trim();
                     const textB = cellB.innerText.trim();
 
-                    console.log(`Сортуємо: "${textA}" проти "${textB}"`); // Лог для перевірки значень
-
-                    // Якщо це колонка "Дата", парсимо як дату
+                    // Якщо це колонка "Дата", обробляємо спеціальний формат
                     if (header.getAttribute("data-sort-id") === "3") {
-                        const dateA = new Date(textA.split(",").join(""));
-                        const dateB = new Date(textB.split(",").join(""));
+                        const dateA = parseCustomDate(textA);
+                        const dateB = parseCustomDate(textB);
                         return isAscending ? dateA - dateB : dateB - dateA;
                     }
 
@@ -63,4 +61,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
+
+    // Функція для парсингу дати у форматі "d.m, H:i"
+    function parseCustomDate(dateString) {
+        const [dayMonth, time] = dateString.split(", ");
+        const [day, month] = dayMonth.split(".");
+        const [hours, minutes] = time.split(":");
+        return new Date(new Date().getFullYear(), month - 1, day, hours, minutes);
+    }
 });
