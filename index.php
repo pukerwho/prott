@@ -14,7 +14,7 @@ $current_user_id = get_current_user_id();
       <div>Оплата</div>
     </div>
   </div>
-  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 30) );?>
+  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 45) );?>
   <?php 
   $posts_by_day = array_reduce( $tasks->posts, function( $r, $v ) {
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
@@ -47,26 +47,38 @@ $current_user_id = get_current_user_id();
           </div>
           
           <div class="posts">
-            <table class="w-full table-auto">
+            <table class="w-full table-auto prott-table">
               <thead class="border-b border-gray-200 text-gray-600">
                 <tr>
                   <th class="text-left whitespace-nowrap py-2">
                     <div class="text-left font-bold"><?php _e("ID", "treba-wp"); ?></div>
                   </th>
-                  <th class="text-left whitespace-nowrap py-2">
+                  <th class="text-left whitespace-nowrap py-2" data-sort-id="1">
                     <div class="text-left font-bold"><?php _e("Сайт", "treba-wp"); ?></div>
                   </th>
-                  <th class="text-left whitespace-nowrap py-2">
+                  <th class="text-left whitespace-nowrap py-2" data-sort-id="2">
                     <div class="text-left font-bold"><?php _e("Статус", "treba-wp"); ?></div>
                   </th>
-                  <th class="text-left whitespace-nowrap py-2">
-                    <div class="text-left font-bold"><?php _e("Дата", "treba-wp"); ?></div>
+                  <th class="text-left whitespace-nowrap py-2 prott-sort-js" data-sort-id="3">
+                    <div class="flex items-center">
+                      <div class="text-left font-bold"><?php _e("Дата", "treba-wp"); ?></div>
+                      <div class="sort-arrow hidden ml-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                      </div>
+                    </div>
                   </th>
-                  <th class="text-left whitespace-nowrap py-2">
+                  <th class="text-left whitespace-nowrap py-2" data-sort-id="4">
                     <div class="text-left font-bold"><?php _e("Деталі", "treba-wp"); ?></div>
                   </th>
-                  <th class="text-left whitespace-nowrap py-2">
-                    <div class="text-left font-bold"><?php _e("Автор", "treba-wp"); ?></div>
+                  <th class="text-left whitespace-nowrap py-2 prott-sort-js" data-sort-id="5">
+                    <div class="flex items-center">
+                      <div class="text-left font-bold"><?php _e("Автор", "treba-wp"); ?></div>
+                      <div class="sort-arrow hidden ml-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                      </div>
+                    </div>
                   </th>
                   <th class="text-center whitespace-nowrap py-2">
                     <div class="text-center font-bold"><?php _e("...", "treba-wp"); ?></div>
@@ -117,10 +129,10 @@ $current_user_id = get_current_user_id();
                     </td>
                     <td class="whitespace-nowrap py-2">
                       <div class="text-blue-500 cursor-pointer date-click-js" data-date-id="<?php echo $current_id; ?>">
-                        <?php 
+                        <span class="data-sort-prott"><?php 
                           echo get_the_date("d.m, H:i");
                           // echo carbon_get_the_post_meta('crb_tasks_date_create'); 
-                        ?>
+                        ?></span>
                       </div>
                       <div class="date-modal px-8 py-6" data-date-modal="<?php echo $current_id; ?>">
                         <div class="modal-content">
@@ -226,7 +238,7 @@ $current_user_id = get_current_user_id();
                       <?php else: ?>
                         <?php $tasks_author = carbon_get_the_post_meta("crb_tasks_author"); ?>
                         <div class="<?php echo ($tasks_author) ? 'flex' : 'hidden'; ?> items-center author-task" data-task-id="<?php echo $current_id; ?>">
-                          <div class="mr-2"><?php echo $tasks_author; ?></div>
+                          <div class="mr-2"><span class="data-sort-prott"><?php echo $tasks_author; ?></span></div>
                           <div class="cursor-pointer task-author-edit-js" data-task-id="<?php echo $current_id; ?>"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg></div>
                         </div>
                       
