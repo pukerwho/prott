@@ -7,7 +7,7 @@ Template Name: Сайти
 <?php get_header(); $current_user_id = get_current_user_id(); ?>
 <?php if ($current_user_id === 1): ?>
 <div class="container py-12">
-  <div class="flex items-center -mx-4 mb-6">
+  <div class="hidden items-center -mx-4 mb-6">
     <div class="websites tab active cursor-pointer px-4" data-tab="websites">
       <div><h2 class="text-3xl text-center font-bold p-4">👑 Основні сайти</h2></div>
     </div>
@@ -16,7 +16,7 @@ Template Name: Сайти
     </div>
   </div>
 
-  <div class="tab-content bg-white rounded p-8 mb-8 last-of-type:mb-0" data-content="websites">
+  <div class="tab-content bg-white rounded px-4 py-6 mb-8 last-of-type:mb-0" data-content="websites">
     <?php get_template_part('template-parts/website-table'); ?>
   </div>
 
