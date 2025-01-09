@@ -91,7 +91,7 @@
     ?>
       <?php $current_id = get_the_ID(); ?>
       <tr class="website-tr border-b border-l border-gray-200" data-metadata='{"name": "website","category": "site","tag": ["<?php echo get_the_title(); ?>"]}'>
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <div class="chart-week-<?php echo $current_id; ?>" data-week-array="<?php echo carbon_get_the_post_meta('crb_websites_week'); ?>"></div>
           <div class="flex items-center">
             <div class="hidden cursor-pointer mr-1 edit-modal-js" data-modal-id="edit-<?php echo $current_id; ?>">
@@ -137,7 +137,7 @@
           </div>
         </td>
         <!-- Замовлення -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_orders = carbon_get_the_post_meta('crb_websites_orders');
             $orders_array = explode(",", $get_orders);
@@ -171,7 +171,7 @@
         <!-- END Замовлення -->
 
         <!-- DR -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_dr = carbon_get_the_post_meta('crb_websites_dr');
             $dr_array = explode(",", $get_dr);
@@ -205,7 +205,7 @@
         <!-- END DR -->
 
         <!-- Keywords -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_keywords = carbon_get_the_post_meta('crb_websites_keywords');
             $keywords_array = explode(",", $get_keywords);
@@ -239,7 +239,7 @@
         <!-- END Keywords -->
 
         <!-- TF -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_tf = carbon_get_the_post_meta('crb_websites_tf');
             $tf_array = explode(",", $get_tf);
@@ -273,7 +273,7 @@
         <!-- END TF -->
 
         <!-- CF -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_cf = carbon_get_the_post_meta('crb_websites_cf');
             $cf_array = explode(",", $get_cf);
@@ -307,7 +307,7 @@
         <!-- END CF -->
 
         <!-- GA -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_ga = carbon_get_the_post_meta('crb_websites_ga');
             $ga_array = explode(",", $get_ga);
@@ -341,7 +341,7 @@
         <!-- END GA -->
 
         <!-- GSC -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_gsc = carbon_get_the_post_meta('crb_websites_gsc');
             $gsc_array = explode(",", $get_gsc);
@@ -375,7 +375,7 @@
         <!-- END GSC -->
 
         <!-- Clbr Rating -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_colbr_rating = carbon_get_the_post_meta('crb_websites_colbr_rating');
             $colbr_rating_array = explode(",", $get_colbr_rating);
@@ -409,12 +409,12 @@
         <!-- END Clbr Rating -->
 
         <!-- Clbr Position -->
-        <td class="whitespace-nowrap border-r border-gray-200 pl-2 py-2">
+        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
           <?php 
             $get_colbr_position = carbon_get_the_post_meta('crb_websites_colbr_position');
             $colbr_position_array = explode(",", $get_colbr_position);
             $colbr_position_array = array_reverse($colbr_position_array);
-            $diff_colbr_position = diffValue($colbr_position_array[0], $colbr_position_array[1]);
+            $diff_colbr_position = diffValuePosition($colbr_position_array[0], $colbr_position_array[1]);
           ?>
           <div class="flex items-center">
             <div>

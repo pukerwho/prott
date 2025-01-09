@@ -312,3 +312,20 @@ function diffValue($first, $second) {
   }
   return array('diff_order' => $diff_order,'diff_order_sign' => $diff_order_sign, 'diff_order_class' => $diff_order_class);
 }
+
+function diffValuePosition($first, $second) {
+  if ($first > $second) {
+    $diff_order = $first - $second;
+    $diff_order_sign = "-";
+    $diff_order_class = "text-red-500";
+  } elseif ($first < $second) {
+    $diff_order = $second - $first;
+    $diff_order_sign = "+";
+    $diff_order_class = "text-green-500";
+  } else {
+    $diff_order = $second - $first;
+    $diff_order_sign = "";
+    $diff_order_class = "hidden";
+  }
+  return array('diff_order' => $diff_order,'diff_order_sign' => $diff_order_sign, 'diff_order_class' => $diff_order_class);
+}
