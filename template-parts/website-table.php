@@ -63,8 +63,21 @@
           </div>
         </div>
       </th>
-      <th class="text-center whitespace-nowrap py-2">
-        <div class="text-left font-bold"><?php _e("Посилання", "treba-wp"); ?></div>
+      <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="8">
+        <div class="flex items-center">
+          <div class="text-left font-bold"><?php _e("Рейтинг", "treba-wp"); ?></div>
+          <div class="sort-arrow hidden ml-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+          </div>
+        </div>
+      </th>
+      <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="9">
+        <div class="flex items-center">
+          <div class="text-left font-bold"><?php _e("Позиція", "treba-wp"); ?></div>
+          <div class="sort-arrow hidden ml-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+          </div>
+        </div>
       </th>
     </tr>
   </thead>
@@ -361,7 +374,75 @@
         </td>
         <!-- END GSC -->
 
+        <!-- Clbr Rating -->
         <td class="whitespace-nowrap py-2">
+          <?php 
+            $get_colbr_rating = carbon_get_the_post_meta('crb_websites_colbr_rating');
+            $colbr_rating_array = explode(",", $get_colbr_rating);
+            $colbr_rating_array = array_reverse($colbr_rating_array);
+            $diff_colbr_rating = diffValue($colbr_rating_array[0], $colbr_rating_array[1]);
+          ?>
+          <div class="flex items-center">
+            <div>
+              <!-- value -->
+              <span class="sort-value">
+                <?php echo $colbr_rating_array[0]; ?>
+              </span> 
+              <!-- diff -->
+              <span class="<?php echo $diff_colbr_rating['diff_order_class']; ?> value-diff inline-block rounded ml-1">
+                <?php echo $diff_colbr_rating['diff_order_sign']; echo $diff_colbr_rating['diff_order']; ?>
+              </span>
+            </div>
+            <!-- icon graph -->
+            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="colbr_rating-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_rating; ?>" data-value-label="Рейтинг - <?php the_title(); ?>" data-chart-type="line">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
+            </div>
+          </div>
+          <div class="chart-modal px-8 py-6 " data-modal-id="colbr_rating-<?php echo $current_id; ?>">
+            <div class="modal-content">
+              <div class="modal-box w-4/5 bg-white min-h-full rounded-lg px-6 py-4">
+                <canvas class="line-chart" data-chart-id="colbr_rating-<?php echo $current_id; ?>"></canvas>
+              </div>
+            </div>
+          </div>
+        </td>
+        <!-- END Clbr Rating -->
+
+        <!-- Clbr Position -->
+        <td class="whitespace-nowrap py-2">
+          <?php 
+            $get_colbr_position = carbon_get_the_post_meta('crb_websites_colbr_position');
+            $colbr_position_array = explode(",", $get_colbr_position);
+            $colbr_position_array = array_reverse($colbr_position_array);
+            $diff_colbr_position = diffValue($colbr_position_array[0], $colbr_position_array[1]);
+          ?>
+          <div class="flex items-center">
+            <div>
+              <!-- value -->
+              <span class="sort-value">
+                <?php echo $colbr_position_array[0]; ?>
+              </span> 
+              <!-- diff -->
+              <span class="<?php echo $diff_colbr_position['diff_order_class']; ?> value-diff inline-block rounded ml-1">
+                <?php echo $diff_colbr_position['diff_order_sign']; echo $diff_colbr_position['diff_order']; ?>
+              </span>
+            </div>
+            <!-- icon graph -->
+            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="colbr_position-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_position; ?>" data-value-label="Позиції - <?php the_title(); ?>" data-chart-type="line">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
+            </div>
+          </div>
+          <div class="chart-modal px-8 py-6 " data-modal-id="colbr_position-<?php echo $current_id; ?>">
+            <div class="modal-content">
+              <div class="modal-box w-4/5 bg-white min-h-full rounded-lg px-6 py-4">
+                <canvas class="line-chart" data-chart-id="colbr_position-<?php echo $current_id; ?>"></canvas>
+              </div>
+            </div>
+          </div>
+        </td>
+        <!-- END Clbr Position -->
+
+        <td class="hidden whitespace-nowrap py-2">
           <div class="text-blue-500 cursor-pointer detail-click-js" data-detail-id="Website-Drops-<?php echo $current_id; ?>">Детальніше</div>
           <div class="detail-modal px-8 py-6" data-detail-modal="Website-Drops-<?php echo $current_id; ?>">
             <div class="modal-content">

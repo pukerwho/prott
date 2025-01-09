@@ -31,6 +31,8 @@ function crb_post_theme_options() {
       Field::make( 'text', 'crb_websites_cf', 'CF' ),
       Field::make( 'text', 'crb_websites_ga', 'GA' ),
       Field::make( 'text', 'crb_websites_gsc', 'GSC' ),
+      Field::make( 'text', 'crb_websites_colbr_rating', 'КолабРейтинг' ),
+      Field::make( 'text', 'crb_websites_colbr_position', 'КолабПозиція' ),
       // Field::make( 'text', 'crb_websites_week', 'Update Week' ),
   ) );
   Container::make( 'post_meta', 'More' )
