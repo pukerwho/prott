@@ -305,7 +305,8 @@ $current_user_id = get_current_user_id();
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
       <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; ?>
-      <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
+      <?php $current_week = array_slice($posts_by_day, 0, 7); ?>
+      <?php foreach( $current_week as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
           $month = date( 'm', strtotime( $day ) );
