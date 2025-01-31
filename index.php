@@ -24,7 +24,8 @@ $current_user_id = get_current_user_id();
 
   <?php if ( $posts_by_day ) : ?>
     <div class="day-posts">
-      <?php foreach( $posts_by_day as $day => $day_posts ) : ?>
+      <?php $current_week = array_slice($posts_by_day, 0, 7); ?>
+      <?php foreach( $current_week as $day => $day_posts ) : ?>
         <?php 
           $month = date( 'm', strtotime( $day ) );
           $current_month = date('n');
@@ -318,18 +319,18 @@ $current_user_id = get_current_user_id();
               $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
               if ($check_pay_status != "yes") {
                 if ($author_write === 'Лідія Кулик') {
-                  $mykolaev = $mykolaev + 200;
+                  $mykolaev = $mykolaev + 225;
                 } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
-                  $kuzmitska = $kuzmitska + 150;
+                  $kuzmitska = $kuzmitska + 175;
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Аліна Трикіша') {
-                  $trikisha = $trikisha + 150;
+                  $trikisha = $trikisha + 175;
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Настя Можаровська') {
-                  $major = $major + 150;
+                  $major = $major + 175;
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Світлана') {
-                  $svitlana = $svitlana + 150;
+                  $svitlana = $svitlana + 175;
                   $mykolaev = $mykolaev + 50;
                 }
               }

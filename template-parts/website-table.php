@@ -313,16 +313,31 @@
             $ga_array = explode(",", $get_ga);
             $ga_array = array_reverse($ga_array);
             $diff_ga = diffValue($ga_array[0], $ga_array[1]);
+
           ?>
           <div class="flex items-center">
             <div>
               <!-- value -->
               <span class="sort-value">
-                <?php echo $ga_array[0]; ?>
+                <?php 
+                $current_ga = $ga_array[0]; 
+                if ($current_ga > 1000) {
+                  echo $current_ga/1000; echo 'K';
+                } else {
+                  echo $current_ga;
+                } ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_ga['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                <?php echo $diff_ga['diff_order_sign']; echo $diff_ga['diff_order']; ?>
+                <?php 
+                  echo $diff_ga['diff_order_sign']; 
+                  $riznitsa_ga = $diff_ga['diff_order'];
+                  if ($riznitsa_ga > 1000) {
+                    echo $riznitsa_ga/1000; echo 'K';
+                  } else {
+                    echo $riznitsa_ga; 
+                  }
+                ?>
               </span>
             </div>
             <!-- icon graph -->
