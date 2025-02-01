@@ -304,6 +304,7 @@ $current_user_id = get_current_user_id();
         // endif; 
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
+
       <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; ?>
       <?php $current_week = array_slice($posts_by_day, 0, 7); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
@@ -405,6 +406,102 @@ $current_user_id = get_current_user_id();
       </div>
     </div>
   </div>
+
+  
 </div>
 <?php endif; ?>
+
+<!-- For Month -->
+<div class="container mx-auto mb-16">
+  <?php 
+  $tasks_month = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 1000) );
+  $tasks_month_posts_by_day = array_reduce( $tasks_month->posts, function( $r, $v ) {
+    $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
+    return $r;  
+  });
+  $mykolaev_month = 0;
+  $kuzmitska_month = 0;
+  $trikisha_month = 0;
+  $major_month = 0;
+  $svitlana_month = 0;
+
+  $mykolaev_qty = 0;
+  $kuzmitska_qty = 0;
+  $trikisha_qty = 0;
+  $major_qty = 0;
+  $svitlana_qty = 0;
+  foreach( $tasks_month_posts_by_day as $day => $day_posts ) : ?>
+    <?php 
+      $month = date( 'm', strtotime( $day ) );
+      $current_month = date('n');
+      if ($month === '01' ): 
+    ?>
+      <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
+        <?php
+        
+          $author_write = carbon_get_the_post_meta("crb_tasks_author");
+
+          if ($author_write === 'Лідія Кулик') {
+            $mykolaev_month = $mykolaev_month + 200;
+            $mykolaev_qty = $mykolaev_qty + 1;
+          } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
+            $kuzmitska_month = $kuzmitska_month + 150;
+            $kuzmitska_qty = $kuzmitska_qty + 1;
+            $mykolaev_month = $mykolaev_month + 50;
+          } elseif ($author_write === 'Аліна Трикіша') {
+            $trikisha_month = $trikisha_month + 175;
+            $trikisha_qty = $trikisha_qty + 1;
+            $mykolaev_month = $mykolaev_month + 50;
+          } elseif ($author_write === 'Настя Можаровська') {
+            $major_month = $major_month + 175;
+            $major_qty = $major_qty + 1;
+            $mykolaev_month = $mykolaev_month + 50;
+          } elseif ($author_write === 'Світлана') {
+            $svitlana_month = $svitlana_month + 175;
+            $svitlana_qty = $svitlana_qty + 1;
+            $mykolaev_month = $mykolaev_month + 50;
+          }
+        ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
+  <div>
+    <table class="min-w-full border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+      <thead class="bg-gray-200 text-gray-700 uppercase text-sm">
+        <tr>
+          <th class="px-6 py-3 text-left">Автор</th>
+          <th class="px-6 py-3 text-left">Кількість статей</th>
+          <th class="px-6 py-3 text-left">Зароблено</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-300">
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">Лідія Кулик</td>
+          <td class="px-6 py-4"><?php echo $mykolaev_qty; ?></td>
+          <td class="px-6 py-4"><?php echo $mykolaev_month; ?></td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">Ана-Катаріна Кузмицька</td>
+          <td class="px-6 py-4"><?php echo $kuzmitska_qty; ?></td>
+          <td class="px-6 py-4"><?php echo $kuzmitska_month; ?></td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">Аліна Трикіша</td>
+          <td class="px-6 py-4"><?php echo $trikisha_qty; ?></td>
+          <td class="px-6 py-4"><?php echo $trikisha_month; ?></td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">Настя Можаровська</td>
+          <td class="px-6 py-4"><?php echo $major_qty; ?></td>
+          <td class="px-6 py-4"><?php echo $major_month; ?></td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">Світлана</td>
+          <td class="px-6 py-4"><?php echo $svitlana_qty; ?></td>
+          <td class="px-6 py-4"><?php echo $svitlana_month; ?></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 <?php get_footer(); ?>
