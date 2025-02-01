@@ -412,9 +412,9 @@ $current_user_id = get_current_user_id();
 <?php endif; ?>
 
 <!-- For Month -->
-<div class="hidden container mx-auto mb-16">
+<div class="container mx-auto mb-16">
   <?php 
-  $tasks_month = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 1) );
+  $tasks_month = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 1000) );
   $tasks_month_posts_by_day = array_reduce( $tasks_month->posts, function( $r, $v ) {
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
     return $r;  
@@ -449,15 +449,15 @@ $current_user_id = get_current_user_id();
             $kuzmitska_qty = $kuzmitska_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           } elseif ($author_write === 'Аліна Трикіша') {
-            $trikisha_month = $trikisha_month + 175;
+            $trikisha_month = $trikisha_month + 150;
             $trikisha_qty = $trikisha_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           } elseif ($author_write === 'Настя Можаровська') {
-            $major_month = $major_month + 175;
+            $major_month = $major_month + 150;
             $major_qty = $major_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           } elseif ($author_write === 'Світлана') {
-            $svitlana_month = $svitlana_month + 175;
+            $svitlana_month = $svitlana_month + 150;
             $svitlana_qty = $svitlana_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           }
