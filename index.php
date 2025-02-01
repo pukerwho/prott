@@ -412,9 +412,9 @@ $current_user_id = get_current_user_id();
 <?php endif; ?>
 
 <!-- For Month -->
-<div class="container mx-auto mb-16">
+<div class="hidden container mx-auto mb-16">
   <?php 
-  $tasks_month = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 1000) );
+  $tasks_month = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 1) );
   $tasks_month_posts_by_day = array_reduce( $tasks_month->posts, function( $r, $v ) {
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
     return $r;  
