@@ -24,7 +24,7 @@ $current_user_id = get_current_user_id();
 
   <?php if ( $posts_by_day ) : ?>
     <div class="day-posts">
-      <?php $current_week = array_slice($posts_by_day, 0, 7); ?>
+      <?php $current_week = array_slice($posts_by_day, 0, 8); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
         <?php 
           $month = date( 'm', strtotime( $day ) );
@@ -306,7 +306,7 @@ $current_user_id = get_current_user_id();
       <?php endforeach; wp_reset_postdata(); ?>
 
       <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; ?>
-      <?php $current_week = array_slice($posts_by_day, 0, 7); ?>
+      <?php $current_week = array_slice($posts_by_day, 0, 8); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
         <!-- stat -->
         <?php 
