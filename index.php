@@ -253,6 +253,7 @@ $current_user_id = get_current_user_id();
                               <option value="Світлана">Світлана</option>
                               <option value="Аліна Трикіша">Аліна Трикіша</option>
                               <option value="Настя Можаровська">Настя Можаровська</option>
+                              <option value="Сергій Кулик">Сергій Кулик</option>
                             </select>
                           </div>
                           <div class="task-author-js" data-post-id="<?php echo $current_id; ?>">
@@ -305,7 +306,7 @@ $current_user_id = get_current_user_id();
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
 
-      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; ?>
+      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; $skuluk = 0; ?>
       <?php $current_week = array_slice($posts_by_day, 0, 8); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
         <!-- stat -->
@@ -330,6 +331,9 @@ $current_user_id = get_current_user_id();
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Настя Можаровська') {
                   $major = $major + 175;
+                  $mykolaev = $mykolaev + 50;
+                } elseif ($author_write === 'Сергій Кулик') {
+                  $skuluk = $skuluk + 175;
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Світлана') {
                   $svitlana = $svitlana + 175;
@@ -385,6 +389,15 @@ $current_user_id = get_current_user_id();
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Аліна Трикіша">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Сергій Кулик</div>
+          <div class="font-bold"><?php echo $skuluk; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Сергій Кулик">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
