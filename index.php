@@ -254,6 +254,7 @@ $current_user_id = get_current_user_id();
                               <option value="Аліна Трикіша">Аліна Трикіша</option>
                               <option value="Настя Можаровська">Настя Можаровська</option>
                               <option value="Сергій Кулик">Сергій Кулик</option>
+                              <option value="Єлизавета Будас">Єлизавета Будас</option>
                             </select>
                           </div>
                           <div class="task-author-js" data-post-id="<?php echo $current_id; ?>">
@@ -306,7 +307,7 @@ $current_user_id = get_current_user_id();
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
 
-      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; $skulyk = 0; ?>
+      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; $skulyk = 0; $lize = 0; ?>
       <?php $current_week = array_slice($posts_by_day, 0, 8); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
         <!-- stat -->
@@ -334,6 +335,9 @@ $current_user_id = get_current_user_id();
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Сергій Кулик') {
                   $skulyk = $skulyk + 175;
+                  $mykolaev = $mykolaev + 50;
+                } elseif ($author_write === 'Єлизавета Будас') {
+                  $liza = $liza + 175;
                   $mykolaev = $mykolaev + 50;
                 } elseif ($author_write === 'Світлана') {
                   $svitlana = $svitlana + 175;
@@ -402,6 +406,15 @@ $current_user_id = get_current_user_id();
       </div>
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
+          <div class="mr-2">Єлизавета Будас</div>
+          <div class="font-bold"><?php echo $liza; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Єлизавета Будас">Я оплатив!</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
           <div class="mr-2">Світлана</div>
           <div class="font-bold"><?php echo $svitlana; ?> грн.</div>
         </div>
@@ -437,12 +450,16 @@ $current_user_id = get_current_user_id();
   $trikisha_month = 0;
   $major_month = 0;
   $svitlana_month = 0;
+  $skulyk_month = 0;
+  $liza_month = 0;
 
   $mykolaev_qty = 0;
   $kuzmitska_qty = 0;
   $trikisha_qty = 0;
   $major_qty = 0;
   $svitlana_qty = 0;
+  $skulyk_qty = 0;
+  $liza_qty = 0;
   foreach( $tasks_month_posts_by_day as $day => $day_posts ) : ?>
     <?php 
       $month = date( 'm', strtotime( $day ) );
@@ -455,26 +472,30 @@ $current_user_id = get_current_user_id();
           $author_write = carbon_get_the_post_meta("crb_tasks_author");
 
           if ($author_write === 'Лідія Кулик') {
-            $mykolaev_month = $mykolaev_month + 200;
+            $mykolaev_month = $mykolaev_month + 225;
             $mykolaev_qty = $mykolaev_qty + 1;
           } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
-            $kuzmitska_month = $kuzmitska_month + 150;
+            $kuzmitska_month = $kuzmitska_month + 175;
             $kuzmitska_qty = $kuzmitska_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           } elseif ($author_write === 'Аліна Трикіша') {
-            $trikisha_month = $trikisha_month + 150;
+            $trikisha_month = $trikisha_month + 175;
             $trikisha_qty = $trikisha_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           } elseif ($author_write === 'Настя Можаровська') {
-            $major_month = $major_month + 150;
+            $major_month = $major_month + 175;
             $major_qty = $major_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           } elseif ($author_write === 'Сергій Кулик') {
-            $skulyk_month = $skulyk_month + 150;
+            $skulyk_month = $skulyk_month + 175;
             $skulyk_qty = $skulyk_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;  
+          } elseif ($author_write === 'Єлизавета Будас') {
+            $liza_month = $liza_month + 175;
+            $liza_qty = $liza_qty + 1;
+            $mykolaev_month = $mykolaev_month + 50;  
           } elseif ($author_write === 'Світлана') {
-            $svitlana_month = $svitlana_month + 150;
+            $svitlana_month = $svitlana_month + 175;
             $svitlana_qty = $svitlana_qty + 1;
             $mykolaev_month = $mykolaev_month + 50;
           }
@@ -516,6 +537,11 @@ $current_user_id = get_current_user_id();
           <td class="px-6 py-4">Сергій Кулик</td>
           <td class="px-6 py-4"><?php echo $skulyk_qty; ?></td>
           <td class="px-6 py-4"><?php echo $skulyk_month; ?></td>
+        </tr>
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">Єлизавета Будас</td>
+          <td class="px-6 py-4"><?php echo $liza_qty; ?></td>
+          <td class="px-6 py-4"><?php echo $liza_month; ?></td>
         </tr>
         <tr class="hover:bg-gray-100">
           <td class="px-6 py-4">Світлана</td>
