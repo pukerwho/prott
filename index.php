@@ -427,7 +427,7 @@ $current_user_id = get_current_user_id();
           <div>Загалом:</div>
         </div>
         <div class="w-1/3">
-          <span class="font-bold"><?php $total = $mykolaev + $trikisha + $kuzmitska + $major + $svitlana; echo $total; ?></span> грн.
+          <span class="font-bold"><?php $total = $mykolaev + $trikisha + $kuzmitska + $major + $svitlana + $liza + $skulyk; echo $total; ?></span> грн.
         </div>
       </div>
     </div>
