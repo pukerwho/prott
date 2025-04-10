@@ -1,164 +1,121 @@
-<div class="mb-6">
-  <input id="search_websites_box" placeholder="Пошук" class="w-full text-lg border border-gray-300 rounded p-4" />
-</div>
-<table id="mainsite-table" class="w-full table-fixed">
-  <thead class="text-sm border-b border-gray-200 bg-black/80 text-gray-200">
-    <tr>
-      <th class="w-[175px] text-left whitespace-nowrap py-2">
-        <div class="text-left font-bold pl-2"><?php _e("Сайт", "treba-wp"); ?></div>
-      </th>
-      <th class="text-left whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="1">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("Замовлень", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
+<div>
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center space-x-4">
+      <div>
+        <input id="search_websites_box" placeholder="Пошук" class="text-lg border border-gray-300 rounded-lg px-2 py-1" />
+      </div>
+      <div>
+        <div class="flex items-center space-x-3">
+          <span class="text-black font-semibold">Порівняння</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" value="" class="sr-only peer" checked>
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-transparent rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+          </label>
         </div>
-      </th>
-      <th class="text-left whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="2">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("DR", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-left whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="3">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("Keywords", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-left whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="4">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("TF", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-left whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="5">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("CF", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="6">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("GA, 30 days", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="7">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("GSC, 7 days", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="8">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("Рейтинг", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-      <th class="text-center whitespace-nowrap py-2 cursor-pointer sort-table-js" data-sort-id="9">
-        <div class="flex items-center">
-          <div class="text-left font-bold pl-2"><?php _e("Позиція", "treba-wp"); ?></div>
-          <div class="sort-arrow hidden ml-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-          </div>
-        </div>
-      </th>
-    </tr>
-  </thead>
-  <tbody class="text-sm">
+      </div>
+    </div>
+    <div class="bg-gray-200 rounded text-center px-4 py-2">
+      Експорт
+    </div>
+  </div>
+  <!-- Заголовки -->
+  <div id="header-row" class="flex bg-[#eeeeee] font-semibold text-sm text-gray-700 px-4 py-2 border-b sticky top-0 z-30">
+    <div class="w-8"><div class="w-[20px] flex justify-center">#</div></div>
+    <div class="w-48">URL</div>
+    <div class="w-24 cursor-pointer" data-sort="orders">Orders <span class="sort-direction"></span></div>
+    <div class="w-24 cursor-pointer" data-sort="dr">DR <span class="sort-direction"></span></div>
+    <div class="w-24 cursor-pointer" data-sort="kw">KW <span class="sort-direction"></span></div>
+    <div class="w-24 cursor-pointer" data-sort="tf">TF <span class="sort-direction"></span></div>
+    <div class="w-24 cursor-pointer" data-sort="cf">CF <span class="sort-direction"></span></div>
+    <div class="w-28 cursor-pointer" data-sort="ga">GA, 30d <span class="sort-direction"></span></div>
+    <div class="w-28 cursor-pointer" data-sort="gsc">GSC, 7d <span class="sort-direction"></span></div>
+    <div class="w-24 cursor-pointer" data-sort="clbrrating">Рейтинг <span class="sort-direction"></span></div>
+    <div class="w-24 cursor-pointer" data-sort="clbrposition">Позиція <span class="sort-direction"></span></div>
+  </div>
+  <!-- Цикл -->
+  <div id="mainsite-table" class="w-full overflow-x-auto">
     <?php 
-      $main_sites = new WP_Query( array( 
+      // 1. Отримуємо всі пости без сортування
+      $main_sites_query = new WP_Query( array( 
         'post_type' => 'websites', 
         'posts_per_page' => -1,
       ) );
-      if ($main_sites->have_posts()) : while ($main_sites->have_posts()) : $main_sites->the_post(); 
-    ?>
-      <?php $current_id = get_the_ID(); ?>
-      <tr class="website-tr border-b border-l border-gray-200" data-metadata='{"name": "website","category": "site","tag": ["<?php echo get_the_title(); ?>"]}'>
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
-          <div class="chart-week-<?php echo $current_id; ?>" data-week-array="<?php echo carbon_get_the_post_meta('crb_websites_week'); ?>"></div>
-          <div class="flex items-center">
-            <div class="hidden cursor-pointer mr-1 edit-modal-js" data-modal-id="edit-<?php echo $current_id; ?>">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
-            </div>
-            <div><?php the_title(); ?></div>
-          </div>
-          <div class="edit-modal px-8 py-6 " data-modal-id="edit-<?php echo $current_id; ?>">
-            <div class="modal-content">
-              <div class="modal-box w-max-[640px] bg-white min-h-full rounded-lg px-6 py-4">
-                <div class="text-xl mb-4">Оновлення показників</div>
-                <div class="mb-2">
-                  <div class="font-bold">Замовлень:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_orders">
-                </div>
-                <div class="mb-2">
-                  <div class="font-bold">DR:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_dr">
-                </div>
-                <div class="mb-2">
-                  <div class="font-bold">Keywords:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_keywords">
-                </div>
-                <div class="mb-2">
-                  <div class="font-bold">TF:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_tf">
-                </div>
-                <div class="mb-2">
-                  <div class="font-bold">CF:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_cf">
-                </div>
-                <div class="mb-2">
-                  <div class="font-bold">GA:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_ga">
-                </div>
-                <div class="mb-2">
-                  <div class="font-bold">GSC:</div>
-                  <input type="text" class="edit-meta w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-crb-value="_crb_websites_gsc">
-                </div>
-                <div class="edit-send-js bg-blue-500 text-white text-center rounded cursor-pointer px-4 py-2" data-modal-id="edit-<?php echo $current_id; ?>" data-post-id="<?php echo $current_id; ?>">Відправити</div>
-              </div>
-            </div>
-          </div>
-        </td>
-        <!-- Замовлення -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+
+      $main_sites = $main_sites_query->posts;
+
+      // 2. Сортуємо за останнім значенням у _crb_websites_orders
+      usort($main_sites, function($a, $b) {
+          $a_orders = get_post_meta($a->ID, '_crb_websites_orders', true);
+          $b_orders = get_post_meta($b->ID, '_crb_websites_orders', true);
+
+          $a_last = intval(array_slice(explode(',', $a_orders), -1)[0]);
+          $b_last = intval(array_slice(explode(',', $b_orders), -1)[0]);
+
+          return $b_last <=> $a_last; // по спаданню
+      });
+      ?>
+      <?php 
+      // Побудова рейтингу для визначення зміни позиції
+      $position_data = [];
+      foreach ($main_sites as $site) {
+        $orders_raw = get_post_meta($site->ID, '_crb_websites_orders', true);
+        $orders_array = array_map('intval', explode(',', $orders_raw));
+        $last = end($orders_array);
+        $prev = prev($orders_array);
+        $position_data[] = [
+          'id' => $site->ID,
+          'current' => $last,
+          'previous' => $prev,
+        ];
+      }
+      $rank_now = $rank_prev = $position_data;
+      usort($rank_now, fn($a, $b) => $b['current'] <=> $a['current']);
+      usort($rank_prev, fn($a, $b) => $b['previous'] <=> $a['previous']);
+      $positions_map = [];
+      foreach ($position_data as $item) {
+        $id = $item['id'];
+        $now = array_search($id, array_column($rank_now, 'id')) + 1;
+        $prev = array_search($id, array_column($rank_prev, 'id')) + 1;
+        $positions_map[$id] = $prev - $now;
+      }
+      ?>
+
+      <?php foreach ($main_sites as $post) : setup_postdata($post); ?>
+      <!-- Рядок -->
+      <?php 
+        $current_id = get_the_ID(); 
+        $position_change = $positions_map[$current_id] ?? 0;
+      ?>
+      <div class="website-tr flex items-center border-b px-4 py-2 hover:bg-gray-50 text-sm" data-metadata='{"name": "website","category": "site","tag": ["<?php echo get_the_title(); ?>"]}'>
+
+        <div class="w-8"> 
+          <div class="row-index w-[20px] h-[20px] flex items-center justify-center text-center text-white text-xs rounded <?php echo carbon_get_the_post_meta('crb_websites_gruop'); ?>"></div>
+        </div>
+        <div class="w-48 truncate text-blue-600 flex items-center gap-1">
+          <?php the_title(); ?>
+          <?php if ($position_change > 0): ?>
+            <span class="text-green-600 text-xs position_change">+<?= $position_change ?> 🔼</span>
+          <?php elseif ($position_change < 0): ?>
+            <span class="text-red-600 text-xs position_change"><?= $position_change ?> 🔽</span>
+          <?php endif; ?>
+        </div>
+        <!-- Замовлень --> 
+        <div class="w-24 orders">
           <?php 
             $get_orders = carbon_get_the_post_meta('crb_websites_orders');
             $orders_array = explode(",", $get_orders);
             $orders_array = array_reverse($orders_array);
             $diff_order = diffValue($orders_array[0], $orders_array[1]);
           ?>
-          <div class="flex items-center">
-            <div>
-              <!-- value -->
-              <span class="sort-value">
-                <?php echo $orders_array[0]; ?>
-              </span> 
-              <!-- diff -->
-              <span class="<?php echo $diff_order['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                <?php echo $diff_order['diff_order_sign']; echo $diff_order['diff_order']; ?>
-              </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="order-<?php echo $current_id; ?>" data-value-array="<?php echo $get_orders; ?>" data-value-label="Замовлення - <?php the_title(); ?>" data-chart-type="bar">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
-            </div>
+          <div>
+            <!-- value -->
+            <span class="sort-value cursor-pointer value-modal-js" data-modal-id="order-<?php echo $current_id; ?>" data-value-array="<?php echo $get_orders; ?>" data-value-label="Замовлення - <?php the_title(); ?>" data-chart-type="bar">
+              <?php echo $orders_array[0]; ?>
+            </span> 
+            <!-- diff -->
+            <span class="<?php echo $diff_order['diff_order_class']; ?> value-diff inline-block rounded ml-1">
+              <?php echo $diff_order['diff_order_sign']; echo $diff_order['diff_order']; ?>
+            </span>
           </div>
           <div class="chart-modal px-8 py-6 " data-modal-id="order-<?php echo $current_id; ?>">
             <div class="modal-content">
@@ -167,31 +124,27 @@
               </div>
             </div>
           </div>
-        </td>
+        </div>
         <!-- END Замовлення -->
 
         <!-- DR -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <div class="w-24 dr">
           <?php 
             $get_dr = carbon_get_the_post_meta('crb_websites_dr');
             $dr_array = explode(",", $get_dr);
             $dr_array = array_reverse($dr_array);
             $diff_dr = diffValue($dr_array[0], $dr_array[1]);
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="dr-<?php echo $current_id; ?>" data-value-array="<?php echo $get_dr; ?>" data-value-label="DR - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $dr_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_dr['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_dr['diff_order_sign']; echo $diff_dr['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="dr-<?php echo $current_id; ?>" data-value-array="<?php echo $get_dr; ?>" data-value-label="DR - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6 " data-modal-id="dr-<?php echo $current_id; ?>">
@@ -201,31 +154,27 @@
               </div>
             </div>
           </div>
-        </td>
+        </div>
         <!-- END DR -->
 
-        <!-- Keywords -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <!-- KEYWORDS -->
+        <div class="w-24 kw">
           <?php 
             $get_keywords = carbon_get_the_post_meta('crb_websites_keywords');
             $keywords_array = explode(",", $get_keywords);
             $keywords_array = array_reverse($keywords_array);
             $diff_keywords = diffValue($keywords_array[0], $keywords_array[1]);
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value value-modal-js" data-modal-id="keywords-<?php echo $current_id; ?>" data-value-array="<?php echo $get_keywords; ?>" data-value-label="Keywords - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $keywords_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_keywords['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_keywords['diff_order_sign']; echo $diff_keywords['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="keywords-<?php echo $current_id; ?>" data-value-array="<?php echo $get_keywords; ?>" data-value-label="Keywords - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6 " data-modal-id="keywords-<?php echo $current_id; ?>">
@@ -235,31 +184,27 @@
               </div>
             </div>
           </div>
-        </td>
-        <!-- END Keywords -->
+        </div>
+        <!-- END KEYWORDS -->
 
         <!-- TF -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <div class="w-24 tf">
           <?php 
             $get_tf = carbon_get_the_post_meta('crb_websites_tf');
             $tf_array = explode(",", $get_tf);
             $tf_array = array_reverse($tf_array);
             $diff_tf = diffValue($tf_array[0], $tf_array[1]);
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="TF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_tf; ?>" data-value-label="TF - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $tf_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_tf['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_tf['diff_order_sign']; echo $diff_tf['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="TF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_tf; ?>" data-value-label="TF - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6 " data-modal-id="TF-<?php echo $current_id; ?>">
@@ -269,31 +214,27 @@
               </div>
             </div>
           </div>
-        </td>
+        </div>
         <!-- END TF -->
 
         <!-- CF -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <div class="w-24 cf">
           <?php 
             $get_cf = carbon_get_the_post_meta('crb_websites_cf');
             $cf_array = explode(",", $get_cf);
             $cf_array = array_reverse($cf_array);
             $diff_cf = diffValue($cf_array[0], $cf_array[1]);
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="CF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_cf; ?>" data-value-label="CF - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $cf_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_cf['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_cf['diff_order_sign']; echo $diff_cf['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="CF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_cf; ?>" data-value-label="CF - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6" data-modal-id="CF-<?php echo $current_id; ?>">
@@ -303,11 +244,11 @@
               </div>
             </div>
           </div>
-        </td>
+        </div>
         <!-- END CF -->
 
         <!-- GA -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <div class="w-28 ga">
           <?php 
             $get_ga = carbon_get_the_post_meta('crb_websites_ga');
             $ga_array = explode(",", $get_ga);
@@ -315,10 +256,10 @@
             $diff_ga = diffValue($ga_array[0], $ga_array[1]);
 
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="cursor-pointer value-modal-js" data-modal-id="GA-<?php echo $current_id; ?>" data-value-array="<?php echo $get_ga; ?>" data-value-label="GA - <?php the_title(); ?>" data-chart-type="line">
                 <?php 
                 $current_ga = $ga_array[0]; 
                 if ($current_ga > 1000) {
@@ -327,6 +268,7 @@
                   echo $current_ga;
                 } ?>
               </span> 
+              <span class="sort-value hidden"><?php echo $current_ga; ?></span>
               <!-- diff -->
               <span class="<?php echo $diff_ga['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php 
@@ -340,10 +282,6 @@
                 ?>
               </span>
             </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="GA-<?php echo $current_id; ?>" data-value-array="<?php echo $get_ga; ?>" data-value-label="GA - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
-            </div>
           </div>
           <div class="chart-modal px-8 py-6" data-modal-id="GA-<?php echo $current_id; ?>">
             <div class="modal-content">
@@ -352,31 +290,27 @@
               </div>
             </div>
           </div>
-        </td>
+        </div>
         <!-- END GA -->
 
         <!-- GSC -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <div class="w-28 gsc">
           <?php 
             $get_gsc = carbon_get_the_post_meta('crb_websites_gsc');
             $gsc_array = explode(",", $get_gsc);
             $gsc_array = array_reverse($gsc_array);
             $diff_gsc = diffValue($gsc_array[0], $gsc_array[1]);
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="GSC-<?php echo $current_id; ?>" data-value-array="<?php echo $get_gsc; ?>" data-value-label="GSC - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $gsc_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_gsc['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_gsc['diff_order_sign']; echo $diff_gsc['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="GSC-<?php echo $current_id; ?>" data-value-array="<?php echo $get_gsc; ?>" data-value-label="GSC - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6" data-modal-id="GSC-<?php echo $current_id; ?>">
@@ -386,31 +320,27 @@
               </div>
             </div>
           </div>
-        </td>
+        </div>
         <!-- END GSC -->
 
-        <!-- Clbr Rating -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <!-- RATING -->
+        <div class="w-24 clbrrating">
           <?php 
             $get_colbr_rating = carbon_get_the_post_meta('crb_websites_colbr_rating');
             $colbr_rating_array = explode(",", $get_colbr_rating);
             $colbr_rating_array = array_reverse($colbr_rating_array);
             $diff_colbr_rating = diffValue($colbr_rating_array[0], $colbr_rating_array[1]);
           ?>
-          <div class="flex items-center">
+          <div>
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="colbr_rating-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_rating; ?>" data-value-label="Рейтинг - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $colbr_rating_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_colbr_rating['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_colbr_rating['diff_order_sign']; echo $diff_colbr_rating['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="colbr_rating-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_rating; ?>" data-value-label="Рейтинг - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6 " data-modal-id="colbr_rating-<?php echo $current_id; ?>">
@@ -420,11 +350,11 @@
               </div>
             </div>
           </div>
-        </td>
-        <!-- END Clbr Rating -->
+        </div>
+        <!-- END RATING -->
 
-        <!-- Clbr Position -->
-        <td class="whitespace-nowrap border-r border-gray-200 px-2 py-2">
+        <!-- POSITION -->
+        <div class="w-24 clbrposition">
           <?php 
             $get_colbr_position = carbon_get_the_post_meta('crb_websites_colbr_position');
             $colbr_position_array = explode(",", $get_colbr_position);
@@ -434,17 +364,13 @@
           <div class="flex items-center">
             <div>
               <!-- value -->
-              <span class="sort-value">
+              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="colbr_position-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_position; ?>" data-value-label="Позиції - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $colbr_position_array[0]; ?>
               </span> 
               <!-- diff -->
               <span class="<?php echo $diff_colbr_position['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php echo $diff_colbr_position['diff_order_sign']; echo $diff_colbr_position['diff_order']; ?>
               </span>
-            </div>
-            <!-- icon graph -->
-            <div class="cursor-pointer ml-1 value-modal-js" data-modal-id="colbr_position-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_position; ?>" data-value-label="Позиції - <?php the_title(); ?>" data-chart-type="line">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" /></svg>
             </div>
           </div>
           <div class="chart-modal px-8 py-6 " data-modal-id="colbr_position-<?php echo $current_id; ?>">
@@ -454,157 +380,9 @@
               </div>
             </div>
           </div>
-        </td>
-        <!-- END Clbr Position -->
-
-        <td class="hidden whitespace-nowrap py-2">
-          <div class="text-blue-500 cursor-pointer detail-click-js" data-detail-id="Website-Drops-<?php echo $current_id; ?>">Детальніше</div>
-          <div class="detail-modal px-8 py-6" data-detail-modal="Website-Drops-<?php echo $current_id; ?>">
-            <div class="modal-content">
-              <div class="modal-box max-w-[640px] bg-white min-h-full rounded-lg px-6 py-4">
-                <table class="w-full table-fixed">
-                  <thead class="text-sm border-b border-gray-200 text-gray-600">
-                    <tr>
-                      <th class="w-[175px] text-left whitespace-nowrap py-2">
-                        <div class="text-left font-bold"><?php _e("Сайт", "treba-wp"); ?></div>
-                      </th>
-                      <th class="text-left whitespace-nowrap py-2 cursor-pointer">
-                        <div class="text-left font-bold"><?php _e("DR", "treba-wp"); ?></div>
-                      </th>
-                      <th class="text-center whitespace-nowrap py-2 cursor-pointer">
-                        <div class="text-left font-bold"><?php _e("TF", "treba-wp"); ?></div>
-                      </th>
-                      <th class="text-center whitespace-nowrap py-2 cursor-pointer">
-                        <div class="text-left font-bold"><?php _e("CF", "treba-wp"); ?></div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-sm">
-                    <tr class="bg-gray-100">
-                      <td class="whitespace-nowrap py-2"><?php the_title(); ?></td>
-                      <td class="whitespace-nowrap py-2">
-                        <div>
-                          <!-- value -->
-                          <span class="sort-value">
-                            <?php echo $dr_array[0]; ?>
-                          </span> 
-                          <!-- diff -->
-                          <span class="<?php echo $diff_dr['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                            <?php echo $diff_dr['diff_order_sign']; echo $diff_dr['diff_order']; ?>
-                          </span>
-                        </div>
-                      </td>
-                      <td class="whitespace-nowrap py-2">
-                        <div>
-                          <!-- value -->
-                          <span class="sort-value">
-                            <?php echo $tf_array[0]; ?>
-                          </span> 
-                          <!-- diff -->
-                          <span class="<?php echo $diff_tf['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                            <?php echo $diff_tf['diff_order_sign']; echo $diff_tf['diff_order']; ?>
-                          </span>
-                        </div>
-                      </td>
-                      <td class="whitespace-nowrap py-2">
-                        <div>
-                          <!-- value -->
-                          <span class="sort-value">
-                            <?php echo $cf_array[0]; ?>
-                          </span> 
-                          <!-- diff -->
-                          <span class="<?php echo $diff_cf['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                            <?php echo $diff_cf['diff_order_sign']; echo $diff_cf['diff_order']; ?>
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php 
-                      $drops = new WP_Query( array( 
-                        'post_type' => 'drops', 
-                        'posts_per_page' => -1,
-
-                        'meta_query' => array(
-                          array(
-                            'key'     => '_crb_drops_websites',
-                            'value'   => 'post:websites:'.$current_id,
-                            'compare' => 'IN', 
-                          )
-                        )
-                      ) );
-                      if ($drops->have_posts()) : while ($drops->have_posts()) : $drops->the_post(); 
-                    ?>
-                    <tr>
-                      <td class="whitespace-nowrap py-2"><?php the_title(); ?></td>
-                      <td class="whitespace-nowrap py-2">
-                        <?php 
-                          $get_drop_website_dr = carbon_get_the_post_meta('crb_drops_dr');
-                          $drop_website_array_dr = explode(",", $get_drop_website_dr);
-                          $drop_website_array_dr = array_reverse($drop_website_array_dr);
-                          $diff_drop_website_dr = diffValue($drop_website_array_dr[0], $drop_website_array_dr[1]);
-                        ?>
-                        <div class="flex items-center">
-                          <div>
-                            <!-- value -->
-                            <span class="sort-value-drop">
-                              <?php echo $drop_website_array_dr[0]; ?>
-                            </span> 
-                            <!-- diff -->
-                            <span class="<?php echo $diff_drop_website_dr['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                              <?php echo $diff_drop_website_dr['diff_order_sign']; echo $diff_drop_website_dr['diff_order']; ?>
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="whitespace-nowrap py-2">
-                        <?php 
-                          $get_drop_website_tf = carbon_get_the_post_meta('crb_drops_tf');
-                          $drop_website_array_tf = explode(",", $get_drop_website_tf);
-                          $drop_website_array_tf = array_reverse($drop_website_array_tf);
-                          $diff_drop_website_tf = diffValue($drop_website_array_tf[0], $drop_website_array_tf[1]);
-                        ?>
-                        <div class="flex items-center">
-                          <div>
-                            <!-- value -->
-                            <span class="sort-value-drop">
-                              <?php echo $drop_website_array_tf[0]; ?>
-                            </span> 
-                            <!-- diff -->
-                            <span class="<?php echo $diff_drop_website_tf['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                              <?php echo $diff_drop_website_tf['diff_order_sign']; echo $diff_drop_website_tf['diff_order']; ?>
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="whitespace-nowrap py-2">
-                        <?php 
-                          $get_drop_website_cf = carbon_get_the_post_meta('crb_drops_cf');
-                          $drop_website_array_cf = explode(",", $get_drop_website_cf);
-                          $drop_website_array_cf = array_reverse($drop_website_array_cf);
-                          $diff_drop_website_cf = diffValue($drop_website_array_cf[0], $drop_website_array_cf[1]);
-                        ?>
-                        <div class="flex items-center">
-                          <div>
-                            <!-- value -->
-                            <span class="sort-value-drop">
-                              <?php echo $drop_website_array_cf[0]; ?>
-                            </span> 
-                            <!-- diff -->
-                            <span class="<?php echo $diff_drop_website_cf['diff_order_class']; ?> value-diff inline-block rounded ml-1">
-                              <?php echo $diff_drop_website_cf['diff_order_sign']; echo $diff_drop_website_cf['diff_order']; ?>
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php endwhile; endif; wp_reset_postdata(); ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-    <?php endwhile; endif; wp_reset_postdata(); ?>
-  </tbody>
-</table>
+        </div>
+        <!-- END POSITION -->
+      </div>
+    <?php endforeach; wp_reset_postdata(); ?>
+  </div>
+</div>

@@ -33,6 +33,14 @@ function crb_post_theme_options() {
       Field::make( 'text', 'crb_websites_gsc', 'GSC' ),
       Field::make( 'text', 'crb_websites_colbr_rating', 'КолабРейтинг' ),
       Field::make( 'text', 'crb_websites_colbr_position', 'КолабПозиція' ),
+      Field::make( 'separator', 'crb_separator', __( 'Інше' ) ),
+      Field::make( 'select', 'crb_websites_gruop', __( 'Группа/Аккаунт' ) )
+      ->set_options( array(
+        'account_color_one' => 'Перший',
+        'account_color_two' => 'Другий',
+        'account_color_three' => 'Третій',
+        'account_color_new' => 'Наповнненя',
+      ) ),
       // Field::make( 'text', 'crb_websites_week', 'Update Week' ),
   ) );
   Container::make( 'post_meta', 'More' )
