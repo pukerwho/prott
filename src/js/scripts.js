@@ -124,16 +124,21 @@ const updateVisibility = () => {
     el.setAttribute('style', style);
   });
 };
-toggle.addEventListener('change', updateVisibility);
+if (toggle) {
+  toggle.addEventListener('change', updateVisibility);
+}
+
 updateVisibility(); // оновити після завантаження
 
 //сортування 
-
 let currentSortKey = null;
 let sortAscending = false;
 const headers = document.querySelectorAll("[data-sort]");
 const table = document.querySelector("#mainsite-table");
-const rows = Array.from(table.querySelectorAll(".website-tr"));
+if (table) {
+  const rows = Array.from(table.querySelectorAll(".website-tr"));
+}
+
 const headerRow = document.getElementById("header-row");
 
 headers.forEach(header => {
