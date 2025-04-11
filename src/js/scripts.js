@@ -136,7 +136,7 @@ let sortAscending = false;
 const headers = document.querySelectorAll("[data-sort]");
 const table = document.querySelector("#mainsite-table");
 if (table) {
-  const rows = Array.from(table.querySelectorAll(".website-tr"));
+  rows = Array.from(table.querySelectorAll(".website-tr"));
 }
 
 const headerRow = document.getElementById("header-row");
