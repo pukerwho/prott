@@ -41,7 +41,7 @@ function crb_post_theme_options() {
         'account_color_three' => 'Третій',
         'account_color_new' => 'Наповнненя',
       ) ),
-      // Field::make( 'text', 'crb_websites_week', 'Update Week' ),
+      Field::make( 'text', 'crb_websites_number', 'Порядок для експорта' ),
   ) );
   Container::make( 'post_meta', 'More' )
     ->where( 'post_type', '=', 'drops' )

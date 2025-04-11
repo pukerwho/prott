@@ -13,3 +13,4 @@ import "./tasks/task-link.js";
 import "./websites/sort-table.js";
 import "./websites/chart.js";
 import "./websites/edit.js";
+import "./export.js";

@@ -14,14 +14,14 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-200 rounded text-center px-4 py-2">
+    <div class="еxport_button bg-gray-200 rounded text-center px-4 py-2 cursor-pointer">
       Експорт
     </div>
   </div>
   <!-- Заголовки -->
   <div id="header-row" class="flex bg-[#eeeeee] font-semibold text-sm text-gray-700 px-4 py-2 border-b sticky top-0 z-30">
-    <div class="w-8"><div class="w-[20px] flex justify-center">#</div></div>
-    <div class="w-48">URL</div>
+    <div class="w-8"><div class="w-[20px] flex justify-center" data-sort="#">#</div></div>
+    <div class="w-48" data-sort="url">URL</div>
     <div class="w-24 cursor-pointer" data-sort="orders">Orders <span class="sort-direction"></span></div>
     <div class="w-24 cursor-pointer" data-sort="dr">DR <span class="sort-direction"></span></div>
     <div class="w-24 cursor-pointer" data-sort="kw">KW <span class="sort-direction"></span></div>
@@ -86,13 +86,13 @@
         $current_id = get_the_ID(); 
         $position_change = $positions_map[$current_id] ?? 0;
       ?>
-      <div class="website-tr flex items-center border-b px-4 py-2 hover:bg-gray-50 text-sm" data-metadata='{"name": "website","category": "site","tag": ["<?php echo get_the_title(); ?>"]}'>
+      <div class="website-tr flex items-center border-b px-4 py-2 hover:bg-gray-50 text-sm" data-metadata='{"name": "website","category": "site","tag": ["<?php echo get_the_title(); ?>"]}' data-site-number="<?php echo carbon_get_the_post_meta('crb_websites_number'); ?>">
 
         <div class="w-8"> 
-          <div class="row-index w-[20px] h-[20px] flex items-center justify-center text-center text-white text-xs rounded <?php echo carbon_get_the_post_meta('crb_websites_gruop'); ?>"></div>
+          <div class="row-value row-index w-[20px] h-[20px] flex items-center justify-center text-center text-white text-xs rounded <?php echo carbon_get_the_post_meta('crb_websites_gruop'); ?>"></div>
         </div>
         <div class="w-48 truncate text-blue-600 flex items-center gap-1">
-          <?php the_title(); ?>
+          <span class="row-value"><?php the_title(); ?></span>
           <?php if ($position_change > 0): ?>
             <span class="text-green-600 text-xs position_change">+<?= $position_change ?> 🔼</span>
           <?php elseif ($position_change < 0): ?>
@@ -109,7 +109,7 @@
           ?>
           <div>
             <!-- value -->
-            <span class="sort-value cursor-pointer value-modal-js" data-modal-id="order-<?php echo $current_id; ?>" data-value-array="<?php echo $get_orders; ?>" data-value-label="Замовлення - <?php the_title(); ?>" data-chart-type="bar">
+            <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="order-<?php echo $current_id; ?>" data-value-array="<?php echo $get_orders; ?>" data-value-label="Замовлення - <?php the_title(); ?>" data-chart-type="bar">
               <?php echo $orders_array[0]; ?>
             </span> 
             <!-- diff -->
@@ -138,7 +138,7 @@
           <div>
             <div>
               <!-- value -->
-              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="dr-<?php echo $current_id; ?>" data-value-array="<?php echo $get_dr; ?>" data-value-label="DR - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="dr-<?php echo $current_id; ?>" data-value-array="<?php echo $get_dr; ?>" data-value-label="DR - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $dr_array[0]; ?>
               </span> 
               <!-- diff -->
@@ -168,7 +168,7 @@
           <div>
             <div>
               <!-- value -->
-              <span class="sort-value value-modal-js" data-modal-id="keywords-<?php echo $current_id; ?>" data-value-array="<?php echo $get_keywords; ?>" data-value-label="Keywords - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value value-modal-js" data-modal-id="keywords-<?php echo $current_id; ?>" data-value-array="<?php echo $get_keywords; ?>" data-value-label="Keywords - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $keywords_array[0]; ?>
               </span> 
               <!-- diff -->
@@ -198,7 +198,7 @@
           <div>
             <div>
               <!-- value -->
-              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="TF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_tf; ?>" data-value-label="TF - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="TF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_tf; ?>" data-value-label="TF - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $tf_array[0]; ?>
               </span> 
               <!-- diff -->
@@ -228,7 +228,7 @@
           <div>
             <div>
               <!-- value -->
-              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="CF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_cf; ?>" data-value-label="CF - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="CF-<?php echo $current_id; ?>" data-value-array="<?php echo $get_cf; ?>" data-value-label="CF - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $cf_array[0]; ?>
               </span> 
               <!-- diff -->
@@ -268,7 +268,7 @@
                   echo $current_ga;
                 } ?>
               </span> 
-              <span class="sort-value hidden"><?php echo $current_ga; ?></span>
+              <span class="row-value sort-value hidden"><?php echo $current_ga; ?></span>
               <!-- diff -->
               <span class="<?php echo $diff_ga['diff_order_class']; ?> value-diff inline-block rounded ml-1">
                 <?php 
@@ -304,7 +304,7 @@
           <div>
             <div>
               <!-- value -->
-              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="GSC-<?php echo $current_id; ?>" data-value-array="<?php echo $get_gsc; ?>" data-value-label="GSC - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="GSC-<?php echo $current_id; ?>" data-value-array="<?php echo $get_gsc; ?>" data-value-label="GSC - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $gsc_array[0]; ?>
               </span> 
               <!-- diff -->
@@ -334,7 +334,7 @@
           <div>
             <div>
               <!-- value -->
-              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="colbr_rating-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_rating; ?>" data-value-label="Рейтинг - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="colbr_rating-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_rating; ?>" data-value-label="Рейтинг - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $colbr_rating_array[0]; ?>
               </span> 
               <!-- diff -->
@@ -364,7 +364,7 @@
           <div class="flex items-center">
             <div>
               <!-- value -->
-              <span class="sort-value cursor-pointer value-modal-js" data-modal-id="colbr_position-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_position; ?>" data-value-label="Позиції - <?php the_title(); ?>" data-chart-type="line">
+              <span class="row-value sort-value cursor-pointer value-modal-js" data-modal-id="colbr_position-<?php echo $current_id; ?>" data-value-array="<?php echo $get_colbr_position; ?>" data-value-label="Позиції - <?php the_title(); ?>" data-chart-type="line">
                 <?php echo $colbr_position_array[0]; ?>
               </span> 
               <!-- diff -->
