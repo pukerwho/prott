@@ -14,7 +14,7 @@ $current_user_id = get_current_user_id();
       <div>Оплата</div>
     </div>
   </div>
-  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 150) );?>
+  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 170) );?>
   <?php 
   $posts_by_day = array_reduce( $tasks->posts, function( $r, $v ) {
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
