@@ -24,7 +24,7 @@ $current_user_id = get_current_user_id();
 
   <?php if ( $posts_by_day ) : ?>
     <div class="day-posts">
-      <?php $current_week = array_slice($posts_by_day, 0, 14); ?>
+      <?php $current_week = array_slice($posts_by_day, 0, 15); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
         <?php 
           $month = date( 'm', strtotime( $day ) );
