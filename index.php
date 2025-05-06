@@ -417,7 +417,7 @@ $current_month = date('n');
 
 <div class="modal px-8 py-6" data-modal-id="modal-pay">
   <div class="modal-content">
-    <div class="modal-box w-2/3 bg-white min-h-full rounded-lg px-6 py-4">
+    <div class="modal-box w-2/3 bg-white min-h-full rounded-lg p-4">
       <div class="hidden flex-wrap bg-gray-200 rounded-lg p-1 mb-2">
         <div class="tab w-1/2 active" data-tab="week">За цей тиждень</div>
         <div class="tab w-1/2" data-tab="month">За <?php echo $months[$current_month]; ?></div>
