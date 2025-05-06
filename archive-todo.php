@@ -69,7 +69,6 @@ $current_user_id = get_current_user_id();
       <!-- end new todo btn -->
     </div>
     
-    
     <div>
       <table class="w-full table-auto text-sm prott-table">
         <thead class="bg-[#eeeeee] font-semibold text-sm text-gray-700">

@@ -1,20 +1,23 @@
 body {
-  font-family: BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  font-family: BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
 .breadcrumbs {
   &_item {
     position: relative;
+
     &:first-of-type {
       background: url("../../images/home.svg");
       background-repeat: no-repeat;
       background-size: contain;
     }
+
     &:last-of-type {
       &:after {
         content: none;
       }
     }
+
     &:after {
       content: "";
       width: 10px;
@@ -42,22 +45,26 @@ body {
     color: #000000;
     background-color: transparent;
     border: 1px solid;
-    border-color: rgba(31,41,55,1);
+    border-color: rgba(31, 41, 55, 1);
     border-radius: 0.25rem;
     margin-bottom: 8px;
+
     &:hover {
       background-color: rgba(28, 33, 38, 1);
       color: #ffffff;
     }
+
     &.current {
       background-color: rgba(28, 33, 38, 1);
       color: #ffffff;
     }
+
     &.prev {
       &:before {
         content: "⬅";
       }
     }
+
     &.next {
       &:before {
         content: "⮕";
@@ -73,5 +80,9 @@ body {
 }
 
 .text-balance {
-  text-wrap: balance; 
+  text-wrap: balance;
+}
+
+.crossed {
+  background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px);
 }

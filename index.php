@@ -32,6 +32,46 @@ $users = [
   ]
 ];
 
+$args = array(
+  'post_type' => 'tasks',
+  'posts_per_page' => -1,
+  'date_query' => array(
+    array(
+      'after' => '7 days ago',
+      'inclusive' => true,
+    ),
+  ),
+);
+$tasks = new WP_Query($args);
+
+$args_month = array(
+  'post_type' => 'tasks',
+  'posts_per_page' => -1,
+  'date_query' => array(
+    array(
+      'after' => '300 days ago',
+      'inclusive' => true,
+    ),
+  ),
+);
+$tasks_month = new WP_Query($args_month);
+
+$months = [
+  1 => 'січень',
+  2 => 'лютий',
+  3 => 'березень',
+  4 => 'квітень',
+  5 => 'травень',
+  6 => 'червень',
+  7 => 'липень',
+  8 => 'серпень',
+  9 => 'вересень',
+  10 => 'жовтень',
+  11 => 'листопад',
+  12 => 'грудень',
+];
+
+$current_month = date('n');
 ?>
 
 <?php if ($current_user_id === 1 || $current_user_id === 2): ?>
@@ -53,8 +93,8 @@ $users = [
     </div>
     <?php endif; ?>
   </div>
-  <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 200) );?>
   <?php 
+  
   $posts_by_day = array_reduce( $tasks->posts, function( $r, $v ) {
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
     return $r;  
@@ -324,7 +364,7 @@ $users = [
                           <?php if ($task_post_link): ?>
                             <div class="w-1/4 px-1">
                               <?php $get_tasks_complete = carbon_get_the_post_meta("crb_tasks_complete"); ?>
-                              <div class="<?php echo ($get_tasks_complete == 'yes') ? 'bg-green-500 text-white' : 'border border-gray-800 text-gray-800'; ?> <?php echo ($current_user_id == '1') ? 'task-complete-js': ''; ?> flex items-center justify-center rounded cursor-pointer px-2 py-1" data-post-id="<?php echo $current_id; ?>">
+                              <div class="btn-complete <?php echo ($get_tasks_complete == 'yes') ? 'bg-green-500 text-white' : 'border border-gray-800 text-gray-800'; ?> <?php echo ($current_user_id == '1') ? 'task-complete-js': ''; ?> flex items-center justify-center rounded cursor-pointer px-2 py-1" data-post-id="<?php echo $current_id; ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                               </div>
                             <?php endif; ?>
@@ -343,182 +383,80 @@ $users = [
         // endif; 
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
-
-      <?php 
-        $earnings_now = [];
-        foreach ($users as $user) {
-          $earnings_now[$user['name']] = 0;
-        }
-      ?>
-      <?php $current_week = array_slice($posts_by_day, 0, 8); ?>
-      <?php foreach( $current_week as $day => $day_posts ) : ?>
-        <!-- stat -->
-        <?php 
-          $month = date( 'm', strtotime( $day ) );
-          $current_month = date('n');
-          // if ($month === $current_month): 
-        ?>
-          <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
-            <?php
-              $author_write = carbon_get_the_post_meta("crb_tasks_author");
-              $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
-              if ($check_pay_status != "yes" && isset($earnings_now[$author_write]) && $author_write !== 'Світлана') {
-                if ($author_write === 'Лідія Кулик') {
-                  $earnings_now['Лідія Кулик'] += 225;
-                } else {
-                  $earnings_now[$author_write] += 175;
-                  $earnings_now['Лідія Кулик'] += 50;
-                }
-              }
-            ?>
-          <?php endforeach; ?>
-        <?php 
-          // endif; 
-        ?>
-      <?php endforeach; wp_reset_postdata(); ?>
-      
     </div>
   <?php endif; ?>
 </div>
 
+
+<!-- ОПЛАТА ЗА ТИЖДЕНЬ -->
+<?php 
+  $earnings_now = [];
+  $quantities_now = [];
+  foreach ($users as $user) {
+    $earnings_now[$user['name']] = 0;
+    $quantities_now[$user['name']] = 0;
+  }
+?>
+<?php if ($tasks->have_posts()) : while ($tasks->have_posts()) : $tasks->the_post(); ?>
+  <?php
+    $author_write = carbon_get_the_post_meta("crb_tasks_author");
+    $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
+    if ($check_pay_status != "yes" && isset($earnings_now[$author_write]) && $author_write !== 'Світлана') {
+      if ($author_write === 'Лідія Кулик') {
+        $earnings_now['Лідія Кулик'] += 225;
+        $quantities_now[$author_write] += 1;
+      } else {
+        $earnings_now[$author_write] += 175;
+        $quantities_now[$author_write] += 1;
+        $earnings_now['Лідія Кулик'] += 50;
+      }
+    }
+  ?>
+<?php endwhile; endif; wp_reset_postdata(); ?>
+<!-- END ОПЛАТА ЗА ТИЖДЕНЬ -->
+
 <div class="modal px-8 py-6" data-modal-id="modal-pay">
   <div class="modal-content">
     <div class="modal-box w-2/3 bg-white min-h-full rounded-lg px-6 py-4">
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Лідія Кулик</div>
-          <div class="font-bold"><?php echo $earnings_now['Лідія Кулик']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Лідія Кулик">Я оплатив!</div>
-        </div>
+      <div class="hidden flex-wrap bg-gray-200 rounded-lg p-1 mb-2">
+        <div class="tab w-1/2 active" data-tab="week">За цей тиждень</div>
+        <div class="tab w-1/2" data-tab="month">За <?php echo $months[$current_month]; ?></div>
       </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Ана-Катаріна Кузмицька</div>
-          <div class="font-bold"><?php echo $earnings_now['Ана-Катаріна Кузмицька']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Ана-Катаріна Кузмицька">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Настя Можаровська</div>
-          <div class="font-bold"><?php echo $earnings_now['Настя Можаровська']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Настя Можаровська">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Аліна Трикіша</div>
-          <div class="font-bold"><?php echo $earnings_now['Аліна Трикіша']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Аліна Трикіша">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Сергій Кулик</div>
-          <div class="font-bold"><?php echo $earnings_now['Сергій Кулик']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Сергій Кулик">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Єлизавета Будас</div>
-          <div class="font-bold"><?php echo $earnings_now['Єлизавета Будас']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Єлизавета Будас">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Тетяна Ковальчук</div>
-          <div class="font-bold"><?php echo $earnings_now['Тетяна Ковальчук']; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Тетяна Ковальчук">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center">
-        <div class="flex items-center text-lg">
-          <div>Загалом:</div>
-        </div>
-        <div class="w-1/3">
-          <span class="font-bold"><?php 
-            $total = array_sum($earnings_now); 
-            echo $total; 
-          ?></span> грн.
-        </div>
+      <div  class="tab-content" data-content="week">
+        <table class="w-full text-sm">
+          <thead class="border-b border-gray-200 bg-black/80 text-gray-200 text-left">
+            <tr>
+              <th class="p-2">Автор</th>
+              <th class="p-2">Кількість статей</th>
+              <th class="p-2">Зароблено</th>
+              <th class="p-2">Оплата</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-300">
+            <?php foreach ($earnings_now as $author => $amount): ?>
+              <tr class="odd:bg-white even:bg-gray-100 border-b user-row">
+                <td class="border-r border-l p-2"><?php echo $author; ?></td>
+                <td class="border-r p-2"><?php echo $quantities_now[$author] ?? 0; ?></td>
+                <td class="border-r p-2"><?php echo $amount; ?> грн.</td>
+                <td class="border-r p-2">
+                  <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="<?php echo $author; ?>">Я оплатив!</div>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            <tr class="border-b border-gray-200 bg-green-100 text-left">
+              <td class="font-bold border-r border-l p-2">Загалом:</td>
+              <td class="border-r border-l p-2"><?php echo array_sum($quantities_now); ?></td>
+              <td class="border-r border-l p-2"><span id="all-work"><?php echo array_sum($earnings_now); ?> грн.</span></td>
+              <td class="crossed"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
 <?php endif; ?>
 
-<!-- For Month -->
-<div class="hidden container mx-auto mb-16">
-  <?php 
-  $tasks_month = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 1) );
-  $tasks_month_posts_by_day = array_reduce( $tasks_month->posts, function( $r, $v ) {
-    $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
-    return $r;  
-  });
-  $earnings_month = [];
-  $quantities_month = [];
-  foreach ($users as $user) {
-    $earnings_month[$user['name']] = 0;
-    $quantities_month[$user['name']] = 0;
-  }
-  foreach( $tasks_month_posts_by_day as $day => $day_posts ) : ?>
-    <?php 
-      $month = date( 'm', strtotime( $day ) );
-      $current_month = date('n');
-      if ($month === '04' ): 
-    ?>
-      <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
-        <?php
-          $author_write = carbon_get_the_post_meta("crb_tasks_author");
-          if (isset($earnings_month[$author_write]) && $author_write !== 'Світлана') {
-            if ($author_write === 'Лідія Кулик') {
-              $earnings_month['Лідія Кулик'] += 225;
-              $quantities_month[$author_write] += 1;
-            } else {
-              $earnings_month[$author_write] += 175;
-              $quantities_month[$author_write] += 1;
-              $earnings_month['Лідія Кулик'] += 50;
-            }
-          }
-        ?>
-      <?php endforeach; ?>
-    <?php endif; ?>
-  <?php endforeach; ?>
-  <div>
-    <table class="min-w-full border border-gray-300 shadow-lg rounded-lg overflow-hidden">
-      <thead class="bg-gray-200 text-gray-700 uppercase text-sm">
-        <tr>
-          <th class="px-6 py-3 text-left">Автор</th>
-          <th class="px-6 py-3 text-left">Кількість статей</th>
-          <th class="px-6 py-3 text-left">Зароблено</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-300">
-        <?php foreach ($earnings_month as $author => $amount): ?>
-          <tr class="hover:bg-gray-100">
-            <td class="px-6 py-4"><?php echo $author; ?></td>
-            <td class="px-6 py-4"><?php echo $quantities_month[$author]; ?></td>
-            <td class="px-6 py-4"><?php echo $amount; ?></td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  </div>
-</div>
+
+
 <?php get_footer(); ?>
