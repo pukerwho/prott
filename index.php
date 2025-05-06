@@ -37,7 +37,7 @@ $args = array(
   'posts_per_page' => -1,
   'date_query' => array(
     array(
-      'after' => '7 days ago',
+      'after' => '8 days ago',
       'inclusive' => true,
     ),
   ),
@@ -433,6 +433,10 @@ $current_month = date('n');
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-300">
+            <?php
+              arsort($quantities_now);
+              $earnings_now = array_replace(array_flip(array_keys($quantities_now)), $earnings_now);
+            ?>
             <?php foreach ($earnings_now as $author => $amount): ?>
               <tr class="odd:bg-white even:bg-gray-100 border-b user-row">
                 <td class="border-r border-l p-2"><?php echo $author; ?></td>
