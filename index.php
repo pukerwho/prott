@@ -443,7 +443,7 @@ $current_month = date('n');
                 <td class="border-r p-2"><?php echo $quantities_now[$author] ?? 0; ?></td>
                 <td class="border-r p-2"><?php echo $amount; ?> грн.</td>
                 <td class="border-r p-2">
-                  <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="<?php echo $author; ?>">Я оплатив!</div>
+                  <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="<?php echo $author; ?>">Я оплатив</div>
                 </td>
               </tr>
             <?php endforeach; ?>
