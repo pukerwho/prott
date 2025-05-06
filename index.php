@@ -363,11 +363,11 @@ $users = [
               $author_write = carbon_get_the_post_meta("crb_tasks_author");
               $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
               if ($check_pay_status != "yes" && isset($earnings_now[$author_write]) && $author_write !== 'Світлана') {
-                $earnings_now[$author_write] += 175;
-                if ($author_write !== 'Лідія Кулик') {
-                  $earnings_now['Лідія Кулик'] += 50;
+                if ($author_write === 'Лідія Кулик') {
+                  $earnings_now['Лідія Кулик'] += 225;
                 } else {
-                  $earnings_now['Лідія Кулик'] += 0; // для наочності
+                  $earnings_now[$author_write] += 175;
+                  $earnings_now['Лідія Кулик'] += 50;
                 }
               }
             ?>
@@ -472,7 +472,7 @@ $users = [
     <?php 
       $month = date( 'm', strtotime( $day ) );
       $current_month = date('n');
-      if ($month === '01' ): 
+      if ($month === '04' ): 
     ?>
       <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
         <?php
