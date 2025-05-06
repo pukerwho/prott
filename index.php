@@ -344,7 +344,12 @@ $users = [
         ?>
       <?php endforeach; wp_reset_postdata(); ?>
 
-      <?php $mykolaev = 0; $kuzmitska = 0; $major = 0; $svitlana = 0; $trikisha = 0; $skulyk = 0; $lize = 0; ?>
+      <?php 
+        $earnings_now = [];
+        foreach ($users as $user) {
+          $earnings_now[$user['name']] = 0;
+        }
+      ?>
       <?php $current_week = array_slice($posts_by_day, 0, 8); ?>
       <?php foreach( $current_week as $day => $day_posts ) : ?>
         <!-- stat -->
@@ -353,37 +358,20 @@ $users = [
           $current_month = date('n');
           // if ($month === $current_month): 
         ?>
-        
           <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
             <?php
               $author_write = carbon_get_the_post_meta("crb_tasks_author");
               $check_pay_status = carbon_get_the_post_meta("crb_tasks_pay");
-              if ($check_pay_status != "yes") {
-                if ($author_write === 'Лідія Кулик') {
-                  $mykolaev = $mykolaev + 225;
-                } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
-                  $kuzmitska = $kuzmitska + 175;
-                  $mykolaev = $mykolaev + 50;
-                } elseif ($author_write === 'Аліна Трикіша') {
-                  $trikisha = $trikisha + 175;
-                  $mykolaev = $mykolaev + 50;
-                } elseif ($author_write === 'Настя Можаровська') {
-                  $major = $major + 175;
-                  $mykolaev = $mykolaev + 50;
-                } elseif ($author_write === 'Сергій Кулик') {
-                  $skulyk = $skulyk + 175;
-                  $mykolaev = $mykolaev + 50;
-                } elseif ($author_write === 'Єлизавета Будас') {
-                  $liza = $liza + 175;
-                  $mykolaev = $mykolaev + 50;
-                } elseif ($author_write === 'Світлана') {
-                  $svitlana = $svitlana + 175;
-                  $mykolaev = $mykolaev + 50;
+              if ($check_pay_status != "yes" && isset($earnings_now[$author_write]) && $author_write !== 'Світлана') {
+                $earnings_now[$author_write] += 175;
+                if ($author_write !== 'Лідія Кулик') {
+                  $earnings_now['Лідія Кулик'] += 50;
+                } else {
+                  $earnings_now['Лідія Кулик'] += 0; // для наочності
                 }
               }
             ?>
           <?php endforeach; ?>
-        
         <?php 
           // endif; 
         ?>
@@ -399,7 +387,7 @@ $users = [
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
           <div class="mr-2">Лідія Кулик</div>
-          <div class="font-bold"><?php echo $mykolaev; ?> грн.</div>
+          <div class="font-bold"><?php echo $earnings_now['Лідія Кулик']; ?> грн.</div>
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Лідія Кулик">Я оплатив!</div>
@@ -408,7 +396,7 @@ $users = [
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
           <div class="mr-2">Ана-Катаріна Кузмицька</div>
-          <div class="font-bold"><?php echo $kuzmitska; ?> грн.</div>
+          <div class="font-bold"><?php echo $earnings_now['Ана-Катаріна Кузмицька']; ?> грн.</div>
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Ана-Катаріна Кузмицька">Я оплатив!</div>
@@ -417,7 +405,7 @@ $users = [
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
           <div class="mr-2">Настя Можаровська</div>
-          <div class="font-bold"><?php echo $major; ?> грн.</div>
+          <div class="font-bold"><?php echo $earnings_now['Настя Можаровська']; ?> грн.</div>
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Настя Можаровська">Я оплатив!</div>
@@ -426,7 +414,7 @@ $users = [
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
           <div class="mr-2">Аліна Трикіша</div>
-          <div class="font-bold"><?php echo $trikisha; ?> грн.</div>
+          <div class="font-bold"><?php echo $earnings_now['Аліна Трикіша']; ?> грн.</div>
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Аліна Трикіша">Я оплатив!</div>
@@ -435,7 +423,7 @@ $users = [
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
           <div class="mr-2">Сергій Кулик</div>
-          <div class="font-bold"><?php echo $skulyk; ?> грн.</div>
+          <div class="font-bold"><?php echo $earnings_now['Сергій Кулик']; ?> грн.</div>
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Сергій Кулик">Я оплатив!</div>
@@ -444,19 +432,10 @@ $users = [
       <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
         <div class="flex items-center">
           <div class="mr-2">Єлизавета Будас</div>
-          <div class="font-bold"><?php echo $liza; ?> грн.</div>
+          <div class="font-bold"><?php echo $earnings_now['Єлизавета Будас']; ?> грн.</div>
         </div>
         <div class="w-1/3">
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Єлизавета Будас">Я оплатив!</div>
-        </div>
-      </div>
-      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
-        <div class="flex items-center">
-          <div class="mr-2">Світлана</div>
-          <div class="font-bold"><?php echo $svitlana; ?> грн.</div>
-        </div>
-        <div class="w-1/3">
-          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Світлана">Я оплатив!</div>
         </div>
       </div>
       <div class="flex flex-wrap justify-between items-center">
@@ -464,13 +443,14 @@ $users = [
           <div>Загалом:</div>
         </div>
         <div class="w-1/3">
-          <span class="font-bold"><?php $total = $mykolaev + $trikisha + $kuzmitska + $major + $svitlana + $liza + $skulyk; echo $total; ?></span> грн.
+          <span class="font-bold"><?php 
+            $total = array_sum($earnings_now); 
+            echo $total; 
+          ?></span> грн.
         </div>
       </div>
     </div>
   </div>
-
-  
 </div>
 <?php endif; ?>
 
