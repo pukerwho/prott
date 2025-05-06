@@ -438,6 +438,15 @@ $users = [
           <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Єлизавета Будас">Я оплатив!</div>
         </div>
       </div>
+      <div class="flex flex-wrap justify-between items-center border-b border-gray-300 border-dashed mb-2 pb-2">
+        <div class="flex items-center">
+          <div class="mr-2">Тетяна Ковальчук</div>
+          <div class="font-bold"><?php echo $earnings_now['Тетяна Ковальчук']; ?> грн.</div>
+        </div>
+        <div class="w-1/3">
+          <div class="bg-gray-800 task-pay-js text-white text-center rounded cursor-pointer px-2 py-1 <?php echo ($current_user_id == '1') ? 'js-all-pay' :''; ?>" data-pay-author="Тетяна Ковальчук">Я оплатив!</div>
+        </div>
+      </div>
       <div class="flex flex-wrap justify-between items-center">
         <div class="flex items-center text-lg">
           <div>Загалом:</div>
