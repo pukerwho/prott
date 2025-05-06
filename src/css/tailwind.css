@@ -158,12 +158,12 @@ a {
   text-wrap: balance;
 }
 
-.tab.active>div {
-  @apply bg-indigo-100 text-blue-600 rounded;
+.tab {
+  @apply text-center rounded-lg cursor-pointer p-1;
 }
 
-.tab:hover>div {
-  @apply bg-indigo-100 text-blue-600 rounded;
+.tab.active {
+  @apply bg-white;
 }
 
 .value-diff {

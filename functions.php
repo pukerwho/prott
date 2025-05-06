@@ -265,6 +265,20 @@ function create_post_type() {
       'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions' ),
     )
   );
+  register_post_type( 'todo',
+    array(
+      'labels' => array(
+          'name' => __( 'Todo' ),
+          'singular_name' => __( 'Todo' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'hierarchical' => true,
+      'show_in_rest' => false,
+      'menu_icon' => 'dashicons-megaphone',
+      'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'revisions' ),
+    )
+  );
   register_post_type( 'websites',
     array(
       'labels' => array(

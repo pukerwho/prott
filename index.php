@@ -1,18 +1,57 @@
 <?php 
 get_header(); 
 $current_user_id = get_current_user_id();
+$users = [
+  "1" => [
+    "name" => "Ана-Катаріна Кузмицька",
+    "key" => "kuzmicka",
+  ],
+  "2" => [
+    "name" => "Лідія Кулик",
+    "key" => "lidia",
+  ],
+  "3" => [
+    "name" => "Аліна Трикіша",
+    "key" => "trikisha",
+  ],
+  "4" => [
+    "name" => "Настя Можаровська",
+    "key" => "nastya",
+  ],
+  "5" => [
+    "name" => "Сергій Кулик",
+    "key" => "skulik",
+  ],
+  "6" => [
+    "name" => "Єлизавета Будас",
+    "key" => "liza",
+  ],
+  "7" => [
+    "name" => "Тетяна Ковальчук",
+    "key" => "kovalchuk",
+  ]
+];
+
 ?>
 
 <?php if ($current_user_id === 1 || $current_user_id === 2): ?>
-<div class="container py-12">
-  <h2 class="text-3xl text-center font-bold mb-6">💪 Всі завдання</h2>
-  <div class="flex space-x-4 mb-6">
+<div class="container py-4">
+  <div class="flex space-x-3 mb-6">
     <div class="flex items-center bg-white border border-gray-300 rounded px-4 py-2 cursor-pointer modal-open-js" data-modal-id="modal-pay">
       <div class="mr-2">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[21px] h-[21px]"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
       </div>
       <div>Оплата</div>
     </div>
+    <?php if ($current_user_id === 1): ?>
+    <div class="relative flex items-center bg-white border border-gray-300 rounded px-4 py-2 cursor-pointer">
+      <a href="/todo" class="w-full h-full absolute left-0 top-0 z-1"></a>
+      <div class="mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[21px] h-[21px]"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122" /></svg>
+      </div>
+      <div>Завдання</div>
+    </div>
+    <?php endif; ?>
   </div>
   <?php $tasks = new WP_Query( array( 'post_type' => 'tasks', 'posts_per_page' => 200) );?>
   <?php 
@@ -31,7 +70,7 @@ $current_user_id = get_current_user_id();
           $current_month = date('n');
           // if ($month === $current_month ): 
         ?>
-        <div class="day bg-white rounded p-8 mb-8 last-of-type:mb-0">
+        <div class="day bg-white rounded-lg p-4 mb-4 last-of-type:mb-0">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center">
               <div class="mr-2">
@@ -248,13 +287,11 @@ $current_user_id = get_current_user_id();
                           <div class="mr-2">
                             <select class="author-select" name="select-author-name" data-select-id="<?php echo $current_id; ?>">
                               <option selected>Оберіть автора</option>
-                              <option value="Ана-Катаріна Кузмицька">Ана-Катаріна Кузмицька</option>
-                              <option value="Лідія Кулик">Лідія Кулик</option>
-                              <option value="Світлана">Світлана</option>
-                              <option value="Аліна Трикіша">Аліна Трикіша</option>
-                              <option value="Настя Можаровська">Настя Можаровська</option>
-                              <option value="Сергій Кулик">Сергій Кулик</option>
-                              <option value="Єлизавета Будас">Єлизавета Будас</option>
+                              <?php foreach ($users as $user): ?>
+                                <option value="<?php echo htmlspecialchars($user['name']); ?>">
+                                  <?php echo htmlspecialchars($user['name']); ?>
+                                </option>
+                              <?php endforeach; ?>
                             </select>
                           </div>
                           <div class="task-author-js" data-post-id="<?php echo $current_id; ?>">
@@ -445,21 +482,12 @@ $current_user_id = get_current_user_id();
     $r[ date( 'Y-m-d', strtotime( $v->post_date ) ) ][] = $v;
     return $r;  
   });
-  $mykolaev_month = 0;
-  $kuzmitska_month = 0;
-  $trikisha_month = 0;
-  $major_month = 0;
-  $svitlana_month = 0;
-  $skulyk_month = 0;
-  $liza_month = 0;
-
-  $mykolaev_qty = 0;
-  $kuzmitska_qty = 0;
-  $trikisha_qty = 0;
-  $major_qty = 0;
-  $svitlana_qty = 0;
-  $skulyk_qty = 0;
-  $liza_qty = 0;
+  $earnings_month = [];
+  $quantities_month = [];
+  foreach ($users as $user) {
+    $earnings_month[$user['name']] = 0;
+    $quantities_month[$user['name']] = 0;
+  }
   foreach( $tasks_month_posts_by_day as $day => $day_posts ) : ?>
     <?php 
       $month = date( 'm', strtotime( $day ) );
@@ -468,36 +496,14 @@ $current_user_id = get_current_user_id();
     ?>
       <?php foreach( $day_posts as $post ) : setup_postdata( $post ); ?>
         <?php
-        
           $author_write = carbon_get_the_post_meta("crb_tasks_author");
-
-          if ($author_write === 'Лідія Кулик') {
-            $mykolaev_month = $mykolaev_month + 225;
-            $mykolaev_qty = $mykolaev_qty + 1;
-          } elseif ($author_write === 'Ана-Катаріна Кузмицька') {
-            $kuzmitska_month = $kuzmitska_month + 175;
-            $kuzmitska_qty = $kuzmitska_qty + 1;
-            $mykolaev_month = $mykolaev_month + 50;
-          } elseif ($author_write === 'Аліна Трикіша') {
-            $trikisha_month = $trikisha_month + 175;
-            $trikisha_qty = $trikisha_qty + 1;
-            $mykolaev_month = $mykolaev_month + 50;
-          } elseif ($author_write === 'Настя Можаровська') {
-            $major_month = $major_month + 175;
-            $major_qty = $major_qty + 1;
-            $mykolaev_month = $mykolaev_month + 50;
-          } elseif ($author_write === 'Сергій Кулик') {
-            $skulyk_month = $skulyk_month + 175;
-            $skulyk_qty = $skulyk_qty + 1;
-            $mykolaev_month = $mykolaev_month + 50;  
-          } elseif ($author_write === 'Єлизавета Будас') {
-            $liza_month = $liza_month + 175;
-            $liza_qty = $liza_qty + 1;
-            $mykolaev_month = $mykolaev_month + 50;  
-          } elseif ($author_write === 'Світлана') {
-            $svitlana_month = $svitlana_month + 175;
-            $svitlana_qty = $svitlana_qty + 1;
-            $mykolaev_month = $mykolaev_month + 50;
+          if (isset($earnings_month[$author_write]) && $author_write !== 'Світлана') {
+            $earnings_month[$author_write] += 175;
+            $quantities_month[$author_write] += 1;
+            $earnings_month['Лідія Кулик'] += ($author_write !== 'Лідія Кулик') ? 0 : 50;
+            if ($author_write !== 'Лідія Кулик') {
+              $earnings_month['Лідія Кулик'] += 50;
+            }
           }
         ?>
       <?php endforeach; ?>
@@ -513,41 +519,13 @@ $current_user_id = get_current_user_id();
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-300">
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Лідія Кулик</td>
-          <td class="px-6 py-4"><?php echo $mykolaev_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $mykolaev_month; ?></td>
-        </tr>
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Ана-Катаріна Кузмицька</td>
-          <td class="px-6 py-4"><?php echo $kuzmitska_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $kuzmitska_month; ?></td>
-        </tr>
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Аліна Трикіша</td>
-          <td class="px-6 py-4"><?php echo $trikisha_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $trikisha_month; ?></td>
-        </tr>
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Настя Можаровська</td>
-          <td class="px-6 py-4"><?php echo $major_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $major_month; ?></td>
-        </tr>
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Сергій Кулик</td>
-          <td class="px-6 py-4"><?php echo $skulyk_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $skulyk_month; ?></td>
-        </tr>
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Єлизавета Будас</td>
-          <td class="px-6 py-4"><?php echo $liza_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $liza_month; ?></td>
-        </tr>
-        <tr class="hover:bg-gray-100">
-          <td class="px-6 py-4">Світлана</td>
-          <td class="px-6 py-4"><?php echo $svitlana_qty; ?></td>
-          <td class="px-6 py-4"><?php echo $svitlana_month; ?></td>
-        </tr>
+        <?php foreach ($earnings_month as $author => $amount): ?>
+          <tr class="hover:bg-gray-100">
+            <td class="px-6 py-4"><?php echo $author; ?></td>
+            <td class="px-6 py-4"><?php echo $quantities_month[$author]; ?></td>
+            <td class="px-6 py-4"><?php echo $amount; ?></td>
+          </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </div>

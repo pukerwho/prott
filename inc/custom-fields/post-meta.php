@@ -22,6 +22,16 @@ function crb_post_theme_options() {
       Field::make( 'text', 'crb_tasks_pay', 'Оплата' ),
   ) );
   Container::make( 'post_meta', 'More' )
+    ->where( 'post_type', '=', 'todo' )
+    ->add_fields( array(
+      Field::make( 'text', 'crb_todo_from', 'Від кого' ),
+      Field::make( 'textarea', 'crb_todo_task', 'Завдання' ),
+      Field::make( 'textarea', 'crb_todo_answer', 'Відповідь' ),
+      Field::make( 'text', 'crb_todo_status', 'Статус' ),
+      Field::make( 'text', 'crb_todo_price', 'Вартість' ),
+      Field::make( 'text', 'crb_todo_pay', 'Оплата' ),
+  ) );
+  Container::make( 'post_meta', 'More' )
     ->where( 'post_type', '=', 'websites' )
     ->add_fields( array(
       Field::make( 'text', 'crb_websites_orders', 'Замовлень' ),
