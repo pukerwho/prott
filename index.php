@@ -478,10 +478,12 @@ $users = [
         <?php
           $author_write = carbon_get_the_post_meta("crb_tasks_author");
           if (isset($earnings_month[$author_write]) && $author_write !== 'Світлана') {
-            $earnings_month[$author_write] += 175;
-            $quantities_month[$author_write] += 1;
-            $earnings_month['Лідія Кулик'] += ($author_write !== 'Лідія Кулик') ? 0 : 50;
-            if ($author_write !== 'Лідія Кулик') {
+            if ($author_write === 'Лідія Кулик') {
+              $earnings_month['Лідія Кулик'] += 225;
+              $quantities_month[$author_write] += 1;
+            } else {
+              $earnings_month[$author_write] += 175;
+              $quantities_month[$author_write] += 1;
               $earnings_month['Лідія Кулик'] += 50;
             }
           }
