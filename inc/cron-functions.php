@@ -36,7 +36,7 @@ function check_id( $test ) {
   $noHaveTask = array();
   foreach ($sortItems as $i) {
     $status = $i['status'];
-    if ($status === 'В роботі') {
+    if ($status === 'Очікує схвалення') {
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
       $task_website = $i['site'];
@@ -63,23 +63,26 @@ function check_id( $test ) {
     foreach ($noHaveTask as $notaskid) {
       // Перевіряємо чи є замовлення в базі данних NoTask
       $has_task_id = checkIdNoTask($notaskid);
-      // Якщо немає, то додаємо ці замовлення в базу данних NoTask
+
+      $task_type = null;
+      foreach ($sortItems as $item) {
+        if ($item['id'] === $notaskid) {
+          $task_type = $item['publicationType'];
+          break;
+        }
+      }
+
+      // Спочатку додаємо до масиву для сповіщення
+      if ($task_type === 'Ви пишете') {
+        $noHaveTaskId_write[] = $notaskid;
+      } else {
+        $noHaveTaskId_collab[] = $notaskid;
+      }
+
+      // Потім перевіряємо і додаємо в базу, якщо ще немає
       if ( count($has_task_id) === 0 ) {
-        // Записуємо id, по яким ще не відправляли 
-        $task_type = null;
-        foreach ($sortItems as $item) {
-          if ($item['id'] === $notaskid) {
-            $task_type = $item['publicationType'];
-            break;
-          }
-        }
-        if ($task_type === 'Ви пишете') {
-          $noHaveTaskId_write[] = $notaskid;
-        } else {
-          $noHaveTaskId_collab[] = $notaskid;
-        }
         addNoTaskToDb($notaskid);
-      } 
+      }
     }
   }
   if (count($noHaveTaskId_write) > 0) {
