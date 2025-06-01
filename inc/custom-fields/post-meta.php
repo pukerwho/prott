@@ -14,6 +14,15 @@ function crb_post_theme_options() {
       Field::make( 'text', 'crb_tasks_date_create', 'Коли створена заявка' ),
       Field::make( 'text', 'crb_tasks_site', 'Сайт' ),
       Field::make( 'text', 'crb_tasks_anchors', 'Анкори/Посилання' ),
+
+      Field::make( 'text', 'crb_tasks_type', 'Тип завдання' ),
+      Field::make( 'text', 'crb_tasks_title', 'Назва статті' ),
+      Field::make( 'text', 'crb_tasks_url', 'URL' ),
+      Field::make( 'text', 'crb_tasks_metatitle', 'Title' ),
+      Field::make( 'text', 'crb_tasks_metadescription', 'Description' ),
+      Field::make( 'text', 'crb_tasks_html', 'HTML' ),
+
+      Field::make( 'text', 'crb_tasks_author_accept', 'Хто прийняв заявку' ),
       Field::make( 'text', 'crb_tasks_author', 'Автор' ),
       Field::make( 'text', 'crb_tasks_author_date', 'Коли передано автору' ),
       Field::make( 'text', 'crb_tasks_status', 'Статус' ),

@@ -343,3 +343,55 @@ function diffValuePosition($first, $second) {
   }
   return array('diff_order' => $diff_order,'diff_order_sign' => $diff_order_sign, 'diff_order_class' => $diff_order_class);
 }
+
+// Після логіну переадресація
+add_filter('login_redirect', 'custom_login_redirect_by_user', 10, 3);
+function custom_login_redirect_by_user($redirect_to, $request, $user) {
+    if (!isset($user->ID)) return $redirect_to;
+
+    if ($user->ID == 2) {
+        return home_url('/write');
+    }
+
+    if ($user->ID == 3) {
+        return home_url('/ready');
+    }
+
+    return $redirect_to;
+}
+
+// Заборона доступу до адмінки
+add_action('admin_init', 'block_admin_for_specific_users');
+function block_admin_for_specific_users() {
+    $current_user_id = get_current_user_id();
+    if (($current_user_id == 2 || $current_user_id == 3) && !defined('DOING_AJAX')) {
+        wp_redirect(home_url('/' . ($current_user_id == 2 ? 'write' : 'ready')));
+        exit;
+    }
+}
+
+add_action('template_redirect', 'restrict_frontend_access_by_user_fixed');
+function restrict_frontend_access_by_user_fixed() {
+    if (!is_user_logged_in()) return;
+
+    $user_id = get_current_user_id();
+    $current_uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+    // Користувач 2 — доступ до /write і /pay
+    if ($user_id == 2) {
+        $allowed = array('/write', '/pay');
+        if (!in_array($current_uri, $allowed)) {
+            wp_redirect(home_url('/write'));
+            exit;
+        }
+    }
+
+    // Користувач 3 — доступ лише до /ready
+    if ($user_id == 3) {
+        $allowed = array('/ready');
+        if (!in_array($current_uri, $allowed)) {
+            wp_redirect(home_url('/ready'));
+            exit;
+        }
+    }
+}

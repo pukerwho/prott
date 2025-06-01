@@ -3,6 +3,7 @@
 function task_link_function() {
   $task_id = stripslashes_deep($_POST['taskId']);
   $post_id = $_POST['postID'];
+  $clbr_link = $_POST['clbrLink'];
   $task_link = stripslashes_deep($_POST['taskLink']);
   $task_link_date = current_time( 'timestamp' );
 
@@ -15,7 +16,7 @@ function task_link_function() {
     add_post_meta( $post_id, '_crb_tasks_link_date', $task_link_date, true );
     update_post_meta( $post_id, '_crb_tasks_status', 'На перевірці' );
   } 
-  sendTelegramLink($task_id, $task_link);
+  sendTelegramLink($task_id, $task_link, $clbr_link);
   echo $post_id;
   wp_die();
 }
@@ -23,21 +24,26 @@ function task_link_function() {
 add_action('wp_ajax_task_link_click_action', 'task_link_function');
 add_action('wp_ajax_nopriv_task_link_click_action', 'task_link_function');
 
-function sendTelegramLink($id, $task_link) {
-  $chatID = carbon_get_theme_option("crb_telegram_chat_id");
-  $apiToken = carbon_get_theme_option("crb_telegram_api");
-  $content = "";
-  $content .= "💪 Угода <b>$id</b> на перевірці. Посилання: <b>$task_link</b>.\n";
-  // $content = "";
-  // $content .= "Угода <b>$id</b> виконана. </b>.\n\n";
-  // $content .= "<b>Посилання:</b> $task_link</b>";
+function sendTelegramLink($id, $task_link, $clbr_link) {
+  $chatID = carbon_get_theme_option("crb_telegram_id_naperevirku");
+  $apiToken = carbon_get_theme_option("crb_telegram_api_bot_naperevirku");
   
+  $content = "💪 Угода <a href='$clbr_link'><b>$id</b></a> на перевірці. Посилання: <b>$task_link</b>.";
+
+  $url = "https://api.telegram.org/bot{$apiToken}/sendMessage";
+
   $data = [
-    'chat_id' => $chatID, 
+    'chat_id' => $chatID,
     'text' => $content,
     'parse_mode' => 'HTML'
   ];
-  $response = file_get_contents("https://api.telegram.org/bot".$apiToken."/sendMessage?" . http_build_query($data) );
-}
 
-?>
+  $ch = curl_init($url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  $response = curl_exec($ch);
+  curl_close($ch);
+
+  // необов'язково, але корисно для налагодження
+  // error_log($response);
+}

@@ -10,8 +10,15 @@ function crb_attach_theme_options() {
     Field::make( 'text', 'crb_collab_one', 'Для коллаборатора аккаунт 1' ),
     Field::make( 'text', 'crb_collab_two', 'Для коллаборатора аккаунт 2' ),
     Field::make( 'text', 'crb_collab_three', 'Для коллаборатора аккаунт 3' ),
+    
     Field::make( 'text', 'crb_telegram_api', 'Telegram Апі' ),
-    Field::make( 'text', 'crb_telegram_chat_id', 'Telegram Чат айді' ),
+
+    Field::make( 'text', 'crb_telegram_chat_write', 'Telegram ID Write' ),
+    Field::make( 'text', 'crb_telegram_chat_ready', 'Telegram ID Ready' ),
+
+    Field::make( 'text', 'crb_telegram_id_naperevirku', 'Telegram ID Юзера на перевірку' ),
+    Field::make( 'text', 'crb_telegram_api_bot_naperevirku', 'Telegram Токен бота на перевірку' ),
+    
     Field::make( 'text', 'crb_test', 'test' ),
     Field::make( 'text', 'crb_chart_week', 'Chart Week' ),
     Field::make( 'text', 'crb_chart_week_drops', 'Chart Week For Drops' ),

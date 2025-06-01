@@ -50,10 +50,16 @@ document.addEventListener('click', function (e) {
 var clipboard = new Clipboard('.copy-click');
 
 clipboard.on('success', function (e) {
-  $('.copy-tooltip[data-copy-text="' + e.text + '"]').removeClass('hidden');
-  setTimeout(function () {
-    $('.copy-tooltip[data-copy-text="' + e.text + '"]').addClass('hidden');
-  }, 2000);
+  // Знаходимо елемент, до якого був застосований copy
+  var $trigger = $(e.trigger);
+  // tooltip – сусідній елемент з класом .copy-tooltip
+  var $tooltip = $trigger.siblings('.copy-tooltip');
+  if ($tooltip.length) {
+    $tooltip.removeClass('hidden');
+    setTimeout(function () {
+      $tooltip.addClass('hidden');
+    }, 2000);
+  }
 });
 
 //нумерація 
@@ -206,3 +212,28 @@ headers.forEach(header => {
     });
   });
 });
+
+
+//Показуємо тільки зі статусом На перевірці
+const checkbox = document.getElementById('filter-status-check');
+if (checkbox) {
+  checkbox.addEventListener('change', function () {
+    const rows = document.querySelectorAll('tr[data-tr-status]');
+    const targetStatus = 'На перевірці';
+
+    rows.forEach(function (row) {
+      const rowStatus = row.getAttribute('data-tr-status');
+      if (checkbox.checked) {
+        // Показати лише ті, що відповідають статусу
+        if (rowStatus === targetStatus) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      } else {
+        // Показати всі
+        row.style.display = '';
+      }
+    });
+  });
+}

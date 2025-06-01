@@ -10,6 +10,9 @@ if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
 add_action( 'check_id_hook', 'check_id', 10, 3 );
  
 function check_id( $test ) {
+  $noHaveTaskId_write = array();
+  $noHaveTaskId_collab = array();
+
   $collab_one = carbon_get_theme_option('crb_collab_one');
   $collab_two = carbon_get_theme_option('crb_collab_two');
   $collab_three = carbon_get_theme_option('crb_collab_three');
@@ -21,46 +24,29 @@ function check_id( $test ) {
   $context_two = stream_context_create($opts_two);
   $context_three = stream_context_create($opts_three);
   $file_one = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?per-page=40&page=1&language=ua", false, $context_one); 
-  // $file_one_twopage = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?page=2&language=ua", false, $context_one); 
   $file_two = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?per-page=40&page=1&language=ua", false, $context_two); 
-  // $file_two_twopage = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?page=2&language=ua", false, $context_two); 
   $file_three = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?per-page=40&page=1&language=ua", false, $context_three); 
-  // $file_three_twopage = file_get_contents("https://collaborator.pro/ua/api/public/deal/list-owner?page=2&language=ua", false, $context_three); 
 
   $items_one = json_decode($file_one, true);
   $items_two = json_decode($file_two, true);
   $items_three = json_decode($file_three, true);
-  $items_one_twopage = json_decode($file_one_twopage, true);
-  $items_two_twopage = json_decode($file_two_twopage, true);
-  $items_three_twopage = json_decode($file_three_twopage, true);
   $items = array_merge($items_one['items'], $items_two['items'], $items_three['items']);
 
-  function array_orderby() {
-    $args = func_get_args();
-    $data = array_shift($args);
-    foreach ($args as $n => $field) {
-      if (is_string($field)) {
-        $tmp = array();
-        foreach ($data as $key => $row)
-          $tmp[$key] = $row[$field];
-          $args[$n] = $tmp;
-      }
-    }
-    $args[] = &$data;
-    call_user_func_array('array_multisort', $args);
-    return array_pop($args);
-  }
   $sortItems = array_orderby($items, 'id', SORT_DESC);
   $noHaveTask = array();
-  $noHaveTaskId = array();
   foreach ($sortItems as $i) {
     $status = $i['status'];
-    $publicationType = $i['publicationType'];
-    if ($status === 'В роботі' && $publicationType === 'Ви пишете') {
+    if ($status === 'В роботі') {
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
       $task_website = $i['site'];
       $task_anchors = $i['task']['anchors'];
+      $task_type = $i['publicationType'];
+      $task_title = $i['task']['title'];
+      $task_url = $i['task']['url'];
+      $task_html = $i['task']['contentHtml'];
+      $task_metatitle = $i['task']['metaTitle'];
+      $task_metadescription = $i['task']['metaDescription'];
       $task_date_create = date("d.m, H:i", strtotime($i['createdAt']));
       // Перевіряємо чи є вже завдання з таким ID
       $get_task_id = get_task_ID($task_id);
@@ -68,7 +54,7 @@ function check_id( $test ) {
       if ( empty( $get_task_id ) ) {
         // Заповнюємо масив айдішками
         array_push($noHaveTask, $task_id); 
-        createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors);
+        createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors, $task_type, $task_title, $task_url, $task_html, $task_metatitle, $task_metadescription);
       }
     }
   }
@@ -80,27 +66,47 @@ function check_id( $test ) {
       // Якщо немає, то додаємо ці замовлення в базу данних NoTask
       if ( count($has_task_id) === 0 ) {
         // Записуємо id, по яким ще не відправляли 
-        array_push($noHaveTaskId, $notaskid); 
+        $task_type = null;
+        foreach ($sortItems as $item) {
+          if ($item['id'] === $notaskid) {
+            $task_type = $item['publicationType'];
+            break;
+          }
+        }
+        if ($task_type === 'Ви пишете') {
+          $noHaveTaskId_write[] = $notaskid;
+        } else {
+          $noHaveTaskId_collab[] = $notaskid;
+        }
         addNoTaskToDb($notaskid);
       } 
     }
   }
-  // Якщо масив з ID з бази даних NoTask порожній, то відправляємо
-  if ( count($noHaveTaskId) === 0 ) {
-    update_option( '_crb_test', 'вже відправляли' );
-  } else {
-    update_option( '_crb_test', 'відправили' );
-    sendAlertTelegram($noHaveTaskId);
+  if (count($noHaveTaskId_write) > 0) {
+    sendAlertTelegram($noHaveTaskId_write, 'write');
   }
-  // $get_test = get_option( '_crb_test' );
-  // if ( $get_test === '1' ) {
-  //   update_option( '_crb_test', '0' );
-  // } else {
-  //   update_option( '_crb_test', '1' );
-  // }
+  if (count($noHaveTaskId_collab) > 0) {
+    sendAlertTelegram($noHaveTaskId_collab, 'collab');
+  }
 }
 
-function createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors){
+function array_orderby() {
+  $args = func_get_args();
+  $data = array_shift($args);
+  foreach ($args as $n => $field) {
+    if (is_string($field)) {
+      $tmp = array();
+      foreach ($data as $key => $row)
+        $tmp[$key] = $row[$field];
+      $args[$n] = $tmp;
+    }
+  }
+  $args[] = &$data;
+  call_user_func_array('array_multisort', $args);
+  return array_pop($args);
+}
+
+function createTask($task_id, $task_content, $task_website, $task_date_create, $task_anchors, $task_type, $task_title, $task_url, $task_html, $task_metatitle, $task_metadescription){
   $title = wp_strip_all_tags('Завдання '.$task_id);
   
   $my_post = array(
@@ -115,6 +121,12 @@ function createTask($task_id, $task_content, $task_website, $task_date_create, $
       '_crb_tasks_site' => $task_website,
       '_crb_tasks_anchors' => $task_anchors,
       '_crb_tasks_date_create' => $task_date_create,
+      '_crb_tasks_type' => $task_type,
+      '_crb_tasks_title' => $task_title,
+      '_crb_tasks_url' => $task_url,
+      '_crb_tasks_metatitle' => $task_metatitle,
+      '_crb_tasks_metadescription' => $task_metadescription,
+      '_crb_tasks_html' => wp_kses_post($task_html),
       '_crb_tasks_status' => 'Нове завдання',
     ),
   );
@@ -133,8 +145,10 @@ function checkIdNoTask($task_id) {
   return $check_task_id;
 }
 
-function sendAlertTelegram($noHaveTaskId) {
-  $chatID = carbon_get_theme_option("crb_telegram_chat_id");
+function sendAlertTelegram($noHaveTaskId, $type = 'collab') {
+  $chatID = ($type === 'write') 
+      ? carbon_get_theme_option("crb_telegram_chat_write") 
+      : carbon_get_theme_option("crb_telegram_chat_ready");
   $apiToken = carbon_get_theme_option("crb_telegram_api");
   $content = "";
   $content .= "⚡ Є нові завдання";
