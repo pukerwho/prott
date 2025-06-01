@@ -1,13 +1,13 @@
 <?php 
-addNoTaskDb();
+// addNoTaskDb();
 //Cron
 
-$parametri = array( 'one' );
-if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
-	wp_schedule_event( time(), 'onesec', 'check_id_hook', $parametri );
-}
+// $parametri = array( 'one' );
+// if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
+// 	wp_schedule_event( time(), 'onesec', 'check_id_hook', $parametri );
+// }
  
-add_action( 'check_id_hook', 'check_id', 10, 3 );
+// add_action( 'check_id_hook', 'check_id', 10, 3 );
  
 function check_id( $test ) {
   $noHaveTaskId_write = array();
