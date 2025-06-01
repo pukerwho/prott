@@ -48,7 +48,7 @@ $args = array(
   ),
   'date_query' => array(
     array(
-      // 'after' => '8 days ago',
+      'after' => '8 days ago',
       'inclusive' => true,
     ),
   ),

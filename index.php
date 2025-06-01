@@ -37,7 +37,7 @@ $args = array(
   'posts_per_page' => -1,
   'date_query' => array(
     array(
-      // 'after' => '8 days ago',
+      'after' => '4 days ago',
       'inclusive' => true,
     ),
   ),
