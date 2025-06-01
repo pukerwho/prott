@@ -36,7 +36,7 @@ function check_id( $test ) {
   $noHaveTask = array();
   foreach ($sortItems as $i) {
     $status = $i['status'];
-    if ($status === 'Очікує схвалення') {
+    if ($status === 'В роботі') {
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
       $task_website = $i['site'];
