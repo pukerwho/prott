@@ -44,7 +44,7 @@ function check_id( $test ) {
       $hour = (int)$now->format('G');
       $day = (int)$now->format('w'); // 0 - неділя, 6 - субота
 
-      if ($task_type != 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
+      if (trim((string)$task_type) !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
         continue;
       }
 
