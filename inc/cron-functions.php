@@ -15,7 +15,7 @@ function check_id( $test ) {
   $noHaveTaskId_collab = array();
 
   // Визначаємо час
-  $now = new DateTime(null, new DateTimeZone('Europe/Kyiv'));
+  $now = new DateTime(null, new DateTimeZone('Europe/Kiev'));
   $hour = (int)$now->format('G'); // 0–23
   $day = (int)$now->format('w');  // 0 = неділя, 6 = субота
 
@@ -49,7 +49,7 @@ function check_id( $test ) {
       if ($task_type !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
         continue;
       }
-      
+
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
       $task_website = $i['site'];
