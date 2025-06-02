@@ -1,10 +1,5 @@
 <?php get_header(); 
 $current_user_id = get_current_user_id();
-$now = new DateTime(null, new DateTimeZone('Europe/Kiev'));
-$hour = (int)$now->format('G'); // 0–23
-$day = (int)$now->format('w');  // 0 = неділя, 6 = субота
-echo $hour;
-echo $day;
 ?>
 
 <?php if ($current_user_id === 1): ?>
