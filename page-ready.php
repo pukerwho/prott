@@ -250,7 +250,15 @@ $tasks = new WP_Query($args);
                 <?php if ($get_status === 'Нове завдання'): ?>
                   <i>Треба прийняти завдання</i>
                 <?php else: ?>
-                  <?php echo carbon_get_the_post_meta('crb_tasks_author_accept'); ?>
+                  <?php 
+                    $author_accept = carbon_get_the_post_meta('crb_tasks_author_accept');
+                    $user_info = get_userdata($author_accept);
+                    if ($user_info) {
+                      echo esc_html($user_info->display_name);
+                    } else {
+                      echo 'Невідомий користувач';
+                    } 
+                  ?>
                 <?php endif; ?>
               </td>
               <td class="whitespace-nowrap py-2">
