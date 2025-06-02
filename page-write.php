@@ -363,7 +363,7 @@ $tasks = new WP_Query($args);
                     </td>
                     <td class="whitespace-nowrap py-2">
                       <?php if ($get_status === 'Нове завдання'): ?>
-                        <div class="task-accept flex items-center justify-center bg-blue-500 text-white rounded text-center cursor-pointer px-2 py-1 task-accept-js" data-post-id="<?php echo $current_id; ?>" >
+                        <div class="task-accept flex items-center justify-center bg-blue-500 text-white rounded text-center cursor-pointer px-2 py-1 task-accept-js" data-post-id="<?php echo $current_id; ?>" data-author-accept="<?php echo $current_user_id; ?>" >
                           <div class="mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                           </div>
