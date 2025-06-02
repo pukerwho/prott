@@ -86,21 +86,10 @@ function check_id( $test ) {
       }
     }
   }
-  $now = new DateTime("now", new DateTimeZone('Europe/Kyiv'));
-  $dayOfWeek = $now->format('N'); // 1 – понеділок, 7 – неділя
-  $hour = (int)$now->format('G'); // години 0–23
-
-  // Для "Ви пишете": щодня з 09:00 до 22:00
-  if (count($noHaveTaskId_write) > 0 && $hour >= 9 && $hour < 22) {
+  if (count($noHaveTaskId_write) > 0) {
     sendAlertTelegram($noHaveTaskId_write, 'write');
   }
-
-  // Для "Готова стаття": лише з понеділка по п’ятницю до 19:00
-  if (
-    count($noHaveTaskId_collab) > 0 &&
-    $dayOfWeek >= 1 && $dayOfWeek <= 5 &&
-    $hour < 19
-  ) {
+  if (count($noHaveTaskId_collab) > 0) {
     sendAlertTelegram($noHaveTaskId_collab, 'collab');
   }
 }
