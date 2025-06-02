@@ -38,15 +38,17 @@ function check_id( $test ) {
   foreach ($sortItems as $i) {
     $status = $i['status'];
     if ($status === 'В роботі') {
-      $task_type = $i['publicationType'];
-      // Не додавати "Готові статті" у вихідні або поза робочим часом
-      $now = new DateTime(null, new DateTimeZone('Europe/Kyiv'));
-      $hour = (int)$now->format('G');
-      $day = (int)$now->format('w'); // 0 - неділя, 6 - субота
+      $task_type = trim((string)($i['publicationType'] ?? ''));
 
-      if (trim((string)$task_type) !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
-        continue;
-      }
+// Визначаємо час
+$now = new DateTime(null, new DateTimeZone('Europe/Kyiv'));
+$hour = (int)$now->format('G'); // 0–23
+$day = (int)$now->format('w');  // 0 = неділя, 6 = субота
+
+// Пропускаємо, якщо це не "Ви пишете" і не робочий час
+if ($task_type !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
+    continue;
+}
 
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
