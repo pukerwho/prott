@@ -216,7 +216,7 @@ $tasks = new WP_Query($args);
                         <pre class="h-64 overflow-auto whitespace-pre-wrap break-words bg-gray-100 p-4 rounded text-sm"><code class="download-html-source"><?php echo htmlspecialchars($html); ?></code></pre>
                       </div>
                       <?php if ($has_images): ?>
-                        <div class="bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer mb-4 download-images-js">Завантажити картинки</div>
+                        <div class="hidden bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer mb-4 download-images-js">Завантажити картинки</div>
                       <?php endif; ?>
                       <div class="relative mb-4">
                         <div class="bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer copy-click" data-clipboard-text="<?php echo htmlspecialchars($html); ?>">Скопіювати</div>
