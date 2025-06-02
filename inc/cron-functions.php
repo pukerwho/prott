@@ -38,11 +38,20 @@ function check_id( $test ) {
   foreach ($sortItems as $i) {
     $status = $i['status'];
     if ($status === 'В роботі') {
+      $task_type = $i['publicationType'];
+      // Не додавати "Готові статті" у вихідні або поза робочим часом
+      $now = new DateTime(null, new DateTimeZone('Europe/Kyiv'));
+      $hour = (int)$now->format('G');
+      $day = (int)$now->format('w'); // 0 - неділя, 6 - субота
+
+      if ($task_type !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
+          continue;
+      }
+
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
       $task_website = $i['site'];
       $task_anchors = $i['task']['anchors'];
-      $task_type = $i['publicationType'];
       $task_title = $i['task']['title'];
       $task_url = $i['task']['url'];
       $task_html = $i['task']['contentHtml'];
