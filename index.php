@@ -410,7 +410,13 @@ $tasks = new WP_Query($args);
                 if ($is_new_task) { echo '<i>Треба прийняти завдання</i>';
                 } else {
                   if ($is_collaborator) {
-                    echo '<div>' . carbon_get_the_post_meta('crb_tasks_author_accept') . '</div>';
+                    $author_accept = carbon_get_the_post_meta('crb_tasks_author_accept');
+                    $user_info = get_userdata($author_accept);
+                    if ($user_info) {
+                      echo esc_html($user_info->display_name);
+                    } else {
+                      echo 'Невідомий користувач';
+                    } 
                   } else {
                     $tasks_author = carbon_get_the_post_meta("crb_tasks_author");
                     $author_flex_class = ($tasks_author) ? 'flex' : 'hidden';
