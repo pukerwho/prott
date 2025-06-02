@@ -2,12 +2,12 @@
 // addNoTaskDb();
 //Cron
 
-// $parametri = array( 'one' );
-// if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
-// 	wp_schedule_event( time(), 'onesec', 'check_id_hook', $parametri );
-// }
+$parametri = array( 'one' );
+if( ! wp_next_scheduled( 'check_id_hook', $parametri ) ) {
+	wp_schedule_event( time(), 'onesec', 'check_id_hook', $parametri );
+}
  
-// add_action( 'check_id_hook', 'check_id', 10, 3 );
+add_action( 'check_id_hook', 'check_id', 10, 3 );
  
 function check_id( $test ) {
   error_log('check_id() виконано: ' . date('Y-m-d H:i:s'));
@@ -44,8 +44,8 @@ function check_id( $test ) {
       $hour = (int)$now->format('G');
       $day = (int)$now->format('w'); // 0 - неділя, 6 - субота
 
-      if ($task_type !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
-          continue;
+      if ($task_type != 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
+        continue;
       }
 
       $task_id = $i['id']; 

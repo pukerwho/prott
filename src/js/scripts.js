@@ -237,3 +237,33 @@ if (checkbox) {
     });
   });
 }
+
+//load images
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.download-images-js').forEach(button => {
+    button.addEventListener('click', function () {
+      const code = button.closest('.modal-box').querySelector('.download-html-source');
+      if (!code) return;
+
+      const parser = document.createElement('div');
+      parser.innerHTML = code.innerText;
+
+      const images = parser.querySelectorAll('img');
+      if (images.length === 0) {
+        alert('Зображення не знайдено');
+        return;
+      }
+
+      images.forEach((img, i) => {
+        const url = img.src;
+        const extension = url.split('.').pop().split(/\#|\?/)[0].split('&')[0] || 'jpg';
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `image_${i + 1}.${extension}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    });
+  });
+});

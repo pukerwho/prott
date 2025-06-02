@@ -209,9 +209,15 @@ $tasks = new WP_Query($args);
 
                       <!-- HTML статті -->
                       <div class="font-bold mb-1">Текст публікації:</div>
+                      <?php 
+                        $has_images = stripos($html, '&lt;img') !== false || stripos($html, '<img') !== false;
+                      ?>
                       <div class="border border-gray-300 rounded-lg p-2 mb-2">
-                        <pre class="h-64 overflow-auto whitespace-pre-wrap break-words bg-gray-100 p-4 rounded text-sm"><code><?php echo htmlspecialchars($html); ?></code></pre>
+                        <pre class="h-64 overflow-auto whitespace-pre-wrap break-words bg-gray-100 p-4 rounded text-sm"><code class="download-html-source"><?php echo htmlspecialchars($html); ?></code></pre>
                       </div>
+                      <?php if ($has_images): ?>
+                        <div class="bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer mb-4 download-images-js">Завантажити картинки</div>
+                      <?php endif; ?>
                       <div class="relative mb-4">
                         <div class="bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer copy-click" data-clipboard-text="<?php echo htmlspecialchars($html); ?>">Скопіювати</div>
                         <div class="copy-tooltip hidden absolute -top-[4px] left-0 bg-black/80 text-white rounded text-center -translate-y-full px-2 py-1" data-copy-text="<?php echo htmlspecialchars($html); ?>">Скопійовано 🙂</div>
