@@ -1,11 +1,7 @@
 <?php
-set_time_limit(0);
-ini_set('memory_limit', '512M');
-
 require_once($_SERVER['DOCUMENT_ROOT'] . '/wp-load.php');
-
-if (!current_user_can('edit_posts')) {
-  wp_die('Недостатньо прав');
+if (!is_user_logged_in()) {
+  wp_die('Доступ заборонено. Увійдіть у свій обліковий запис.');
 }
 
 $post_id = isset($_GET['post_id']) ? intval($_GET['post_id']) : 0;
@@ -15,17 +11,23 @@ $html = get_post_meta($post_id, '_crb_tasks_html', true);
 if (!$html) wp_die('HTML не знайдено');
 
 preg_match_all('/<img[^>]+src=["\']([^"\']+)["\']/i', $html, $matches);
-$image_urls = $matches[1];
+$image_urls = array_filter($matches[1], function($url) {
+  return filter_var($url, FILTER_VALIDATE_URL);
+});
 
 if (empty($image_urls)) wp_die('Зображень не знайдено');
 
 $tmp_dir = sys_get_temp_dir() . '/images_' . $post_id . '_' . uniqid();
-if (!mkdir($tmp_dir)) {
+if (!mkdir($tmp_dir, 0777, true)) {
   wp_die('Не вдалося створити тимчасову папку');
 }
 
+$context = stream_context_create([
+  'http' => ['timeout' => 10]
+]);
+
 foreach ($image_urls as $i => $url) {
-  $img_data = @file_get_contents($url);
+  $img_data = @file_get_contents($url, false, $context);
   if ($img_data && strlen($img_data) > 100) {
     $ext = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
     $ext = $ext ?: 'jpg';
@@ -44,7 +46,6 @@ foreach (glob("$tmp_dir/*") as $file) {
 }
 $zip->close();
 
-// Віддаємо файл
 header('Content-Type: application/zip');
 header('Content-Disposition: attachment; filename="images_' . $post_id . '.zip"');
 header('Content-Length: ' . filesize($zip_path));
@@ -55,8 +56,10 @@ while (ob_get_level()) {
 flush();
 readfile($zip_path);
 
-// Прибираємо тимчасові файли
-array_map('unlink', glob("$tmp_dir/*"));
+// Чистка
+foreach (glob("$tmp_dir/*") as $file) {
+  unlink($file);
+}
 rmdir($tmp_dir);
 unlink($zip_path);
 exit;
