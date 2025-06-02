@@ -14,6 +14,11 @@ function check_id( $test ) {
   $noHaveTaskId_write = array();
   $noHaveTaskId_collab = array();
 
+  // Визначаємо час
+  $now = new DateTime(null, new DateTimeZone('Europe/Kyiv'));
+  $hour = (int)$now->format('G'); // 0–23
+  $day = (int)$now->format('w');  // 0 = неділя, 6 = субота
+
   $collab_one = carbon_get_theme_option('crb_collab_one');
   $collab_two = carbon_get_theme_option('crb_collab_two');
   $collab_three = carbon_get_theme_option('crb_collab_three');
@@ -38,11 +43,17 @@ function check_id( $test ) {
   foreach ($sortItems as $i) {
     $status = $i['status'];
     if ($status === 'В роботі') {
+      $task_type = $i['publicationType'];
+      
+      // Пропускаємо, якщо це не "Ви пишете" і не робочий час
+      if ($task_type !== 'Ви пишете' && ($day === 0 || $day === 6 || $hour < 10 || $hour >= 19)) {
+        continue;
+      }
+      
       $task_id = $i['id']; 
       $task_content = nl2br($i['task']['task']);
       $task_website = $i['site'];
       $task_anchors = $i['task']['anchors'];
-      $task_type = $i['publicationType'];
       $task_title = $i['task']['title'];
       $task_url = $i['task']['url'];
       $task_html = $i['task']['contentHtml'];
