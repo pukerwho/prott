@@ -15,7 +15,12 @@ function check_id( $test ) {
   $noHaveTaskId_collab = array();
 
   // Визначаємо час
-  $now = new DateTime(null, new DateTimeZone('Europe/Kiev'));
+  try {
+    $timezone = new DateTimeZone('Europe/Kyiv');
+  } catch (Exception $e) {
+    $timezone = new DateTimeZone('Europe/Kiev');
+  }
+  $now = new DateTime(null, $timezone);
   $hour = (int)$now->format('G'); // 0–23
   $day = (int)$now->format('w');  // 0 = неділя, 6 = субота
 
