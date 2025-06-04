@@ -27,8 +27,14 @@ add_action('wp_ajax_nopriv_task_link_click_action', 'task_link_function');
 function sendTelegramLink($id, $task_link, $clbr_link) {
   $chatID = carbon_get_theme_option("crb_telegram_id_naperevirku");
   $apiToken = carbon_get_theme_option("crb_telegram_api_bot_naperevirku");
+  $is_write = strpos($crb_tasks_type, 'performer-article') !== false;
+  if ($is_write) {
+    $type = '✍️ Тип: З написанням.';
+  } else {
+    $type = '✅ Тип: Готова стаття.';
+  }
   
-  $content = "💪 Угода <a href='$clbr_link'><b>$id</b></a> на перевірці. Посилання: <b>$task_link</b>.";
+  $content = "$type\n\n💪 Угода <a href='$clbr_link'><b>$id</b></a> на перевірці.\n\n🔗 Посилання: <b>$task_link</b>.";
 
   $url = "https://api.telegram.org/bot{$apiToken}/sendMessage";
 

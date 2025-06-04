@@ -15,11 +15,11 @@ $args = array(
       'value'   => 'collaborator',
       'compare' => 'LIKE',
     ),
-    // array(
-    //   'key'     => '_crb_tasks_status',
-    //   'value'   => 'Перевірено',
-    //   'compare' => 'NOT LIKE',
-    // ),
+    array(
+      'key'     => '_crb_tasks_status',
+      'value'   => 'Перевірено',
+      'compare' => 'NOT LIKE',
+    ),
     
   ),
   'date_query' => array(

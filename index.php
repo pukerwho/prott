@@ -35,14 +35,14 @@ $users = [
 $args = array(
   'post_type' => 'tasks',
   'posts_per_page' => -1,
-  // 'meta_query' => array(
-  //   array(
-  //     'key'     => '_crb_tasks_status',
-  //     'value'   => 'Перевірено',
-  //     'compare' => 'NOT LIKE',
-  //   ),
+  'meta_query' => array(
+    array(
+      'key'     => '_crb_tasks_status',
+      'value'   => 'Перевірено',
+      'compare' => 'NOT LIKE',
+    ),
     
-  // ),
+  ),
   'date_query' => array(
     array(
       'after' => '4 days ago',
