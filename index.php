@@ -145,30 +145,12 @@ $tasks = new WP_Query($args);
               $is_complete = ($crb_tasks_complete == 'yes');
               $is_admin = ($current_user_id == '1');
               $is_collaborator = strpos($crb_tasks_type, 'collaborator') !== false;
-              if ($is_collaborator) {
-                $clbr_link = "https://collaborator.pro/ua/deal/default/show-info-article?id=" . $task_id;
-              } else {
-                $clbr_link = "https://collaborator.pro/ua/deal/default/performer-article?id=" . $task_id;
-              }
             ?>
             <tr class="border-b border-gray-200 last:border-transparent" data-tr-status="<?php echo $crb_tasks_status; ?>">
               <td class="whitespace-nowrap py-2">
                 <div class="flex items-center">
-                  <?php if ($is_collaborator): ?>
-                    <div class="w-[8px] h-[8px] rounded-full border-2 border-rose-400 mr-2"></div>
-                    <div>
-                      <?php if (get_current_user_id() == 1): ?>
-                        <a href="https://collaborator.pro/ua/deal/default/show-info-article?id=<?php echo esc_attr($task_id); ?>" target="_blank">
-                          <?php echo esc_html($task_id); ?>
-                        </a>
-                      <?php else: ?>
-                        <?php echo esc_html($task_id); ?>
-                      <?php endif; ?>
-                    </div>
-                  <?php else: ?>
-                    <div class="w-[8px] h-[8px] rounded-full border-2 border-green-400 mr-2"></div>
-                    <div><?php echo $task_id; ?></div>
-                  <?php endif; ?>
+                  <div class="w-[8px] h-[8px] rounded-full border-2 <?php echo $is_collaborator ? 'border-rose-400' : 'border-green-400' ; ?> mr-2"></div>
+                  <div><?php echo esc_html($task_id); ?></div>
                 </div>
               </td>
               <td class="whitespace-nowrap py-2">
@@ -405,7 +387,7 @@ $tasks = new WP_Query($args);
                             <div class="mb-2">
                               <input type="text" class="task-link w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-inputlink-id="<?php echo $current_id; ?>">
                             </div>
-                            <div class="task-link-js" data-post-id="<?php echo $current_id; ?>" data-task-id="<?php echo carbon_get_the_post_meta('crb_tasks_id'); ?>" data-task-site="<?php echo $task_site; ?>" data-clbr-link="<?php echo $clbr_link; ?>">
+                            <div class="task-link-js" data-post-id="<?php echo $current_id; ?>" data-task-id="<?php echo carbon_get_the_post_meta('crb_tasks_id'); ?>" data-task-site="<?php echo $task_site; ?>" data-clbr-type="<?php echo $is_collaborator; ?>">
                               <div class="bg-blue-500 text-white text-center rounded cursor-pointer px-4 py-2">Відправити</div>
                             </div>
                           </div>

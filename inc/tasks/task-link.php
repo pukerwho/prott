@@ -3,7 +3,7 @@
 function task_link_function() {
   $task_id = stripslashes_deep($_POST['taskId']);
   $post_id = $_POST['postID'];
-  $clbr_link = $_POST['clbrLink'];
+  $clbr_type = $_POST['clbrType'];
   $task_link = stripslashes_deep($_POST['taskLink']);
   $task_link_date = current_time( 'timestamp' );
 
@@ -16,7 +16,7 @@ function task_link_function() {
     add_post_meta( $post_id, '_crb_tasks_link_date', $task_link_date, true );
     update_post_meta( $post_id, '_crb_tasks_status', 'На перевірці' );
   } 
-  sendTelegramLink($task_id, $task_link, $clbr_link);
+  sendTelegramLink($task_id, $task_link, $clbr_type);
   echo $post_id;
   wp_die();
 }
@@ -24,14 +24,15 @@ function task_link_function() {
 add_action('wp_ajax_task_link_click_action', 'task_link_function');
 add_action('wp_ajax_nopriv_task_link_click_action', 'task_link_function');
 
-function sendTelegramLink($id, $task_link, $clbr_link) {
+function sendTelegramLink($id, $task_link, $clbr_type) {
   $chatID = carbon_get_theme_option("crb_telegram_id_naperevirku");
   $apiToken = carbon_get_theme_option("crb_telegram_api_bot_naperevirku");
-  $is_write = strpos($clbr_link, 'performer-article') !== false;
-  if ($is_write) {
-    $type = '✍️ Тип: З написанням.';
-  } else {
+  if ($clbr_type == '1') {
     $type = '✅ Тип: Готова стаття.';
+    $clbr_link = "https://collaborator.pro/ua/deal/default/show-info-article?id=" . $id;
+  } else {
+    $type = '✍️ Тип: З написанням.';
+    $clbr_link = "https://collaborator.pro/ua/deal/default/performer-article?id=" . $id;
   }
   
   $content = "$type\n\n💪 Угода <a href='$clbr_link'><b>$id</b></a> на перевірці.\n\n🔗 Посилання: <b>$task_link</b>.";

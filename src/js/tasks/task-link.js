@@ -4,14 +4,14 @@ $('.task-link-js').on('click', function () {
   let taskId = $(this).data('task-id');
   let postID = $(this).data('post-id');
   let taskSite = $(this).data('task-site');
-  let clbrLink = $(this).data('clbr-link');
+  let clbrType = $(this).data('clbr-type');
   let taskLink = $('.task-link[data-inputlink-id="' + postID + '"]').val();
   let data = {
     'action': 'task_link_click_action',
     'taskId': taskId,
     'postID': postID,
     'taskLink': taskLink,
-    'clbrLink': clbrLink,
+    'clbrType': clbrType,
   };
   if (taskLink != '') {
     if (taskLink.includes(taskSite)) {

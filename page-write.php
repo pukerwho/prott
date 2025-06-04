@@ -163,17 +163,11 @@ $tasks = new WP_Query($args);
                     $task_post_link = carbon_get_the_post_meta('crb_tasks_post_link');
                     $task_type = carbon_get_the_post_meta('crb_tasks_type');
                     $task_site = carbon_get_the_post_meta("crb_tasks_site");
-                    $clbr_link = "https://collaborator.pro/ua/deal/default/performer-article?id=" . esc_attr($task_id);
+                    $is_collaborator = strpos($task_type, 'collaborator') !== false;
                   ?>
                   <tr class="border-b border-gray-200 last:border-transparent">
                     <td class="whitespace-nowrap py-2">
-                      <?php if (get_current_user_id() == 1): ?>
-                        <a href="<?php echo $clbr_link; ?>" target="_blank">
-                          <?php echo esc_html($task_id); ?>
-                        </a>
-                      <?php else: ?>
-                        <?php echo esc_html($task_id); ?>
-                      <?php endif; ?>
+                      <?php echo esc_html($task_id); ?>
                     </td>
                     <td class="whitespace-nowrap py-2">
                       <?php if ($task_post_link): ?>
@@ -315,7 +309,7 @@ $tasks = new WP_Query($args);
                                   <div class="mb-2">
                                     <input type="text" class="task-link w-full border border-gray-200 bg-gray-100 rounded px-4 py-2" data-inputlink-id="<?php echo $current_id; ?>">
                                   </div>
-                                  <div class="task-link-js" data-post-id="<?php echo $current_id; ?>" data-task-id="<?php echo carbon_get_the_post_meta('crb_tasks_id'); ?>" data-task-site="<?php echo $task_site; ?>" data-clbr-link="<?php echo $clbr_link; ?>">
+                                  <div class="task-link-js" data-post-id="<?php echo $current_id; ?>" data-task-id="<?php echo carbon_get_the_post_meta('crb_tasks_id'); ?>" data-task-site="<?php echo $task_site; ?>" data-clbr-type="<?php echo $is_collaborator; ?>">
                                     <div class="bg-blue-500 text-white text-center rounded cursor-pointer px-4 py-2">Відправити</div>
                                   </div>
                                 <?php else: ?>
