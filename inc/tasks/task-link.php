@@ -27,7 +27,7 @@ add_action('wp_ajax_nopriv_task_link_click_action', 'task_link_function');
 function sendTelegramLink($id, $task_link, $clbr_link) {
   $chatID = carbon_get_theme_option("crb_telegram_id_naperevirku");
   $apiToken = carbon_get_theme_option("crb_telegram_api_bot_naperevirku");
-  $is_write = strpos($crb_tasks_type, 'performer-article') !== false;
+  $is_write = strpos($clbr_link, 'performer-article') !== false;
   if ($is_write) {
     $type = '✍️ Тип: З написанням.';
   } else {

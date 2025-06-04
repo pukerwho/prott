@@ -107,7 +107,7 @@ $tasks = new WP_Query($args);
               $task_post_link = carbon_get_the_post_meta('crb_tasks_post_link');
               $task_type = carbon_get_the_post_meta('crb_tasks_type');
               $task_site = carbon_get_the_post_meta("crb_tasks_site");
-              $clbr_link = "https://collaborator.pro/ua/deal/default/show-info-article?id=" . esc_attr($task_id);
+              $clbr_link = "https://collaborator.pro/ua/deal/default/show-info-article?id=" . $task_id;
             ?>
             <tr class="border-b border-gray-200 last:border-transparent">
               <td class="whitespace-nowrap py-2">

@@ -145,6 +145,11 @@ $tasks = new WP_Query($args);
               $is_complete = ($crb_tasks_complete == 'yes');
               $is_admin = ($current_user_id == '1');
               $is_collaborator = strpos($crb_tasks_type, 'collaborator') !== false;
+              if ($is_collaborator) {
+                $clbr_link = "https://collaborator.pro/ua/deal/default/show-info-article?id=" . $task_id;
+              } else {
+                $clbr_link = "https://collaborator.pro/ua/deal/default/performer-article?id=" . $task_id;
+              }
             ?>
             <tr class="border-b border-gray-200 last:border-transparent" data-tr-status="<?php echo $crb_tasks_status; ?>">
               <td class="whitespace-nowrap py-2">
