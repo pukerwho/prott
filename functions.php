@@ -108,7 +108,16 @@ function tarakan_scripts() {
 	wp_enqueue_style( 'tailwind', get_stylesheet_directory_uri() . '/build/tailwind.css', false, time() );
 	wp_enqueue_style( 'styles', get_stylesheet_directory_uri() . '/build/style.css', false, time() );
 	
-	wp_enqueue_script( 'all-scripts', get_template_directory_uri() . '/build/scripts.js', '','',true);
+	$script_path = get_template_directory() . '/build/scripts.js';
+  $script_url  = get_template_directory_uri() . '/build/scripts.js';
+
+  wp_enqueue_script(
+    'all-scripts',
+    $script_url,
+    array(),
+    file_exists($script_path) ? filemtime($script_path) : false,
+    true
+  );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
