@@ -238,8 +238,9 @@ if (checkbox) {
   });
 }
 
-//load images
+
 document.addEventListener('DOMContentLoaded', function () {
+  //load images
   document.querySelectorAll('.download-images-js').forEach(button => {
     button.addEventListener('click', function () {
       const code = button.closest('.modal-box').querySelector('.download-html-source');
@@ -266,4 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
+
+  //datepicker
+
 });

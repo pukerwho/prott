@@ -405,3 +405,33 @@ function restrict_frontend_access_by_user_fixed() {
         }
     }
 }
+
+function remove_div_tags($html) {
+  libxml_use_internal_errors(true); // прибирає попередження
+
+  $doc = new DOMDocument();
+  $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+
+  $divs = $doc->getElementsByTagName('div');
+
+  while ($divs->length > 0) {
+      $div = $divs->item(0);
+      $parent = $div->parentNode;
+
+      // Переносимо всіх дітей div до батьківського елемента
+      while ($div->firstChild) {
+          $parent->insertBefore($div->firstChild, $div);
+      }
+
+      $parent->removeChild($div);
+  }
+
+  // Отримуємо лише вміст тіла (без <html><body> тощо)
+  $body = $doc->getElementsByTagName('body')->item(0);
+  $cleaned = '';
+  foreach ($body->childNodes as $child) {
+      $cleaned .= $doc->saveHTML($child);
+  }
+
+  return $cleaned;
+}
