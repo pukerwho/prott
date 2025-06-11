@@ -89,6 +89,7 @@ $tasks = new WP_Query($args);
   
   <div class="day bg-white rounded-lg p-4 mb-4 last-of-type:mb-0">
     <div class="posts">
+      <?php if ($tasks->have_posts()): ?>
       <table class="w-full table-auto prott-table">
         <thead class="border-b border-gray-200 text-gray-600">
           <tr>
@@ -499,6 +500,12 @@ $tasks = new WP_Query($args);
           <?php endwhile; endif; wp_reset_postdata(); ?>
         </tbody>
       </table>
+      <?php else: ?>
+        <div class="text-center py-4">
+          <div class="text-2xl mb-4">Поки тут нічого немає</div>
+          <div class="text-lg font-light">Треба почекати і тут знову будуть нові завдання 😉</div>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </div>
