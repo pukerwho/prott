@@ -1,25 +1,28 @@
 var $ = require("jquery");
-$('.task-link-js').on('click', function () {
+$('.task-link-js').one('click', function () {
+  let $button = $(this);
+  $button.addClass('loading').attr('disabled', true);
 
-  let taskId = $(this).data('task-id');
-  let postID = $(this).data('post-id');
-  let taskSite = $(this).data('task-site');
-  let clbrType = $(this).data('clbr-type');
+  let taskId = $button.data('task-id');
+  let postID = $button.data('post-id');
+  let taskSite = $button.data('task-site');
+  let clbrType = $button.data('clbr-type');
   let taskLink = $('.task-link[data-inputlink-id="' + postID + '"]').val();
   let data = {
-    'action': 'task_link_click_action',
-    'taskId': taskId,
-    'postID': postID,
-    'taskLink': taskLink,
-    'clbrType': clbrType,
+    action: 'task_link_click_action',
+    taskId,
+    postID,
+    taskLink,
+    clbrType,
   };
+
   if (taskLink != '') {
     if (taskLink.includes(taskSite)) {
       $.ajax({
-        url: ajaxurl, // AJAX handler
+        url: ajaxurl,
         data: data,
         type: 'POST',
-        beforeSend: function (xhr) {
+        beforeSend: function () {
           console.log('Загружаю');
         },
         success: function (data) {
@@ -31,8 +34,7 @@ $('.task-link-js').on('click', function () {
         }
       });
     } else {
-      $('.task-link-error[data-task-id="' + postID + '"]').removeClass('hidden');
-      $('.task-link-error[data-task-id="' + postID + '"]').text('Сайт не співпадає');
+      $('.task-link-error[data-task-id="' + postID + '"]').removeClass('hidden').text('Сайт не співпадає');
     }
   }
-})
+});
