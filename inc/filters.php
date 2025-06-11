@@ -1,60 +1,42 @@
-<?php 
+<?php
+function justread_filter_achive( $query ) {
+  if (is_page('old')) {
 
-function filter_places() {
-  //Получаем данные
-  $currentCatId = stripslashes_deep($_POST['category_id']);
-  $averageCheckValue = stripslashes_deep($_POST['averageCheckValue']);
-  $keyArray = stripslashes_deep($_POST['keyArray']);
-  foreach ($keyArray as $key) {
-    $filter_meta[] = array(
-      'key' => $key,
-      'value' => 'yes',
-      'compare' => '='
-    );
-  };
-  $current_page = !empty( $_GET['page'] ) ? $_GET['page'] : 1;
-  $ajax_query = new WP_Query( array( 
-    'post_type' => 'places', 
-    'posts_per_page' => -1,
-    'order'    => 'DESC',
-    'paged' => $current_page,
-    'tax_query' => array(
-      array(
-        'taxonomy' => 'city',
-        'terms' => $currentCatId,
-        'field' => 'term_id',
-        'include_children' => true,
-        'operator' => 'IN'
-      )
-    ),
-    'meta_query' => array(
-      'relation' => 'AND',
-      $filter_meta,
-      array(
-        'key' => '_crb_place_price',
-        'value' => $averageCheckValue,
-        'compare' => '<',
-        'type'    => 'NUMERIC'
-      )
-    )
-    
-  ) );
+    $meta_query = ['relation' => 'AND'];
 
-  $response = 'hi';
+    if (isset($_GET['filter-site']) && $_GET['filter-site'] !== 'All') {
+      $meta_query[] = array(
+        'key' => '_crb_tasks_site',
+        'value' => $_GET['filter-site'],
+        'compare' => 'LIKE'
+      );
+    }
 
-  if($ajax_query->have_posts()) {
-    while($ajax_query->have_posts()) : $ajax_query->the_post();
-      $response .= get_template_part('template-parts/taxonomy-city/item-category');
-    endwhile;
-  } else {
-    $response = 'empty';
+    if (isset($_GET['filter-author']) && $_GET['filter-author'] !== 'All') {
+      $meta_query[] = array(
+        'key' => '_crb_tasks_author',
+        'value' => $_GET['filter-author'],
+        'compare' => 'LIKE'
+      );
+    }
+    if (!empty($_GET['task_id'])) {
+      $meta_query[] = array(
+        'key' => '_crb_tasks_id',
+        'value' => $_GET['task_id'],
+        'compare' => 'LIKE'
+      );
+    }
+
+    $query->set('meta_query', $meta_query);
+
+    // if (isset($_GET['article_orderby']) && $_GET['article_orderby'] !== 'All') {
+    //   $query->set('meta_key', $_GET['article_orderby']);
+    //   $query->set('orderby', 'meta_value_num');
+    // }
+
+    // $query->set('posts_per_page', isset($_GET['article_perpage']) ? (int)$_GET['article_perpage'] : 20);
+
+    return $query;
   }
-  
-  // echo $response;
-  die();
 }
-
-add_action('wp_ajax_filter_places_click_action', 'filter_places');
-add_action('wp_ajax_nopriv_filter_places_click_action', 'filter_places');
-
-?>
+add_action( 'pre_get_posts','justread_filter_achive');

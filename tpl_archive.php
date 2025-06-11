@@ -38,18 +38,52 @@ $users = [
   ]
 ];
 
-$args = array(
+$all_sites = ["treba-solutions.com","webgolovolomki.com","icatalog.pro","tarakan.org.ua","sdamkvartiry.com","priazovka.com","d-art.org.ua","armadio.net.ua","book-cook.net", "bfb.org.ua", "odysseus.com.ua", "santmat.net.ua", "freeapp.com.ua", "sviato.top", "alekseev.com.ua", "bepretty.in.ua", "ortstom.in.ua", "merkury.com.ua", "stp-press.info", "vrudenko.org.ua", "tsystem.com.ua", "mikst.org.ua", "kryazh.com.ua", "howlonglive.com", "nikeairmaxltdus.com", "marisam.com.ua", "wunder2.com.ua", "wcdt.com.ua", "investif.in.ua", "m-cg.com.ua", "rahlina.com.ua", "quarium.org.ua"];
+
+// Формування $args з підтримкою фільтрів
+$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+$args = [
   'post_type' => 'tasks',
   'posts_per_page' => 100,
-  'meta_query' => array(
-    array(
-      'key'     => '_crb_tasks_status',
-      'value'   => 'Перевірено',
-      'compare' => 'NOT LIKE',
-    ),
-    
-  ),
-);
+  'paged' => $paged,
+  'meta_query' => [],
+];
+
+if (!empty($_GET['task_id'])) {
+  $args['meta_query'][] = [
+    'key' => '_crb_tasks_id',
+    'value' => $_GET['task_id'],
+    'compare' => 'LIKE',
+  ];
+}
+
+if (!empty($_GET['filter-author']) && $_GET['filter-author'] !== 'All') {
+  $args['meta_query'][] = [
+    'key' => '_crb_tasks_author',
+    'value' => $_GET['filter-author'],
+    'compare' => 'LIKE',
+  ];
+}
+
+if (!empty($_GET['filter-site']) && $_GET['filter-site'] !== 'All') {
+  $args['meta_query'][] = [
+    'key' => '_crb_tasks_site',
+    'value' => $_GET['filter-site'],
+    'compare' => 'LIKE',
+  ];
+}
+
+if (!empty($_GET['date_start']) || !empty($_GET['date_end'])) {
+  $date_query = [];
+  if (!empty($_GET['date_start'])) {
+    $date_query['after'] = $_GET['date_start'];
+  }
+  if (!empty($_GET['date_end'])) {
+    $date_query['before'] = $_GET['date_end'];
+  }
+  $args['date_query'][] = $date_query;
+}
+
 $tasks = new WP_Query($args);
 
 ?>
@@ -93,56 +127,61 @@ $tasks = new WP_Query($args);
   
   <div class="day bg-white rounded-lg p-4 mb-4 last-of-type:mb-0">
     <div class="mb-4">
-      <form method="get">
-
-        <div id="date-range-picker" date-rangepicker class="flex items-center">
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                </svg>
-            </div>
-            <input id="datepicker-range-start" name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date start">
+      <form id="tasks-filter" name="tasks_filter" method="get">
+        <div class="flex items-center gap-x-4">
+          <!-- ПОШУК по task_id -->
+          <div>
+            <input type="text" id="" name="task_id" value="<?php echo isset($_GET['task_id']) ? esc_attr($_GET['task_id']) : ''; ?>" placeholder="Пошук по id" class="w-full text-sm border border-gray-300 rounded-lg px-2 py-1" />
           </div>
-          <span class="mx-4 text-gray-500">to</span>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                </svg>
+          <!-- АВТОР -->
+          <div>
+            <select class="author-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2 py-1" name="filter-author" data-select-id="<?php echo $current_id; ?>">
+              <option value="All" selected>Автор</option>
+              <?php foreach ($users as $user): ?>
+                <option value="<?php echo esc_attr($user['name']); ?>" <?php echo (isset($_GET['filter-author']) && $_GET['filter-author'] === $user['name']) ? 'selected' : ''; ?>>
+                  <?php echo htmlspecialchars($user['name']); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- Сайт --> 
+          <div>
+            <select class="site-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2 py-1" name="filter-site" data-select-id="<?php echo $current_id; ?>">
+              <option value="All" selected>Сайт</option>
+              <?php foreach ($all_sites as $site): ?>
+                <option value="<?php echo esc_attr($site); ?>" <?php echo (isset($_GET['filter-site']) && $_GET['filter-site'] === $site) ? 'selected' : ''; ?>>
+                  <?php echo htmlspecialchars($site); ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- Дати --> 
+          <div>
+            <div id="date-range-picker" date-rangepicker class="flex items-center">
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                  </svg>
+                </div>
+                <input datepicker datepicker-format="mm-dd-yyyy" id="datepicker-range-start" name="date_start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 px-2 py-1" placeholder="Дата початку" value="<?php echo isset($_GET['date_start']) ? esc_attr($_GET['date_start']) : ''; ?>">
+              </div>
+              <span class="mx-2 text-gray-500">-</span>
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                  </svg>
+                </div>
+                <input datepicker datepicker-format="mm-dd-yyyy" id="datepicker-range-end" name="date_end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 px-2 py-1" placeholder="Дата завершення" value="<?php echo isset($_GET['date_end']) ? esc_attr($_GET['date_end']) : ''; ?>">
+              </div>
             </div>
-            <input id="datepicker-range-end" datepicker datepicker-format="mm-dd-yyyy" name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Select date end">
+          </div>
+          <!-- Кнопка --> 
+          <div>
+            <input type="submit" class="flex items-center rounded-md bg-purple-600 px-2 py-1 text-sm font-medium text-white cursor-pointer hover:bg-purple-700"  value="Фільтрувати">
           </div>
         </div>
-
-
-        <div class="w-full flex items-center justify-between space-x-4">
-          <input type="text" id="" name="s" value="<?php echo isset($_GET['tour_id']) ? esc_attr($_GET['tour_id']) : ''; ?>" placeholder="Пошук по id" class="w-full border border-gray-300 rounded-lg px-2 py-1" />
-          <?php
-          // Автори
-          wp_dropdown_users(array(
-              'name' => 'author',
-              'selected' => isset($_GET['author']) ? (int) $_GET['author'] : 0,
-              'show_option_all' => 'Усі автори'
-          ));
-          // Сайти — якщо у тебе сайт зберігається в кастомній таксономії site або як meta_field
-          $sites = get_terms(array(
-              'taxonomy' => 'site',
-              'hide_empty' => false,
-          ));
-          ?>
-          <select name="site">
-              <option value="">Усі сайти</option>
-              <?php foreach ($sites as $site): ?>
-                  <option value="<?php echo esc_attr($site->slug); ?>" <?php selected($_GET['site'] ?? '', $site->slug); ?>>
-                      <?php echo esc_html($site->name); ?>
-                  </option>
-              <?php endforeach; ?>
-          </select>
-
-          <input type="date" name="date_start" value="<?php echo esc_attr($_GET['date_start'] ?? ''); ?>">
-          <input type="date" name="date_end" value="<?php echo esc_attr($_GET['date_end'] ?? ''); ?>">
-          <input type="submit" class="ml-auto flex items-center gap-2 rounded-md bg-purple-600 px-3 py-1.5 text-sm font-medium text-white cursor-pointer hover:bg-purple-700"  value="Фільтрувати">
       </form>
     </div>
     <div class="posts">
@@ -558,6 +597,19 @@ $tasks = new WP_Query($args);
       </table>
     </div>
   </div>
+  <div class="b_pagination text-center">
+      <?php 
+        $big = 9999999991; // уникальное число
+        echo paginate_links( array(
+          'format' => '?paged=%#%',
+          'current' => $paged,
+          'total' => $tasks->max_num_pages,
+          'prev_next' => true,
+          'next_text' => (''),
+          'prev_text' => (''),
+        )); 
+      ?>
+    </div>
 </div>
 <?php endif; ?>
 

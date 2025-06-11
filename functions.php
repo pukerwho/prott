@@ -81,7 +81,7 @@ function crb_load() {
     require_once get_template_directory() . '/inc/custom-fields/gutenberg-blocks.php';
 }
 
-require_once get_template_directory() . '/inc/filters.php';
+// require_once get_template_directory() . '/inc/filters.php';
 require_once get_template_directory() . '/inc/post-vote.php';
 // require_once get_template_directory() . '/inc/download-images.php';
 
