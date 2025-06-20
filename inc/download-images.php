@@ -30,7 +30,8 @@ $context = stream_context_create([
   'http' => ['timeout' => 10]
 ]);
 
-foreach ($image_urls as $i => $url) {
+foreach ($image_urls as $index => $url) {
+    $i = $index + 1;
   $img_data = @file_get_contents($url, false, $context);
   if ($img_data && strlen($img_data) > 100) {
     $ext = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
