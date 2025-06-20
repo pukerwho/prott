@@ -149,7 +149,7 @@ $tasks = new WP_Query($args);
                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                   </svg>
                 </div>
-                <input datepicker datepicker-format="mm-dd-yyyy" id="datepicker-range-start" name="date_start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 px-2 py-1" placeholder="Дата початку" value="<?php echo isset($_GET['date_start']) ? esc_attr($_GET['date_start']) : ''; ?>">
+                <input datepicker datepicker-format="mm-dd-yyyy" id="datepicker-range-start" name="date_start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 px-2 py-1" placeholder="Дата початку" value="<?php echo isset($_GET['date_start']) ? esc_attr($_GET['date_start']) : ''; ?>" autocomplete="off">
               </div>
               <span class="mx-2 text-gray-500">-</span>
               <div class="relative">
@@ -158,7 +158,7 @@ $tasks = new WP_Query($args);
                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                   </svg>
                 </div>
-                <input datepicker datepicker-format="mm-dd-yyyy" id="datepicker-range-end" name="date_end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 px-2 py-1" placeholder="Дата завершення" value="<?php echo isset($_GET['date_end']) ? esc_attr($_GET['date_end']) : ''; ?>">
+                <input datepicker datepicker-format="mm-dd-yyyy" id="datepicker-range-end" name="date_end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 px-2 py-1" placeholder="Дата завершення" value="<?php echo isset($_GET['date_end']) ? esc_attr($_GET['date_end']) : ''; ?>" autocomplete="off">
               </div>
             </div>
           </div>
@@ -418,7 +418,7 @@ $tasks = new WP_Query($args);
                           <pre class="h-64 overflow-auto whitespace-pre-wrap break-words bg-gray-100 p-4 rounded text-sm"><code class="download-html-source"><?php echo htmlspecialchars($html); ?></code></pre>
                         </div>
                         <?php if ($has_images): ?>
-                          <a href="<?php echo get_template_directory_uri(); ?>/inc/download-images.php?post_id=<?php echo $current_id; ?>" class="bg-gray-200 text-black text-center rounded-lg p-2 cursor-pointer mb-1 block" target="_blank">Завантажити картинки</a>
+                          <a href="<?php echo get_template_directory_uri(); ?>/inc/download-images.php?post_id=<?php echo $current_id; ?>&task_slug=<?php echo $url; ?>&task_domain=<?php echo $task_site; ?>" class="bg-gray-200 text-black text-center rounded-lg p-2 cursor-pointer mb-1 block" target="_blank">Завантажити картинки</a>
                         <?php endif; ?>
                         <div class="relative mb-4">
                           <div class="bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer copy-click" data-clipboard-text="<?php echo htmlspecialchars($html); ?>">Скопіювати</div>

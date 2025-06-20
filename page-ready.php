@@ -217,7 +217,7 @@ $tasks = new WP_Query($args);
                         <pre class="h-64 overflow-auto whitespace-pre-wrap break-words bg-gray-100 p-4 rounded text-sm"><code class="download-html-source"><?php echo htmlspecialchars($cleaned_html); ?></code></pre>
                       </div>
                       <?php if ($has_images): ?>
-                        <a href="<?php echo get_template_directory_uri(); ?>/inc/download-images.php?post_id=<?php echo $current_id; ?>" class="bg-gray-200 text-black text-center rounded-lg p-2 cursor-pointer mb-1 block" target="_blank">Завантажити картинки</a>
+                        <a href="<?php echo get_template_directory_uri(); ?>/inc/download-images.php?post_id=<?php echo $current_id; ?>&task_slug=<?php echo $url; ?>&task_domain=<?php echo $task_site; ?>" class="bg-gray-200 text-black text-center rounded-lg p-2 cursor-pointer mb-1 block" target="_blank">Завантажити картинки</a>
                       <?php endif; ?>
                       <div class="relative mb-4">
                         <div class="bg-gray-600 text-white text-center rounded-lg p-2 cursor-pointer copy-click" data-clipboard-text="<?php echo htmlspecialchars($cleaned_html); ?>">Скопіювати</div>

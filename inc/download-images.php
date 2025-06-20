@@ -5,6 +5,10 @@ if (!is_user_logged_in()) {
 }
 
 $post_id = isset($_GET['post_id']) ? intval($_GET['post_id']) : 0;
+$slug = isset($_GET['task_slug']) ? preg_replace('/[^a-z0-9_\-]/i', '', $_GET['task_slug']) : 'images';
+$domain = isset($_GET['task_domain']) ? preg_replace('/[^a-z0-9_\-\.]/i', '', $_GET['task_domain']) : 'domain';
+$domain_part = explode('.', $domain);
+$domain = $domain_part[0];
 if (!$post_id) wp_die('Невірний ID');
 
 $html = get_post_meta($post_id, '_crb_tasks_html', true);
@@ -31,7 +35,8 @@ foreach ($image_urls as $i => $url) {
   if ($img_data && strlen($img_data) > 100) {
     $ext = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
     $ext = $ext ?: 'jpg';
-    file_put_contents($tmp_dir . "/image_$i.$ext", $img_data);
+    $filename = "{$slug}-{$i}-{$domain}.{$ext}";
+    file_put_contents($tmp_dir . "/$filename", $img_data);
   }
 }
 

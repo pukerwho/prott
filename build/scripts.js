@@ -57,7 +57,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
   \******************************/
 /***/ (function() {
 
-eval("document.addEventListener('DOMContentLoaded', function () {\n  document.querySelectorAll('[datepicker]').forEach(el => {\n    new Datepicker(el, { language: 'uk', format: 'dd.mm.yyyy', weekStart: 1 });\n  });\n});\n\n\n\n\n//# sourceURL=webpack://world/./src/js/datepicker.js?");
+eval("document.addEventListener('DOMContentLoaded', function () {\n  document.querySelectorAll('[datepicker]').forEach(el => {\n    new Datepicker(el, { language: 'uk', format: 'dd.mm.yyyy', weekStart: 1, buttons: true });\n  });\n});\n\n//# sourceURL=webpack://world/./src/js/datepicker.js?");
 
 /***/ }),
 
