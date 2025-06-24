@@ -208,6 +208,57 @@ $tasks = new WP_Query($args);
                       </div>
                       <?php endif; ?>
 
+                      <!-- Анкори -->
+                      <div class="font-bold mb-1">Цільові сторінки:</div>
+                      <div class="mb-4">
+                        <div class="flex items-center mb-1 -mx-2">
+                          <div class="w-1/2 px-2">
+                            <div class="text-sm">Анкор:</div>
+                          </div>
+                          <div class="w-1/2 px-2">
+                            <div class="text-sm">Цільова сторінка:</div>
+                          </div>
+                        </div>
+                        <?php
+                        // Парсимо HTML для отримання анкорів і посилань/зображень
+                        $anchors_parsed = [];
+                        libxml_use_internal_errors(true);
+                        $dom = new DOMDocument();
+                        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $html);
+
+                        foreach ($dom->getElementsByTagName('a') as $link) {
+                          $href = $link->getAttribute('href');
+                          $anchor_text = trim($link->textContent);
+
+                          // Якщо тексту нема, але є зображення
+                          if ($anchor_text === '') {
+                            $images = $link->getElementsByTagName('img');
+                            if ($images->length > 0) {
+                              $img = $images->item(0);
+                              $alt = $img->getAttribute('alt');
+                              $src = $img->getAttribute('src');
+                              $anchor_text = $alt ?: basename($src); // якщо alt немає - беремо назву файлу
+                            }
+                          }
+
+                          $anchors_parsed[] = ['anchor' => $anchor_text, 'url' => $href];
+                        }
+                        ?>
+                        <?php foreach ($anchors_parsed as $anchor): ?>
+                          <div class="flex items-center mb-2 -mx-1">
+                            <div class="w-1/2 relative px-1">
+                              <div class="bg-gray-100 border border-gray-300 rounded text-ellipsis overflow-hidden cursor-pointer p-2 copy-click" data-clipboard-text="<?php echo $anchor['anchor']; ?>"><?php echo $anchor['anchor']; ?></div>
+                              <div class="copy-tooltip hidden absolute -top-[4px] left-1 bg-black/80 text-white rounded text-center -translate-y-full px-2 py-1" data-copy-text="<?php echo $anchor['anchor']; ?>">Скопійовано 🙂</div>
+                            </div>
+                            <div class="w-1/2 relative px-1">
+                              <div class="bg-gray-100 border border-gray-300 rounded text-ellipsis overflow-hidden cursor-pointer p-2 copy-click" data-clipboard-text="<?php echo $anchor['url']; ?>"><?php echo $anchor['url']; ?></div>
+                              <div class="copy-tooltip hidden absolute -top-[4px] left-1 bg-black/80 text-white rounded text-center -translate-y-full px-2 py-1" data-copy-text="<?php echo $anchor['url']; ?>">Скопійовано 🙂</div>
+                            </div>
+                          </div>
+                        <?php endforeach; ?>
+                      </div>
+                      <!-- END Анкори -->
+
                       <!-- HTML статті -->
                       <div class="font-bold mb-1">Текст публікації:</div>
                       <?php 
