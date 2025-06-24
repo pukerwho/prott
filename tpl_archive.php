@@ -436,9 +436,7 @@ $tasks = new WP_Query($args);
                               $images = $link->getElementsByTagName('img');
                               if ($images->length > 0) {
                                 $img = $images->item(0);
-                                $alt = $img->getAttribute('alt');
-                                $src = $img->getAttribute('src');
-                                $anchor_text = $alt ?: basename($src); // якщо alt немає - беремо назву файлу
+                                $anchor_text = 'картинка';
                               }
                             }
 
