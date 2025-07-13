@@ -73,6 +73,14 @@ if (!empty($_GET['filter-site']) && $_GET['filter-site'] !== 'All') {
   ];
 }
 
+if (!empty($_GET['filter-typetask']) && $_GET['filter-typetask'] !== 'All') {
+  $args['meta_query'][] = [
+    'key' => '_crb_tasks_type',
+    'value' => $_GET['filter-typetask'],
+    'compare' => 'LIKE',
+  ];
+}
+
 if (!empty($_GET['date_start']) || !empty($_GET['date_end'])) {
   $date_query = [];
   if (!empty($_GET['date_start'])) {
@@ -112,6 +120,7 @@ $tasks = new WP_Query($args);
   
   <div class="day bg-white rounded-lg p-4 mb-4 last-of-type:mb-0">
     <div class="mb-4">
+      <div id="count" class="text-sm font-medium mb-2">Кількість: <?php echo esc_html($tasks->found_posts); ?></div>
       <form id="tasks-filter" name="tasks_filter" method="get">
         <div class="flex items-center gap-x-4">
           <!-- ПОШУК по task_id -->
@@ -138,6 +147,14 @@ $tasks = new WP_Query($args);
                   <?php echo htmlspecialchars($site); ?>
                 </option>
               <?php endforeach; ?>
+            </select>
+          </div>
+          <!-- Тип завдання --> 
+          <div>
+            <select class="typetask-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2 py-1" name="filter-typetask" data-select-id="<?php echo $current_id; ?>">
+              <option value="All" selected>Тип завдання</option>
+              <option value="collaborator" <?php echo (isset($_GET['filter-typetask']) && $_GET['filter-typetask'] === 'collaborator') ? 'selected' : ''; ?>>Готові</option>
+              <option value="Ви пишете" <?php echo (isset($_GET['filter-typetask']) && $_GET['filter-typetask'] === 'Ви пишете') ? 'selected' : ''; ?>>З написанням</option>
             </select>
           </div>
           <!-- Дати --> 
